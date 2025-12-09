@@ -2,9 +2,10 @@
     "cSpell.customDictionaries": {
         "custom-dictionary-workspace": {
             "name": "custom-dictionary-workspace",
-            "path": "${workspaceFolder:dojo}/.cspell/custom-dictionary-workspace.txt",
+            "path": "${workspaceFolder:dojo}/.cspell/custom-dictionary.txt",
             "addWords": true,
             "scope": "workspace"
         }
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
