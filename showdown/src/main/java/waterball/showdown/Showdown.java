@@ -1,10 +1,10 @@
-package waterball;
+package waterball.showdown;
 
 /**
  * Hello world!
  *
  */
-public class App 
+public class Showdown
 {
     public static void main( String[] args )
     {
