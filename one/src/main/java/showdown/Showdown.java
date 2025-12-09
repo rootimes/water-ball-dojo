@@ -1,4 +1,4 @@
-package waterball.showdown;
+package showdown;
 
 /**
  * Hello world!
