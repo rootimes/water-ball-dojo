@@ -1,20 +1,25 @@
 package showdown.game;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Map;
 
 import showdown.player.Player;
 import showdown.player.HumanPlayer;
 import showdown.player.AIPlayer;
 import showdown.deck.Deck;
 import showdown.card.Card;
+import showdown.round.Round;
 
 public class ShowdownGame {
 
     private static final int MAX_PLAYERS = 4;
 
     private static final int TOTAL_ROUNDS = 13;
+
+    private Map<Player, Boolean> exchanged = new LinkedHashMap<>();
 
     Scanner scanner = new Scanner(System.in);
 
@@ -29,10 +34,12 @@ public class ShowdownGame {
         setupHumanPlayerNumber();
 
         namePlayers();
-        
+
         setupDeck();
 
-        dealCards();
+        drawCards();
+
+        playRounds();
     }
 
     private void setupHumanPlayerNumber() {
@@ -55,12 +62,12 @@ public class ShowdownGame {
         while (true) {
             if (scanner.hasNextInt()) {
                 int value = scanner.nextInt();
+                scanner.nextLine();
                 if (value >= min && value <= max) {
                     return value;
                 }
-            } else {
-                scanner.nextLine();
             }
+            scanner.nextLine();
 
             System.out.println("輸入無效，請輸入介於 " + min + " 和 " + max + " 之間的整數：");
         }
@@ -75,7 +82,7 @@ public class ShowdownGame {
                 String name = scanner.next();
                 player.setName(name);
             } else {
-                player.setName("AI" + aiCount + "號機");
+                player.setName("AI " + aiCount + "號機");
                 aiCount++;
             }
         }
@@ -91,7 +98,7 @@ public class ShowdownGame {
         deck.shuffle();
     }
 
-    private void dealCards() {
+    private void drawCards() {
         int cardsPerPlayer = deck.size() / players.size();
         for (int i = 0; i < cardsPerPlayer; i++) {
             for (Player player : players) {
@@ -99,5 +106,97 @@ public class ShowdownGame {
                 player.addCard(card);
             }
         }
+    }
+
+    private void playRounds() {
+        for (int roundNumber = 1; roundNumber <= TOTAL_ROUNDS; roundNumber++) {
+            System.out.println("第 " + roundNumber + " 回合開始！");
+
+            Map<Player, Card> activePlayers = new LinkedHashMap<>();
+
+            for (Player player : players) {
+                Card chosenCard = null;
+
+                if (player instanceof HumanPlayer) {
+                    player.displayCards();
+
+                    if (!isExchanged(player)) {
+                        System.out.println(player.getName() + "，是否要交換手牌？ (1: 是, 0: 否)");
+                        int exchange = readIntRange(0, 1);
+
+                        if (exchange == 1) {
+                            Player targetPlayer = exchangeTargetPlayer(player);
+                            player.exchangeHand(targetPlayer);
+                            exchanged.put(player, true); // 標記為已交換
+                        }
+                    }
+
+                    chosenCard = humanPlayerChoiceCard((HumanPlayer) player);
+                } else if (player instanceof AIPlayer) {
+                    chosenCard = aiPlayerChoiceCard((AIPlayer) player);
+                }
+
+                activePlayers.put(player, chosenCard);
+            }
+
+            Round round = new Round(activePlayers, roundNumber);
+
+            System.out.println(round.displayAllPlayedCards().toString());
+
+            System.out.println("第 " + roundNumber + " 回合結束！請按下 Enter 鍵以繼續...");
+
+            scanner.nextLine(); // 等待玩家按下 Enter 鍵以繼續
+        }
+    }
+
+    private boolean isExchanged(Player player) {
+        return exchanged.getOrDefault(player, false);
+    }
+
+    private Player exchangeTargetPlayer(Player currentPlayer) {
+        System.out.println(currentPlayer.getName() + "，請選擇要交換手牌的玩家索引：");
+
+        for (int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
+            if (player != currentPlayer) {
+                System.out.println(i + ": " + player.getName());
+            }
+        }
+
+        int playerIndex = readIntRange(0, players.size() - 1);
+
+        Player otherPlayer = players.get(playerIndex);
+
+        while (otherPlayer == currentPlayer || otherPlayer == null) {
+            System.out.println("無效的玩家索引，請重新選擇：");
+            playerIndex = readIntRange(0, players.size() - 1);
+            otherPlayer = players.get(playerIndex);
+        }
+
+        return otherPlayer;
+    }
+
+    private Card humanPlayerChoiceCard(HumanPlayer player) {
+
+        System.out.println(player.getName() + "，請選擇要出的卡牌索引 (0 - " + (player.getHand().size() - 1) + "):");
+        int cardIndex = readIntRange(0, player.getHand().size() - 1);
+        Card chosenCard = player.showCard(cardIndex);
+
+        while (chosenCard == null) {
+            System.out.println("無效的卡牌索引，請重新選擇：");
+            cardIndex = readIntRange(0, player.getHand().size() - 1);
+            chosenCard = player.showCard(cardIndex);
+        }
+
+        return chosenCard;
+    }
+
+    private Card aiPlayerChoiceCard(AIPlayer player) {
+
+        System.out.println(player.getName() + " 正在思考要出的卡牌...");
+        int cardIndex = player.thinkCardIndex();
+        Card chosenCard = player.showCard(cardIndex);
+
+        return chosenCard;
     }
 }

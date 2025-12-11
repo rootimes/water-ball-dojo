@@ -7,12 +7,13 @@ import java.util.ArrayList;
 public abstract class Player {
 
     protected String name;
+    protected int score;
     protected List<Card> hand;
-    
+
     public Player() {
         this.hand = new ArrayList<>();
     }
-    
+
     public String getName() {
         return name;
     }
@@ -20,14 +21,38 @@ public abstract class Player {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public List<Card> getHand() {
         return hand;
     }
-    
+
     public void addCard(Card card) {
         hand.add(card);
     }
-    
-    public abstract List<Card> exchangeHand();
+
+    public void addScore(int points) {
+        this.score += points;
+    }
+
+    public void displayCards() {
+        System.out.println(name + " 的手牌:");
+        for (Card card : hand) {
+            System.out.println(card.getSuit() + ":" + card.getRank());
+        }
+    }
+
+    public void exchangeHand(Player player) {
+        List<Card> tmp = new ArrayList<>(this.hand);
+        this.hand = new ArrayList<>(player.hand);
+        player.hand = new ArrayList<>(tmp);
+    }
+
+    public Card showCard(int index) {
+        if (index >= 0 && index < hand.size()) {
+            Card playedCard = hand.remove(index);
+            return playedCard;
+        } else {
+            return null;
+        }
+    }
 }

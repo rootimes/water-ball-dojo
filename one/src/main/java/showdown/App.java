@@ -10,6 +10,8 @@ public class App
 {
     public static void main( String[] args )
     {
-        new ShowdownGame().start();
+        ShowdownGame game = new ShowdownGame();
+        
+        game.start();
     }
 }

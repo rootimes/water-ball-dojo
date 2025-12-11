@@ -1,12 +1,9 @@
 package showdown.player;
 
-import showdown.card.Card;
-import java.util.List;
-
 public class AIPlayer extends Player {
-    
-    @Override
-    public List<Card> exchangeHand() {
-        return null;
+
+    public int thinkCardIndex() {
+        // 簡單的 AI 策略：隨機選擇一張卡牌
+        return (int) (Math.random() * hand.size());
     }
 }
