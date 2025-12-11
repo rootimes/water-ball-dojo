@@ -122,6 +122,10 @@ public class ShowdownGame {
             for (Player player : players) {
                 Card chosenCard = null;
 
+                if (player.hasCards() == false) {
+                    continue; // 如果玩家沒有卡牌，跳過此玩家
+                }
+
                 if (player instanceof HumanPlayer) {
                     System.out.print(player.displayCards().toString());
 
@@ -146,6 +150,10 @@ public class ShowdownGame {
                 }
 
                 activePlayers.put(player, chosenCard);
+            }
+
+            if (activePlayers.isEmpty()) {
+                continue; // 如果沒有玩家出牌，跳過此回合
             }
 
             Round round = new Round(activePlayers, roundNumber);

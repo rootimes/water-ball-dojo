@@ -34,6 +34,10 @@ public abstract class Player {
         this.score += points;
     }
 
+    public boolean hasCards() {
+        return !hand.isEmpty();
+    }
+
     public int getScore() {
         return score;
     }
