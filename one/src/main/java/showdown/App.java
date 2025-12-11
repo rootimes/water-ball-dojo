@@ -1,13 +1,15 @@
 package showdown;
 
+import showdown.game.ShowdownGame;
+
 /**
  * Hello world!
  *
  */
-public class Showdown
+public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        new ShowdownGame().start();
     }
 }
