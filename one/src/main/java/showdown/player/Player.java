@@ -34,11 +34,24 @@ public abstract class Player {
         this.score += points;
     }
 
-    public void displayCards() {
-        System.out.println(name + " 的手牌:");
-        for (Card card : hand) {
-            System.out.println(card.getSuit() + ":" + card.getRank());
+    public int getScore() {
+        return score;
+    }
+
+    public StringBuilder displayCards() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(name).append(" 的手牌:\n");
+
+        hand.sort(Card::compareTo);
+
+        for (int i = 0; i < hand.size(); i++) {
+            Card card = hand.get(i);
+            sb.append(i).append(" - ").append(card.getSuit()).append(":")
+                    .append(card.getRank())
+                    .append("\n");
         }
+
+        return sb;
     }
 
     public void exchangeHand(Player player) {

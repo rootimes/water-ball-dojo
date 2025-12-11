@@ -11,6 +11,7 @@ import showdown.player.HumanPlayer;
 import showdown.player.AIPlayer;
 import showdown.deck.Deck;
 import showdown.card.Card;
+import showdown.round.ExchangeRecord;
 import showdown.round.Round;
 
 public class ShowdownGame {
@@ -19,7 +20,11 @@ public class ShowdownGame {
 
     private static final int TOTAL_ROUNDS = 13;
 
+    private static final int POINTS_PER_WIN = 1;
+
     private Map<Player, Boolean> exchanged = new LinkedHashMap<>();
+
+    private List<ExchangeRecord> exchangeRecords = new ArrayList<>();
 
     Scanner scanner = new Scanner(System.in);
 
@@ -118,9 +123,9 @@ public class ShowdownGame {
                 Card chosenCard = null;
 
                 if (player instanceof HumanPlayer) {
-                    player.displayCards();
+                    System.out.print(player.displayCards().toString());
 
-                    if (!isExchanged(player)) {
+                    if (!isExchangeLocked(player)) {
                         System.out.println(player.getName() + "，是否要交換手牌？ (1: 是, 0: 否)");
                         int exchange = readIntRange(0, 1);
 
@@ -128,6 +133,10 @@ public class ShowdownGame {
                             Player targetPlayer = exchangeTargetPlayer(player);
                             player.exchangeHand(targetPlayer);
                             exchanged.put(player, true); // 標記為已交換
+
+                            System.out.print(player.displayCards().toString());
+
+                            exchangeRecords.add(new ExchangeRecord(player, targetPlayer, 3));
                         }
                     }
 
@@ -141,36 +150,52 @@ public class ShowdownGame {
 
             Round round = new Round(activePlayers, roundNumber);
 
-            System.out.println(round.displayAllPlayedCards().toString());
+            processRound(round);
+
+            updateExchangeRecords();
 
             System.out.println("第 " + roundNumber + " 回合結束！請按下 Enter 鍵以繼續...");
 
             scanner.nextLine(); // 等待玩家按下 Enter 鍵以繼續
         }
+
+        System.out.println("遊戲結束！以下是最終得分：");
+        for (Player player : players) {
+            System.out.println(player.getName() + " 的得分: " + player.getScore());
+        }
+
+        Player finalWinner = getTopScorer(players);
+        System.out.println("最終贏家是 " + finalWinner.getName() + "，得分為: " + finalWinner.getScore() + " 分！");
+
     }
 
-    private boolean isExchanged(Player player) {
+    private boolean isExchangeLocked(Player player) {
+        for (ExchangeRecord record : exchangeRecords) {
+            if (record.getPlayer1() == player || record.getPlayer2() == player) {
+                return true;
+            }
+        }
         return exchanged.getOrDefault(player, false);
     }
 
     private Player exchangeTargetPlayer(Player currentPlayer) {
         System.out.println(currentPlayer.getName() + "，請選擇要交換手牌的玩家索引：");
 
-        for (int i = 0; i < players.size(); i++) {
-            Player player = players.get(i);
-            if (player != currentPlayer) {
-                System.out.println(i + ": " + player.getName());
+        List<Player> candidates = new ArrayList<>();
+        for (Player player : players) {
+            if (player != currentPlayer && !isExchangeLocked(player)) {
+                candidates.add(player);
+                System.out.println(candidates.size() - 1 + ": " + player.getName());
             }
         }
 
-        int playerIndex = readIntRange(0, players.size() - 1);
+        int playerIndex = readIntRange(0, candidates.size() - 1);
 
-        Player otherPlayer = players.get(playerIndex);
-
-        while (otherPlayer == currentPlayer || otherPlayer == null) {
+        Player otherPlayer = candidates.get(playerIndex);
+        while (otherPlayer == null) {
             System.out.println("無效的玩家索引，請重新選擇：");
-            playerIndex = readIntRange(0, players.size() - 1);
-            otherPlayer = players.get(playerIndex);
+            playerIndex = readIntRange(0, candidates.size() - 1);
+            otherPlayer = candidates.get(playerIndex);
         }
 
         return otherPlayer;
@@ -198,5 +223,46 @@ public class ShowdownGame {
         Card chosenCard = player.showCard(cardIndex);
 
         return chosenCard;
+    }
+
+    private void processRound(Round round) {
+        System.out.println(round.displayAllPlayedCards().toString());
+
+        Map.Entry<Player, Card> result = round.compare();
+
+        Player winner = result.getKey();
+
+        Card winningCard = result.getValue();
+
+        winner.addScore(POINTS_PER_WIN);
+
+        System.out.println("本回合獲勝者是 " + winner.getName() + "，出牌為 " +
+                winningCard.getSuit() + ":" + winningCard.getRank() + "！");
+    }
+
+    private void updateExchangeRecords() {
+        for (ExchangeRecord record : exchangeRecords) {
+            record.decreaseRoundsLeft();
+            if (record.getRoundsLeft() <= 0) {
+                Player player1 = record.getPlayer1();
+                Player player2 = record.getPlayer2();
+
+                player1.exchangeHand(player2);
+            }
+        }
+    }
+
+    private Player getTopScorer(List<Player> players) {
+        Player topScorer = null;
+        int highestScore = -1;
+
+        for (Player player : players) {
+            if (player.getScore() > highestScore) {
+                highestScore = player.getScore();
+                topScorer = player;
+            }
+        }
+
+        return topScorer;
     }
 }

@@ -31,4 +31,20 @@ public class Round {
         }
         return sb;
     }
+
+    public Map.Entry<Player, Card> compare() {
+
+        Card maxCard = null;
+        Player winner = null;
+
+        for (Map.Entry<Player, Card> entry : activePlayers.entrySet()) {
+            Card card = entry.getValue();
+            if (maxCard == null || card.compareTo(maxCard) > 0) {
+                maxCard = card;
+                winner = entry.getKey();
+            }
+        }
+        
+        return Map.entry(winner, maxCard);
+    }
 }
