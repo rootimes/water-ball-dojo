@@ -1,6 +1,5 @@
 package showdown.round;
 
-import java.util.List;
 import java.util.Map;
 
 import showdown.card.Card;
@@ -44,7 +43,7 @@ public class Round {
                 winner = entry.getKey();
             }
         }
-        
+
         return Map.entry(winner, maxCard);
     }
 }
