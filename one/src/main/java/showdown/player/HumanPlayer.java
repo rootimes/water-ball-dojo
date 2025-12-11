@@ -5,12 +5,8 @@ import java.util.List;
 
 public class HumanPlayer extends Player {
     
-    public HumanPlayer(String name) {
-        super(name);
-    }
-    
     @Override
-    public List<Card> exchange() {
+    public List<Card> exchangeHand() {
         return null;
     }
 }

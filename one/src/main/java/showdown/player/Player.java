@@ -9,13 +9,16 @@ public abstract class Player {
     protected String name;
     protected List<Card> hand;
     
-    public Player(String name) {
-        this.name = name;
+    public Player() {
         this.hand = new ArrayList<>();
     }
     
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
     
     public List<Card> getHand() {
@@ -26,5 +29,5 @@ public abstract class Player {
         hand.add(card);
     }
     
-    public abstract List<Card> exchange();
+    public abstract List<Card> exchangeHand();
 }
