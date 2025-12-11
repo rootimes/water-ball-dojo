@@ -13,6 +13,7 @@ import showdown.deck.Deck;
 import showdown.card.Card;
 import showdown.round.ExchangeRecord;
 import showdown.round.Round;
+import java.util.Iterator;
 
 public class ShowdownGame {
 
@@ -249,13 +250,19 @@ public class ShowdownGame {
     }
 
     private void updateExchangeRecords() {
-        for (ExchangeRecord record : exchangeRecords) {
+        Iterator<ExchangeRecord> iterator = exchangeRecords.iterator();
+        while (iterator.hasNext()) {
+            ExchangeRecord record = iterator.next();
             record.decreaseRoundsLeft();
             if (record.getRoundsLeft() <= 0) {
                 Player player1 = record.getPlayer1();
                 Player player2 = record.getPlayer2();
 
                 player1.exchangeHand(player2);
+                exchanged.remove(player1);
+                exchanged.remove(player2);
+
+                iterator.remove();
             }
         }
     }
