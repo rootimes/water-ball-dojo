@@ -39,7 +39,7 @@ public class ShowdownGame {
 
         setupHumanPlayerNumber();
 
-        namePlayers();
+        nameHumanPlayers();
 
         setupDeck();
 
@@ -90,7 +90,7 @@ public class ShowdownGame {
         }
     }
 
-    private void namePlayers() {
+    private void nameHumanPlayers() {
         int aiCount = 1;
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
@@ -178,15 +178,6 @@ public class ShowdownGame {
 
             scanner.nextLine(); // 等待玩家按下 Enter 鍵以繼續
         }
-
-        System.out.println("遊戲結束！以下是最終得分：");
-        for (Player player : players) {
-            System.out.println(player.getName() + " 的得分: " + player.getScore());
-        }
-
-        Player finalWinner = getTopScorer(players);
-        System.out.println("最終贏家是 " + finalWinner.getName() + "，得分為: " + finalWinner.getScore() + " 分！");
-
     }
 
     private boolean isExchangeLocked(Player player) {
