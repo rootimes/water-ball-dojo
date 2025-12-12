@@ -1,5 +1,7 @@
 package showdown.round;
 
+import java.util.List;
+
 import showdown.player.Player;
 
 public class ExchangeRecord {
@@ -21,11 +23,7 @@ public class ExchangeRecord {
         return --roundsLeft;
     }
 
-    public Player getPlayer1() {
-        return player1;
-    }
-
-    public Player getPlayer2() {
-        return player2;
+    public List<Player> getPlayers() {
+        return List.of(player1, player2);
     }
 }

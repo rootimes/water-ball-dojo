@@ -147,7 +147,7 @@ public class ShowdownGame {
 
                         if (exchange == 1) {
                             Player targetPlayer = exchangeTargetPlayer(player);
-                            player.exchangeHand(targetPlayer);
+                            player.exchangeHandCards(targetPlayer);
                             exchanged.put(player, true); // 標記為已交換
 
                             System.out.print(player.displayCards().toString());
@@ -182,7 +182,7 @@ public class ShowdownGame {
 
     private boolean isExchangeLocked(Player player) {
         for (ExchangeRecord record : exchangeRecords) {
-            if (record.getPlayer1() == player || record.getPlayer2() == player) {
+            if (record.getPlayers().contains(player)) {
                 return true;
             }
         }
@@ -214,13 +214,13 @@ public class ShowdownGame {
 
     private Card humanPlayerChoiceCard(HumanPlayer player) {
 
-        System.out.println(player.getName() + "，請選擇要出的卡牌索引 (0 - " + (player.getHand().size() - 1) + "):");
-        int cardIndex = readIntRange(0, player.getHand().size() - 1);
+        System.out.println(player.getName() + "，請選擇要出的卡牌索引 (0 - " + (player.getHandCards().size() - 1) + "):");
+        int cardIndex = readIntRange(0, player.getHandCards().size() - 1);
         Card chosenCard = player.showCard(cardIndex);
 
         while (chosenCard == null) {
             System.out.println("無效的卡牌索引，請重新選擇：");
-            cardIndex = readIntRange(0, player.getHand().size() - 1);
+            cardIndex = readIntRange(0, player.getHandCards().size() - 1);
             chosenCard = player.showCard(cardIndex);
         }
 
@@ -237,7 +237,7 @@ public class ShowdownGame {
     }
 
     private void processRound(Round round) {
-        System.out.println(round.displayAllPlayedCards().toString());
+        System.out.println(round.displayRoundCards().toString());
 
         Map.Entry<Player, Card> result = round.compare();
 
@@ -257,12 +257,11 @@ public class ShowdownGame {
             ExchangeRecord record = iterator.next();
             record.decreaseRoundsLeft();
             if (record.getRoundsLeft() <= 0) {
-                Player player1 = record.getPlayer1();
-                Player player2 = record.getPlayer2();
+                List<Player> players = record.getPlayers();
+                Player player1 = players.get(0);
+                Player player2 = players.get(1);
 
-                player1.exchangeHand(player2);
-                exchanged.remove(player1);
-                exchanged.remove(player2);
+                player1.exchangeHandCards(player2);
 
                 iterator.remove();
             }

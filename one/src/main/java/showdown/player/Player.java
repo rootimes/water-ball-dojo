@@ -6,28 +6,32 @@ import java.util.ArrayList;
 
 public abstract class Player {
 
-    protected String name;
-    protected int score;
-    protected List<Card> hand;
+    private String name;
+    private int score;
+    private List<Card> handCards;
 
     public Player() {
-        this.hand = new ArrayList<>();
+        this.handCards = new ArrayList<>();
     }
 
     public String getName() {
         return name;
     }
 
+    public int getScore() {
+        return score;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public List<Card> getHand() {
-        return hand;
+    public List<Card> getHandCards() {
+        return handCards;
     }
 
     public void addCard(Card card) {
-        hand.add(card);
+        handCards.add(card);
     }
 
     public void addScore(int points) {
@@ -35,21 +39,17 @@ public abstract class Player {
     }
 
     public boolean hasCards() {
-        return !hand.isEmpty();
-    }
-
-    public int getScore() {
-        return score;
+        return !handCards.isEmpty();
     }
 
     public StringBuilder displayCards() {
         StringBuilder sb = new StringBuilder();
         sb.append(name).append(" 的手牌:\n");
 
-        hand.sort(Card::compareTo);
+        handCards.sort(Card::compareTo);
 
-        for (int i = 0; i < hand.size(); i++) {
-            Card card = hand.get(i);
+        for (int i = 0; i < handCards.size(); i++) {
+            Card card = handCards.get(i);
             sb.append(i).append(" - ").append(card.getSuit()).append(":")
                     .append(card.getRank())
                     .append("\n");
@@ -58,15 +58,15 @@ public abstract class Player {
         return sb;
     }
 
-    public void exchangeHand(Player player) {
-        List<Card> tmp = new ArrayList<>(this.hand);
-        this.hand = new ArrayList<>(player.hand);
-        player.hand = new ArrayList<>(tmp);
+    public void exchangeHandCards(Player player) {
+        List<Card> tmp = new ArrayList<>(this.handCards);
+        this.handCards = new ArrayList<>(player.handCards);
+        player.handCards = new ArrayList<>(tmp);
     }
 
     public Card showCard(int index) {
-        if (index >= 0 && index < hand.size()) {
-            Card playedCard = hand.remove(index);
+        if (index >= 0 && index < handCards.size()) {
+            Card playedCard = handCards.remove(index);
             return playedCard;
         } else {
             return null;
