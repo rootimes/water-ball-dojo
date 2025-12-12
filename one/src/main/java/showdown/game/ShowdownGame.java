@@ -33,7 +33,7 @@ public class ShowdownGame {
 
     Deck deck;
 
-    public void start() {
+    public void run() {
 
         System.out.println("遊戲開始！");
 

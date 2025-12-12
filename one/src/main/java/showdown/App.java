@@ -12,6 +12,6 @@ public class App
     {
         ShowdownGame game = new ShowdownGame();
         
-        game.start();
+        game.run();
     }
 }
