@@ -12,7 +12,7 @@ public class App
     {
         ShowdownGame game = new ShowdownGame();
         
-        game.run();
+        game.start();
 
         game.end();
     }

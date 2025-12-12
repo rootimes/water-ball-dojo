@@ -33,7 +33,7 @@ public class ShowdownGame {
 
     Deck deck;
 
-    public void run() {
+    public void start() {
 
         System.out.println("遊戲開始！");
 
@@ -129,22 +129,18 @@ public class ShowdownGame {
         for (int roundNumber = 1; roundNumber <= TOTAL_ROUNDS; roundNumber++) {
             System.out.println("第 " + roundNumber + " 回合開始！");
 
-            Map<Player, Card> activePlayers = new LinkedHashMap<>();
+            Map<Player, Card> roundPlayers = new LinkedHashMap<>();
 
             for (Player player : players) {
                 Card chosenCard = null;
-
-                if (player.hasCards() == false) {
-                    continue; // 如果玩家沒有卡牌，跳過此玩家
-                }
-
+                
                 if (player instanceof HumanPlayer) {
                     System.out.print(player.displayCards().toString());
-
+                    
                     if (!isExchangeLocked(player)) {
                         System.out.println(player.getName() + "，是否要交換手牌？ (1: 是, 0: 否)");
                         int exchange = readIntRange(0, 1);
-
+                        
                         if (exchange == 1) {
                             Player targetPlayer = exchangeTargetPlayer(player);
                             player.exchangeHandCards(targetPlayer);
@@ -161,15 +157,18 @@ public class ShowdownGame {
                     chosenCard = aiPlayerChoiceCard((AIPlayer) player);
                 }
 
-                activePlayers.put(player, chosenCard);
+                if (chosenCard == null) {
+                    continue; // 如果玩家沒有出牌，跳過此玩家
+                }
+
+                roundPlayers.put(player, chosenCard);
             }
 
-            if (activePlayers.isEmpty()) {
+            if (roundPlayers.isEmpty()) {
                 continue; // 如果沒有玩家出牌，跳過此回合
             }
 
-            Round round = new Round(activePlayers, roundNumber);
-
+            Round round = new Round(roundPlayers, roundNumber);
             processRound(round);
 
             updateExchangeRecords();
@@ -214,6 +213,11 @@ public class ShowdownGame {
 
     private Card humanPlayerChoiceCard(HumanPlayer player) {
 
+        if (player.getHandCards().isEmpty()) {
+            System.out.println(player.getName() + " 沒有可出的卡牌，跳過此回合。");
+            return null;
+        }
+
         System.out.println(player.getName() + "，請選擇要出的卡牌索引 (0 - " + (player.getHandCards().size() - 1) + "):");
         int cardIndex = readIntRange(0, player.getHandCards().size() - 1);
         Card chosenCard = player.showCard(cardIndex);
@@ -228,6 +232,11 @@ public class ShowdownGame {
     }
 
     private Card aiPlayerChoiceCard(AIPlayer player) {
+
+        if (player.getHandCards().isEmpty()) {
+            System.out.println(player.getName() + " 沒有可出的卡牌，跳過此回合。");
+            return null;
+        }
 
         System.out.println(player.getName() + " 正在思考要出的卡牌...");
         int cardIndex = player.thinkCardIndex();
