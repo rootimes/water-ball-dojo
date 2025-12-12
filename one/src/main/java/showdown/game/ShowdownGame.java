@@ -48,6 +48,17 @@ public class ShowdownGame {
         playRounds();
     }
 
+    public void end() {
+        System.out.println("遊戲結束！以下是最終得分：");
+
+        for (Player player : players) {
+            System.out.println(player.getName() + " 的得分: " + player.getScore());
+        }
+
+        Player finalWinner = getTopScorer(players);
+        System.out.println("最終贏家是 " + finalWinner.getName() + "，得分為: " + finalWinner.getScore() + " 分！");
+    }
+
     private void setupHumanPlayerNumber() {
         System.out.println("請輸入人類玩家數量 (最多 " + MAX_PLAYERS + " 人):");
 

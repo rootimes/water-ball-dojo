@@ -13,5 +13,7 @@ public class App
         ShowdownGame game = new ShowdownGame();
         
         game.run();
+
+        game.end();
     }
 }
