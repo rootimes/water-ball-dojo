@@ -9,5 +9,6 @@
 
     <modules>
         <module>one</module>
+        <module>two</module>
     </modules>
 </project>
