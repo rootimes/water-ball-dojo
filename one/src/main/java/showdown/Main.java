@@ -1,16 +1,16 @@
 package showdown;
 
-import showdown.game.ShowdownGame;
+import showdown.game.Game;
 
 /**
  * Hello world!
  *
  */
-public class App
+public class Main
 {
     public static void main( String[] args )
     {
-        ShowdownGame game = new ShowdownGame();
+        Game game = new Game();
         
         game.start();
 
