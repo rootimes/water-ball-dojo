@@ -1,4 +1,4 @@
-package matchmaking.individual;
+package matchMakingSystem.individual;
 
 import java.util.List;
 import java.util.Set;
@@ -12,7 +12,7 @@ public class Individual {
     private Set<String> habits;
     private List<Float> coord;
 
-    public Individual(int id, Gender gender, int age, String intro, String habitString, List<Float> coord) {
+    public Individual(int id, String gender, int age, String intro, String habitString, List<Float> coord) {
         if (!validateId(id))
             throw new IllegalArgumentException("Invalid id: " + id);
         if (!validateGender(gender))
@@ -25,7 +25,7 @@ public class Individual {
             throw new IllegalArgumentException("Invalid coord");
 
         this.id = id;
-        this.gender = gender;
+        this.gender = Gender.fromString(gender);
         this.age = age;
         this.intro = intro;
         this.habits = parseHabits(habitString);
@@ -44,12 +44,16 @@ public class Individual {
         return String.join(",", habits);
     }
 
+    public List<Float> getCoord() {
+        return coord;
+    }
+
     private boolean validateId(int id) {
         return id > 0;
     }
 
-    private boolean validateGender(Gender gender) {
-        return gender != null;
+    private boolean validateGender(String genderString) {
+        return genderString != null;
     }
 
     private boolean validateAge(int age) {
