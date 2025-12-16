@@ -1,6 +1,10 @@
 package matchmaking;
 
-import matchmaking.match.Match;
+import matchmaking.matcher.Matcher;
+
+import java.util.List;
+
+import matchmaking.individual.Individual;
 
 /**
  * Hello world!
@@ -10,6 +14,7 @@ public class Main
 {
     public static void main( String[] args )
     {
-        Match game = new Match();
+        Matcher matcher = new Matcher();
+
     }
 }
