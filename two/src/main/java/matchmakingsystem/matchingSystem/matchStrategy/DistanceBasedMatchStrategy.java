@@ -9,9 +9,10 @@ import matchMakingSystem.individual.Individual;
 public class DistanceBasedMatchStrategy implements MatchStrategy {
 
     public List<Individual> sorted(Individual individual, List<Individual> candidates) {
+
         List<Individual> result = new ArrayList<>(candidates);
 
-        candidates.sort(new Comparator<Individual>() {
+        result.sort(new Comparator<Individual>() {
             @Override
             public int compare(Individual ind1, Individual ind2) {
                 float dist1 = calculateDistance(individual, ind1);

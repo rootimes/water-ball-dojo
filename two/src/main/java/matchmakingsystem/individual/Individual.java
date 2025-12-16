@@ -44,6 +44,10 @@ public class Individual {
         return String.join(",", habits);
     }
 
+    public String getIntro() {
+        return intro;
+    }
+
     public List<Float> getCoord() {
         return coord;
     }
