@@ -1,75 +1,72 @@
 package showdown.player;
 
-import showdown.card.Card;
 import java.util.List;
-import java.util.ArrayList;
+
+import org.jetbrains.annotations.Nullable;
+import showdown.card.Card;
+import showdown.deck.Deck;
 
 public abstract class Player {
 
+    @Nullable
     private String name;
+
     private int score;
-    private List<Card> handCards;
+
+    private HandCard handCard;
+
+    @Nullable
+    private ExchangeState exchangeState;
 
     public Player() {
-        this.handCards = new ArrayList<>();
+        this.handCard = new HandCard();
+
+        this.score = 0;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getScore() {
-        return score;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public List<Card> getHandCards() {
-        return handCards;
+    public int getScore() {
+        return score;
     }
 
-    public void addCard(Card card) {
-        handCards.add(card);
+    public void addScore(int point) {
+        this.score += point;
     }
 
-    public void addScore(int points) {
-        this.score += points;
+    public void drawCard(Deck deck) {
+        Card card = deck.draw();
+        this.handCard.add(card);
     }
 
-    public boolean hasCards() {
-        return !handCards.isEmpty();
+    public HandCard getHandCard() {
+        return handCard;
     }
 
-    public StringBuilder displayCards() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(name).append(" 的手牌:\n");
+    public ExchangeState getExchangeState() {
+        return exchangeState;
+    }
 
-        handCards.sort(Card::compareTo);
+    public void takeTurn(List<Player> candidates) {
+        // 玩家回合邏輯待實作
+    }
 
-        for (int i = 0; i < handCards.size(); i++) {
-            Card card = handCards.get(i);
-            sb.append(i).append(" - ").append(card.getSuit()).append(":")
-                    .append(card.getRank())
-                    .append("\n");
+    public void exchange(Player other) {
+        if (this.exchangeState != null || other.exchangeState != null) {
+            throw new IllegalStateException("One of the players is already in exchange state.");
         }
 
-        return sb;
-    }
+        HandCard temp = this.handCard;
+        this.handCard = other.handCard;
+        other.handCard = temp;
 
-    public void exchangeHandCards(Player player) {
-        List<Card> tmp = new ArrayList<>(this.handCards);
-        this.handCards = new ArrayList<>(player.handCards);
-        player.handCards = new ArrayList<>(tmp);
-    }
-
-    public Card showCard(int index) {
-        if (index >= 0 && index < handCards.size()) {
-            Card playedCard = handCards.remove(index);
-            return playedCard;
-        } else {
-            return null;
-        }
+        this.exchangeState = new ExchangeState(3);
+        other.exchangeState = new ExchangeState(3);
     }
 }
