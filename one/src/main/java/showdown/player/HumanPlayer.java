@@ -46,12 +46,12 @@ public class HumanPlayer extends Player {
         System.out.println(getName() + "，請選擇你要出的牌：");
         for (int i = 0; i < handCard.size(); i++) {
             Card card = handCard.get(i);
-            System.out.println((i + 1) + ". " + card.getSuitSymbol() + ": " + card.getRankSymbol());
+            System.out.println((i + 1) + ". " + card.toString());
         }
         int choice = Integer.parseInt(scanner.nextLine()) - 1;
         if (choice >= 0 && choice < handCard.size()) {
             Card selectedCard = handCard.remove(choice);
-            System.out.println(getName() + " 出了 " + selectedCard);
+            System.out.println(getName() + " 出了 " + selectedCard.toString());
             return selectedCard;
         } else {
             System.out.println("無效的選擇，請重新選擇。");

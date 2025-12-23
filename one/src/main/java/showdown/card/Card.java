@@ -25,4 +25,8 @@ public class Card implements Comparable<Card> {
     public String getSuitSymbol() {
         return suit.getSymbol();
     }
+
+    public String toString() {
+        return suit.getSymbol() + ": " + rank.getSymbol();
+    }
 }

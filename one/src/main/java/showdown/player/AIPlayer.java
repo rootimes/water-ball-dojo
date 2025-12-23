@@ -28,7 +28,7 @@ public class AIPlayer extends Player {
         }
         int choice = (int) (Math.random() * handCard.size());
         Card selectedCard = handCard.remove(choice);
-        System.out.println(getName() + " 出了 " + selectedCard);
+        System.out.println(getName() + " 出了 " + selectedCard.toString());
         return selectedCard;
     }
 }
