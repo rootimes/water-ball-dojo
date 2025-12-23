@@ -13,7 +13,7 @@ public abstract class Player {
 
     private int score;
 
-    private HandCard handCard;
+    protected HandCard handCard;
 
     @Nullable
     private ExchangeState exchangeState;
@@ -53,11 +53,13 @@ public abstract class Player {
         return exchangeState;
     }
 
-    public void takeTurn(List<Player> candidates) {
-        // 玩家回合邏輯待實作
-    }
+    public abstract Card takeTurn(List<Player> candidates);
 
-    public void exchange(Player other) {
+    protected abstract Card showCard();
+
+    protected abstract boolean canExchange(List<Player> candidates);
+
+    protected void exchange(Player other) {
         if (this.exchangeState != null || other.exchangeState != null) {
             throw new IllegalStateException("One of the players is already in exchange state.");
         }

@@ -8,12 +8,16 @@ public class HandCard {
 
     private List<Card> cards = new ArrayList<>();
 
-    public void add(Card card) {
-        cards.add(card);
+    public boolean add(Card card) {
+        return cards.add(card);
     }
-    
-    public void remove(Card card) {
-        cards.remove(card);
+
+    public Card get(int index) {
+        return cards.get(index);
+    }
+
+    public Card remove(int index) {
+        return cards.remove(index);
     }
 
     public int size() {

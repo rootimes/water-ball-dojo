@@ -18,11 +18,11 @@ public class Card implements Comparable<Card> {
         return Integer.compare(this.suit.getValue(), other.suit.getValue());
     }
 
-    public Rank getRank() {
-        return rank;
+    public String getRankSymbol() {
+        return rank.getSymbol();
     }
 
-    public Suit getSuit() {
-        return suit;
+    public String getSuitSymbol() {
+        return suit.getSymbol();
     }
 }
