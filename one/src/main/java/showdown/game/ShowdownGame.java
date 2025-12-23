@@ -1,13 +1,16 @@
 package showdown.game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import showdown.player.Player;
 import showdown.player.HumanPlayer;
 import showdown.player.AIPlayer;
 import showdown.deck.Deck;
+import showdown.card.Card;
 
 public class ShowdownGame {
 
@@ -67,12 +70,30 @@ public class ShowdownGame {
     }
 
     private void playRound(List<Player> players) {
-
+        Map<Player, Card> playedCards = new HashMap<>();
         for (Player player : players) {
             List<Player> candidates = getExchangeCandidates(player);
-            player.takeTurn(candidates);
+            Card showCard = player.takeTurn(candidates);
+
+            if (showCard != null) {
+                playedCards.put(player, showCard);
+            } else {
+                System.out.println(player.getName() + " 沒有牌可出，跳過此回合。");
+            }
         }
 
+        for (Player player : players) {
+            player.updateExchangeState();
+        }
+
+        Player winner = pickWinPlayer(playedCards);
+
+        if (winner != null) {
+            System.out.println("本回合贏家是: " + winner.getName());
+            winner.addScore(1);
+        } else {
+            System.out.println("本回合沒有贏家。");
+        }
     }
 
     private List<Player> getExchangeCandidates(Player currentPlayer) {
@@ -80,12 +101,28 @@ public class ShowdownGame {
         List<Player> candidates = new ArrayList<>();
 
         for (Player player : players) {
-            if (player != currentPlayer && player.getExchangeState() == null) {
+            if (player != currentPlayer && !player.hasUsedExchange() && player.getExchangeState() == null) {
                 candidates.add(player);
             }
         }
 
         return candidates;
+    }
+
+    private Player pickWinPlayer(Map<Player, Card> playedCards) {
+
+        Player winner = null;
+        Card maxCard = null;
+
+        for (Map.Entry<Player, Card> entry : playedCards.entrySet()) {
+            Card card = entry.getValue();
+            if (maxCard == null || card.compareTo(maxCard) > 0) {
+                maxCard = card;
+                winner = entry.getKey();
+            }
+        }
+
+        return winner;
     }
 
     public void end() {

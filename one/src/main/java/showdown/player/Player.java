@@ -15,12 +15,12 @@ public abstract class Player {
 
     protected HandCard handCard;
 
-    @Nullable
+    private boolean hasUsedExchange = false;
+
     private ExchangeState exchangeState;
 
     public Player() {
         this.handCard = new HandCard();
-
         this.score = 0;
     }
 
@@ -49,8 +49,32 @@ public abstract class Player {
         return handCard;
     }
 
+    public boolean hasUsedExchange() {
+        return hasUsedExchange;
+    }
+
     public ExchangeState getExchangeState() {
         return exchangeState;
+    }
+
+    public void startExchange(Player other, int rounds) {
+        this.exchangeState = new ExchangeState(this, other, rounds);
+        other.exchangeState = this.exchangeState;
+        this.hasUsedExchange = true;
+        
+        this.exchange(other);
+    }
+
+    public void updateExchangeState() {
+        if (this.exchangeState != null && this.exchangeState.isPlayerA(this)) {
+            this.exchangeState.decrementRound();
+            if (this.exchangeState.isExpired()) {
+                Player other = this.exchangeState.getOtherPlayer(this);
+                this.exchange(other);
+                other.exchangeState = null;
+                this.exchangeState = null;
+            }
+        }
     }
 
     public abstract Card takeTurn(List<Player> candidates);
@@ -60,13 +84,10 @@ public abstract class Player {
     protected abstract boolean canExchange(List<Player> candidates);
 
     protected void exchange(Player other) {
-        if (this.exchangeState != null || other.exchangeState != null) {
-            throw new IllegalStateException("One of the players is already in exchange state.");
-        }
-
         HandCard temp = this.handCard;
         this.handCard = other.handCard;
         other.handCard = temp;
+    }
 
         this.exchangeState = new ExchangeState(3);
         other.exchangeState = new ExchangeState(3);

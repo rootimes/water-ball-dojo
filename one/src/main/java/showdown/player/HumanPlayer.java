@@ -22,7 +22,7 @@ public class HumanPlayer extends Player {
                 int choice = Integer.parseInt(scanner.nextLine()) - 1;
                 if (choice >= 0 && choice < candidates.size()) {
                     Player selectedPlayer = candidates.get(choice);
-                    this.exchange(selectedPlayer);
+                    this.startExchange(selectedPlayer, 3);
                     System.out.println(getName() + " 與 " + selectedPlayer.getName() + " 交換了牌！");
                 } else {
                     System.out.println("無效的選擇，跳過交換。");
@@ -36,10 +36,7 @@ public class HumanPlayer extends Player {
     }
 
     protected boolean canExchange(List<Player> candidates) {
-        if (getExchangeState() == null && !candidates.isEmpty()) {
-            return true;
-        }
-        return false;
+        return !hasUsedExchange() && !candidates.isEmpty() && getExchangeState() == null;
     }
 
     protected Card showCard() {

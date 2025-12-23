@@ -2,15 +2,29 @@ package showdown.player;
 
 public class ExchangeState {
 
-    private int remindingRounds;
+    private int remainingRounds;
+    private Player playerA;
+    private Player playerB;
 
-    public ExchangeState(int rounds) {
-        this.remindingRounds = rounds;
+    public ExchangeState(Player playerA, Player playerB, int rounds) {
+        this.playerA = playerA;
+        this.playerB = playerB;
+        this.remainingRounds = rounds;
     }
 
-    public boolean decreaseRemindingRounds() {
-        this.remindingRounds--;
+    public Player getOtherPlayer(Player self) {
+        return self == playerA ? playerB : playerA;
+    }
 
-        return this.remindingRounds > 0;
+    public boolean isPlayerA(Player player) {
+        return player == playerA;
+    }
+
+    public void decrementRound() {
+        this.remainingRounds--;
+    }
+
+    public boolean isExpired() {
+        return this.remainingRounds <= 0;
     }
 }
