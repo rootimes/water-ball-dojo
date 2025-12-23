@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import showdown.card.Card;
 import showdown.deck.Deck;
 
-public abstract class Player {
+public abstract class Player implements Comparable<Player> {
 
     @Nullable
     private String name;
@@ -89,7 +89,7 @@ public abstract class Player {
         other.handCard = temp;
     }
 
-        this.exchangeState = new ExchangeState(3);
-        other.exchangeState = new ExchangeState(3);
+    public int compareTo(Player other) {
+        return Integer.compare(this.score, other.score);
     }
 }

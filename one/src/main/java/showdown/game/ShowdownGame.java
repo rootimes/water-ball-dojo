@@ -129,6 +129,18 @@ public class ShowdownGame {
 
         System.out.println("遊戲結束！");
 
-    }
+        Player overAllWinner = null;
+        for (Player player : players) {
+            System.out.println(player.getName() + " 的分數是: " + player.getScore());
+            if (overAllWinner == null || player.compareTo(overAllWinner) > 0) {
+                overAllWinner = player;
+            }
+        }
 
+        if (overAllWinner != null) {
+            System.out.println("總冠軍是: " + overAllWinner.getName());
+        } else {
+            System.out.println("沒有總冠軍。");
+        }
+    }
 }
