@@ -14,11 +14,14 @@ public abstract class Game {
 
     protected int MAX_ROUNDS = 13;
 
+    protected Scanner scanner = new Scanner(System.in);
+
     final public void setup() {
+        
+        System.out.println("Starting the game...");
         
         System.out.println("How many players?");
 
-        Scanner scanner = new Scanner(System.in);
         int numPlayers = scanner.nextInt();
         scanner.nextLine();
 
@@ -28,16 +31,13 @@ public abstract class Game {
             }
         }
 
-        scanner.close();
-
         deck = setDeck();
         deck.shuffle();
     };
 
     final public void start() {
-        System.out.println("Starting the game...");
 
-        setup();
+        setPlayerNames(players);
 
         System.out.println("Game is now in progress...");
 
@@ -48,7 +48,10 @@ public abstract class Game {
         System.out.println("Ending the game...");
     };
 
+
     protected abstract Player createHumanPlayer();
+    
+    protected abstract void setPlayerNames(List<Player> players);
 
     protected abstract Deck<?> setDeck();
 
