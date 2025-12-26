@@ -7,10 +7,6 @@ import java.util.List;
 public abstract class Deck<TCard> {
     
     protected final List<TCard> cards = new ArrayList<>();
-
-    public Deck(List<TCard> cards) {
-        this.cards.addAll(cards);
-    }
     
     public void shuffle() {
         Collections.shuffle(cards);
