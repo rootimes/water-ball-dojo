@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class Game<T extends Card> {
+public abstract class Game<T extends Card, P extends Player<T>> {
 
     protected Deck<T> deck;
 
-    protected List<Player<T>> players = new ArrayList<>();
+    protected List<P> players = new ArrayList<>();
 
     protected int MAX_PLAYERS = 4;
 
-    protected int MAX_ROUNDS = 13;
+    protected int CARDS_PER_PLAYER = 13;
+
+    protected Player<T> finalWinner;
 
     protected Scanner scanner = new Scanner(System.in);
 
@@ -23,6 +25,7 @@ public abstract class Game<T extends Card> {
         System.out.println("How many players?");
 
         int numPlayers = scanner.nextInt();
+
         scanner.nextLine();
 
         if (numPlayers < MAX_PLAYERS) {
@@ -32,17 +35,20 @@ public abstract class Game<T extends Card> {
         }
 
         this.deck = setDeck();
+
         this.deck.shuffle();
     };
 
     final public void start() {
-        for (Player<T> player : players) {
+        for (P player : players) {
             if (isHumanPlayer(player)) {
                 System.out.println("Enter name for player:");
                 String name = scanner.nextLine();
                 player.setName(name);
             }
         }
+
+        drawCards();
 
         System.out.println("Game is now in progress...");
 
@@ -51,11 +57,21 @@ public abstract class Game<T extends Card> {
 
     final public void end() {
         System.out.println("Ending the game...");
+
+        System.out.println("The final winner is: " + finalWinner.getName());
     };
 
-    protected abstract Player<T> createHumanPlayer();
+    protected void drawCards() {
+        for (int i = 0; i < CARDS_PER_PLAYER; i++) {
+            for (P player : players) {
+                player.drawCard(deck);
+            }
+        }
+    }
 
-    protected abstract boolean isHumanPlayer(Player<T> player);
+    protected abstract P createHumanPlayer();
+
+    protected abstract boolean isHumanPlayer(P player);
 
     protected abstract Deck<T> setDeck();
 

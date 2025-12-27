@@ -22,6 +22,11 @@ public abstract class Player<T extends Card> {
         this.name = name;
     }
 
+    public void drawCard(Deck<T> deck) {
+        T drawnCard = deck.draw();
+        this.handCard.addCard(drawnCard);
+    }
+
     public abstract T takeTurn();
 
     protected abstract T showCard(int index);

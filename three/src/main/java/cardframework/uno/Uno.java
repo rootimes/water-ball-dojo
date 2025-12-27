@@ -1,13 +1,16 @@
 package cardframework.uno;
 
-import cardframework.Player;
 import cardframework.uno.card.Card;
 import cardframework.uno.deck.Deck;
 import cardframework.uno.player.HumanPlayer;
+import cardframework.uno.player.Player;
 
-public class Uno extends cardframework.Game<Card> {
+public class Uno extends cardframework.Game<Card, Player> {
+
+    protected static final int CARDS_PER_PLAYER = 5;
+
     @Override
-    protected Player<Card> createHumanPlayer() {
+    protected Player createHumanPlayer() {
         return new HumanPlayer();
     }
 
@@ -17,7 +20,7 @@ public class Uno extends cardframework.Game<Card> {
     }
 
     @Override
-    protected boolean isHumanPlayer(Player<Card> player) {
+    protected boolean isHumanPlayer(Player player) {
         return player instanceof HumanPlayer;
     }
 

@@ -1,16 +1,19 @@
 package cardframework.showdown;
 
-import cardframework.Player;
 import cardframework.showdown.card.Card;
 import cardframework.showdown.deck.Deck;
 import cardframework.showdown.player.HumanPlayer;
+import cardframework.showdown.player.Player;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Showdown extends cardframework.Game<Card> {
+public class Showdown extends cardframework.Game<Card, Player> {
+
+    protected static final int MAX_ROUNDS = 13;
+
     @Override
-    protected Player<Card> createHumanPlayer() {
+    protected Player createHumanPlayer() {
         return new HumanPlayer();
     }
 
@@ -20,7 +23,7 @@ public class Showdown extends cardframework.Game<Card> {
     }
 
     @Override
-    protected boolean isHumanPlayer(Player<Card> player) {
+    protected boolean isHumanPlayer(Player player) {
         return player instanceof HumanPlayer;
     }
     
@@ -28,11 +31,44 @@ public class Showdown extends cardframework.Game<Card> {
     protected void playRounds() {
         System.out.println("Playing rounds of Showdown Poker...");
         
-        Map<Player<Card>, Card> playerCards = new HashMap<>();
+        Map<Player, Card> playerCards = new HashMap<>();
 
-        for (Player<Card> player : players) {
-            Card showCard = player.takeTurn();
-            playerCards.put(player, showCard);
+        for (int round = 1; round <= MAX_ROUNDS; round++) {
+            System.out.println("Starting round " + round);
+
+            for (Player player : players) {
+                Card showCard = player.takeTurn();
+                playerCards.put(player, showCard);
+            }
+            
+            Player roundWinner = pickRoundWinner(playerCards);
+            
+            System.out.println("Round winner: " + roundWinner);
+            
+            roundWinner.addScore(1);
         }
+
+        Player finalWinner = players.stream()
+                .max((p1, p2) -> Integer.compare(p1.getScore(), p2.getScore()))
+                .orElse(null);
+
+        this.finalWinner = finalWinner;
+    }
+
+    private Player pickRoundWinner(Map<Player, Card> playerCards) {
+        Player winner = null;
+        Card highestCard = null;
+
+        for (Map.Entry<Player, Card> entry : playerCards.entrySet()) {
+            Player player = entry.getKey();
+            Card card = entry.getValue();
+
+            if (highestCard == null || card.compareTo(highestCard) > 0) {
+                highestCard = card;
+                winner = player;
+            }
+        }
+
+        return winner;
     }
 }
