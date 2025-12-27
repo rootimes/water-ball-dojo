@@ -15,6 +15,10 @@ public abstract class HandCard<T extends Card> {
         return cards.get(index);
     }
 
+    public List<T> getAllCards() {
+        return new ArrayList<>(cards);
+    }
+
     public T remove(int index) {
         return cards.remove(index);
     }

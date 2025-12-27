@@ -10,7 +10,7 @@ public class Card extends cardframework.Card {
     }
 
     public boolean match(Card other) {
-        return this.color == other.color && this.number == other.number;
+        return this.color == other.color || this.number == other.number;
     }
 
     public String toString() {

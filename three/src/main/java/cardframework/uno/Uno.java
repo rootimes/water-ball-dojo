@@ -1,13 +1,18 @@
 package cardframework.uno;
 
+import java.util.List;
+
 import cardframework.uno.card.Card;
 import cardframework.uno.deck.Deck;
 import cardframework.uno.player.HumanPlayer;
 import cardframework.uno.player.Player;
+import cardframework.uno.table.Table;
 
 public class Uno extends cardframework.Game<Card, Player> {
 
     protected static final int CARDS_PER_PLAYER = 5;
+
+    protected Table table = new Table();
 
     @Override
     protected Player createHumanPlayer() {
@@ -27,6 +32,47 @@ public class Uno extends cardframework.Game<Card, Player> {
     @Override
     protected void playRounds() {
         System.out.println("Playing rounds of Uno...");
-        // Gameplay logic would go here
+        
+        Card topCard = deck.draw();
+
+        table.setTopCard(topCard);
+
+        while (this.finalWinner == null) {
+            System.out.println("Top card on table: " + table.getTopCardAsString());
+
+            for (Player player : players) {
+                System.out.println("Player " + player.getName() + "'s turn.");
+
+                List<Card> playableCards = player.getPlayableCards(table.getTopCard());
+
+                if (playableCards.isEmpty()) {
+                    System.out.println("No playable cards. Drawing a card from deck...");
+                    
+                    if (deck.size() == 0) {
+                        System.out.println("Deck is empty. Refreshing deck from played cards...");
+                        List<Card> refreshedCards = table.refresh();
+                        deck.addCards(refreshedCards);
+                        deck.shuffle();
+                    }
+
+                    player.drawCard(deck);
+                    continue;
+                }
+
+                Card playedCard = player.takeTurn();
+
+                if (player.handCardIsEmpty()) {
+                    this.finalWinner = player;
+                    break;
+                }
+
+                table.swapTopCard(playedCard);
+            }
+        }
+    }
+
+    protected void revealCard(Deck deck) {
+        Card revealedCard = deck.draw();
+        System.out.println("Revealed card: " + revealedCard);
     }
 }

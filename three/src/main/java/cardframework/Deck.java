@@ -23,4 +23,8 @@ public abstract class Deck<T extends Card> {
     public int size() {
         return cards.size();
     }
+
+    public void addCards(List<T> cards) {
+        this.cards.addAll(cards);
+    }
 }
