@@ -2,12 +2,12 @@ package cardframework;
 
 import org.jetbrains.annotations.Nullable;
 
-public abstract class Player {
+public abstract class Player<T extends Card> {
 
     @Nullable
     protected String name;
 
-    protected HandCard<?> handCard;
+    protected HandCard<T> handCard;
 
     public Player() {
         this.name = null;
@@ -16,12 +16,15 @@ public abstract class Player {
 
     public String getName() {
         return name;
-
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    protected abstract HandCard<?> createHandCard();
+    public abstract T takeTurn();
+
+    protected abstract T showCard(int index);
+
+    protected abstract HandCard<T> createHandCard();
 }

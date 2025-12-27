@@ -3,7 +3,23 @@ package cardframework;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class HandCard<TCard> {
+public abstract class HandCard<T extends Card> {
     
-    protected List<TCard> cards = new ArrayList<>();
+    protected List<T> cards = new ArrayList<>();
+
+    public void addCard(T card) {
+        cards.add(card);
+    }
+
+    public T get(int index) {
+        return cards.get(index);
+    }
+
+    public T remove(int index) {
+        return cards.remove(index);
+    }
+
+    public int size() {
+        return cards.size();
+    }
 }

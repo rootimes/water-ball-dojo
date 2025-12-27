@@ -1,6 +1,6 @@
 package cardframework.uno.card;
 
-public class Card {
+public class Card extends cardframework.Card {
     private Color color;
     private Number number;
 
@@ -11,14 +11,6 @@ public class Card {
 
     public boolean match(Card other) {
         return this.color == other.color && this.number == other.number;
-    }
-
-    public String getColorSymbol() {
-        return color.getSymbol();
-    }
-
-    public String getNumberSymbol() {
-        return number.getSymbol();
     }
 
     public String toString() {

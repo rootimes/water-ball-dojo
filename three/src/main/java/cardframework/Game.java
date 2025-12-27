@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class Game {
+public abstract class Game<T extends Card> {
 
-    protected Deck<?> deck;
+    protected Deck<T> deck;
 
-    protected List<Player> players = new ArrayList<>();
+    protected List<Player<T>> players = new ArrayList<>();
 
     protected int MAX_PLAYERS = 4;
 
     protected int MAX_ROUNDS = 13;
-    
+
     protected Scanner scanner = new Scanner(System.in);
 
     final public void setup() {
-        
+
         System.out.println("Starting the game...");
 
         System.out.println("How many players?");
@@ -36,8 +36,13 @@ public abstract class Game {
     };
 
     final public void start() {
-
-        setPlayerNames(players);
+        for (Player<T> player : players) {
+            if (isHumanPlayer(player)) {
+                System.out.println("Enter name for player:");
+                String name = scanner.nextLine();
+                player.setName(name);
+            }
+        }
 
         System.out.println("Game is now in progress...");
 
@@ -48,12 +53,11 @@ public abstract class Game {
         System.out.println("Ending the game...");
     };
 
-    
-    protected abstract Player createHumanPlayer();
-    
-    protected abstract void setPlayerNames(List<Player> players);
+    protected abstract Player<T> createHumanPlayer();
 
-    protected abstract Deck<?> setDeck();
+    protected abstract boolean isHumanPlayer(Player<T> player);
+
+    protected abstract Deck<T> setDeck();
 
     protected abstract void playRounds();
 }

@@ -1,5 +1,12 @@
 package cardframework.showdown.player;
 
-public class Player extends cardframework.Player {
-    
+import cardframework.showdown.card.Card;
+
+public abstract class Player extends cardframework.Player<Card> {
+    @Override
+    protected HandCard createHandCard() {
+        return new HandCard();
+    }
+
+    public abstract Card takeTurn();
 }

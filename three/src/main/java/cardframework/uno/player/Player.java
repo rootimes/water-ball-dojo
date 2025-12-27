@@ -1,5 +1,10 @@
 package cardframework.uno.player;
 
-public class Player extends cardframework.Player {
-    
+import cardframework.uno.card.Card;
+
+public abstract class Player extends cardframework.Player<Card> {
+    @Override
+    protected HandCard createHandCard() {
+        return new HandCard();
+    }
 }

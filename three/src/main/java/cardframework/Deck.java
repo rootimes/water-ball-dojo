@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class Deck<TCard> {
+public abstract class Deck<T extends Card> {
     
-    protected final List<TCard> cards = new ArrayList<>();
+    protected final List<T> cards = new ArrayList<>();
     
     public void shuffle() {
         Collections.shuffle(cards);
     }
 
-    public TCard draw() {
+    public T draw() {
         if (this.size() == 0) {
             throw new IllegalStateException("No cards left in the deck to draw.");
         }

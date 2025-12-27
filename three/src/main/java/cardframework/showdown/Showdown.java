@@ -1,14 +1,17 @@
 package cardframework.showdown;
 
-import cardframework.showdown.player.Player;
+import cardframework.Player;
+import cardframework.showdown.card.Card;
 import cardframework.showdown.deck.Deck;
 import cardframework.showdown.player.HumanPlayer;
 
-public class Showdown extends cardframework.Game {
-    protected Player createHumanPlayer() {
-        HumanPlayer humanPlayer = new HumanPlayer();
+import java.util.HashMap;
+import java.util.Map;
 
-        return humanPlayer;
+public class Showdown extends cardframework.Game<Card> {
+    @Override
+    protected Player<Card> createHumanPlayer() {
+        return new HumanPlayer();
     }
 
     @Override
@@ -17,8 +20,19 @@ public class Showdown extends cardframework.Game {
     }
 
     @Override
+    protected boolean isHumanPlayer(Player<Card> player) {
+        return player instanceof HumanPlayer;
+    }
+    
+    @Override
     protected void playRounds() {
         System.out.println("Playing rounds of Showdown Poker...");
-        // Gameplay logic would go here
+        
+        Map<Player<Card>, Card> playerCards = new HashMap<>();
+
+        for (Player<Card> player : players) {
+            Card showCard = player.takeTurn();
+            playerCards.put(player, showCard);
+        }
     }
 }
