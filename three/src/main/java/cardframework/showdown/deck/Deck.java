@@ -4,7 +4,7 @@ import cardframework.showdown.card.Suit;
 import cardframework.showdown.card.Rank;
 import cardframework.showdown.card.Card;
 
-public class Deck extends cardframework.Deck<Card>  {
+public class Deck extends cardframework.core.Deck<Card>  {
 
     public Deck() {
         for (Suit suit : Suit.values()) {

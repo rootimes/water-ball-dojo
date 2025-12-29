@@ -4,7 +4,7 @@ import java.util.List;
 
 import cardframework.uno.card.Card;
 
-public abstract class Player extends cardframework.Player<Card> {
+public abstract class Player extends cardframework.core.Player<Card> {
     @Override
     protected HandCard createHandCard() {
         return new HandCard();

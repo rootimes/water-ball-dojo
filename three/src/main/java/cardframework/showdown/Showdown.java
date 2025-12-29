@@ -8,7 +8,7 @@ import cardframework.showdown.player.Player;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Showdown extends cardframework.Game<Card, Player> {
+public class Showdown extends cardframework.core.Game<Card, Player> {
 
     protected static final int MAX_ROUNDS = 13;
 
@@ -43,7 +43,7 @@ public class Showdown extends cardframework.Game<Card, Player> {
             
             Player roundWinner = pickRoundWinner(playerCards);
             
-            System.out.println("Round winner: " + roundWinner);
+            System.out.println("Round winner: " + roundWinner.getName());
             
             roundWinner.addScore(1);
         }

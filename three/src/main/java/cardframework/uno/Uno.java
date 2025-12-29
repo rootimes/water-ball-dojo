@@ -8,7 +8,7 @@ import cardframework.uno.player.HumanPlayer;
 import cardframework.uno.player.Player;
 import cardframework.uno.table.Table;
 
-public class Uno extends cardframework.Game<Card, Player> {
+public class Uno extends cardframework.core.Game<Card, Player> {
 
     protected static final int CARDS_PER_PLAYER = 5;
 

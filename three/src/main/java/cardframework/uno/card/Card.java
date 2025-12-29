@@ -1,6 +1,6 @@
 package cardframework.uno.card;
 
-public class Card extends cardframework.Card {
+public class Card extends cardframework.core.Card {
     private Color color;
     private Number number;
 

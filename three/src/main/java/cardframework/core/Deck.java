@@ -1,4 +1,4 @@
-package cardframework;
+package cardframework.core;
 
 import java.util.ArrayList;
 import java.util.Collections;

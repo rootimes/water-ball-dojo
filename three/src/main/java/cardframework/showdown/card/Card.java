@@ -1,6 +1,6 @@
 package cardframework.showdown.card;
 
-public class Card extends cardframework.Card implements Comparable<Card> {
+public class Card extends cardframework.core.Card implements Comparable<Card> {
     private Rank rank;
     private Suit suit;
 

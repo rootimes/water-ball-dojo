@@ -2,7 +2,7 @@ package cardframework.showdown.player;
 
 import cardframework.showdown.card.Card;
 
-public abstract class Player extends cardframework.Player<Card> {
+public abstract class Player extends cardframework.core.Player<Card> {
 
     protected int score = 0;
 

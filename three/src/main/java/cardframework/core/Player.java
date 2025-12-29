@@ -1,4 +1,4 @@
-package cardframework;
+package cardframework.core;
 
 import org.jetbrains.annotations.Nullable;
 
