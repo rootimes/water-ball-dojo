@@ -11,11 +11,12 @@ import cardframework.showdown.player.Player;
 
 public class Showdown extends cardframework.core.Game<Card, Player> {
 
-  protected static final int MAX_PLAYERS = 4;
-
   protected static final int MAX_ROUNDS = 13;
 
-  protected static final int CARDS_PER_PLAYER = 13;
+  public Showdown() {
+    this.MAX_PLAYERS = 4;
+    this.CARDS_PER_PLAYER = 13;
+  }
 
   @Override
   protected Player createHumanPlayer() {

@@ -11,75 +11,76 @@ import cardframework.uno.table.Table;
 
 public class Uno extends cardframework.core.Game<Card, Player> {
 
-  protected static final int MAX_PLAYERS = 4;
+    protected Table table = new Table();
 
-  protected static final int CARDS_PER_PLAYER = 5;
-
-  protected Table table = new Table();
-
-  @Override
-  protected Player createHumanPlayer() {
-    return new HumanPlayer();
-  }
-
-  @Override
-  protected Player createAIPlayer() {
-    return new AIPlayer();
-  }
-
-  @Override
-  protected Deck setDeck() {
-    return new Deck();
-  }
-
-  @Override
-  protected boolean isHumanPlayer(Player player) {
-    return player instanceof HumanPlayer;
-  }
-
-  @Override
-  protected void playRounds() {
-    System.out.println("Playing rounds of Uno...");
-
-    Card topCard = deck.draw();
-
-    table.setTopCard(topCard);
-
-    while (this.finalWinner == null) {
-      for (Player player : players) {
-        System.out.println("Top card on table: " + table.getTopCardAsString());
-        System.out.println("Player " + player.getName() + "'s turn.");
-
-        List<Card> playableCards = player.getPlayableCards(table.getTopCard());
-
-        if (playableCards.isEmpty()) {
-          System.out.println("No playable cards. Drawing a card from deck...");
-
-          if (deck.size() == 0) {
-            System.out.println("Deck is empty. Refreshing deck from played cards...");
-            List<Card> refreshedCards = table.refresh();
-            deck.addCards(refreshedCards);
-            deck.shuffle();
-          }
-
-          player.drawCard(deck);
-          continue;
-        }
-
-        Card playedCard = player.takeTurn();
-
-        if (player.handCardIsEmpty()) {
-          this.finalWinner = player;
-          break;
-        }
-
-        table.swapTopCard(playedCard);
-      }
+    public Uno() {
+        this.MAX_PLAYERS = 4;
+        this.CARDS_PER_PLAYER = 5;
     }
-  }
 
-  protected void revealCard(Deck deck) {
-    Card revealedCard = deck.draw();
-    System.out.println("Revealed card: " + revealedCard);
-  }
+    @Override
+    protected Player createHumanPlayer() {
+        return new HumanPlayer();
+    }
+
+    @Override
+    protected Player createAIPlayer() {
+        return new AIPlayer();
+    }
+
+    @Override
+    protected Deck setDeck() {
+        return new Deck();
+    }
+
+    @Override
+    protected boolean isHumanPlayer(Player player) {
+        return player instanceof HumanPlayer;
+    }
+
+    @Override
+    protected void playRounds() {
+        System.out.println("Playing rounds of Uno...");
+
+        Card topCard = deck.draw();
+
+        table.setTopCard(topCard);
+
+        while (this.finalWinner == null) {
+            for (Player player : players) {
+                System.out.println("Top card on table: " + table.getTopCardAsString());
+                System.out.println("Player " + player.getName() + "'s turn.");
+
+                List<Card> playableCards = player.getPlayableCards(table.getTopCard());
+
+                if (playableCards.isEmpty()) {
+                    System.out.println("No playable cards. Drawing a card from deck...");
+
+                    if (deck.size() == 0) {
+                        System.out.println("Deck is empty. Refreshing deck from played cards...");
+                        List<Card> refreshedCards = table.refresh();
+                        deck.addCards(refreshedCards);
+                        deck.shuffle();
+                    }
+
+                    player.drawCard(deck);
+                    continue;
+                }
+
+                Card playedCard = player.takeTurn();
+
+                if (player.handCardIsEmpty()) {
+                    this.finalWinner = player;
+                    break;
+                }
+
+                table.swapTopCard(playedCard);
+            }
+        }
+    }
+
+    protected void revealCard(Deck deck) {
+        Card revealedCard = deck.draw();
+        System.out.println("Revealed card: " + revealedCard);
+    }
 }

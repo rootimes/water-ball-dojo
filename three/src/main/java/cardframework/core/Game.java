@@ -34,7 +34,7 @@ public abstract class Game<T extends Card, P extends Player<T>> {
 
         scanner.nextLine();
 
-        if (numPlayers < MAX_PLAYERS) {
+        if (numPlayers <= MAX_PLAYERS) {
             for (int i = 0; i < numPlayers; i++) {
                 players.add(createHumanPlayer());
             }

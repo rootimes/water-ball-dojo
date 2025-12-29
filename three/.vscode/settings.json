@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
         "cardframework"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
