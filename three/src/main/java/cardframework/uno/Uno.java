@@ -37,10 +37,9 @@ public class Uno extends cardframework.Game<Card, Player> {
 
         table.setTopCard(topCard);
 
-        while (this.finalWinner == null) {
-            System.out.println("Top card on table: " + table.getTopCardAsString());
-
+        while (this.finalWinner == null) { 
             for (Player player : players) {
+                System.out.println("Top card on table: " + table.getTopCardAsString());
                 System.out.println("Player " + player.getName() + "'s turn.");
 
                 List<Card> playableCards = player.getPlayableCards(table.getTopCard());

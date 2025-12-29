@@ -20,15 +20,11 @@ public class Main {
          switch (choice) {
             case 1:
                Showdown showdownGame = new Showdown();
-               showdownGame.setup();
-               showdownGame.start();
-               showdownGame.end();
+               showdownGame.run();
                break;
             case 2:
                Uno unoGame = new Uno();
-               unoGame.setup();
-               unoGame.start();
-               unoGame.end();
+               unoGame.run();
                break;
             default:
                System.out.println("Invalid choice. Please select 1 or 2.");
