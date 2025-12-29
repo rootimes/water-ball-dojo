@@ -4,74 +4,82 @@ import java.util.List;
 
 import cardframework.uno.card.Card;
 import cardframework.uno.deck.Deck;
+import cardframework.uno.player.AIPlayer;
 import cardframework.uno.player.HumanPlayer;
 import cardframework.uno.player.Player;
 import cardframework.uno.table.Table;
 
 public class Uno extends cardframework.core.Game<Card, Player> {
 
-    protected static final int CARDS_PER_PLAYER = 5;
+  protected static final int MAX_PLAYERS = 4;
 
-    protected Table table = new Table();
+  protected static final int CARDS_PER_PLAYER = 5;
 
-    @Override
-    protected Player createHumanPlayer() {
-        return new HumanPlayer();
-    }
+  protected Table table = new Table();
 
-    @Override
-    protected Deck setDeck() {
-        return new Deck();
-    }
+  @Override
+  protected Player createHumanPlayer() {
+    return new HumanPlayer();
+  }
 
-    @Override
-    protected boolean isHumanPlayer(Player player) {
-        return player instanceof HumanPlayer;
-    }
+  @Override
+  protected Player createAIPlayer() {
+    return new AIPlayer();
+  }
 
-    @Override
-    protected void playRounds() {
-        System.out.println("Playing rounds of Uno...");
-        
-        Card topCard = deck.draw();
+  @Override
+  protected Deck setDeck() {
+    return new Deck();
+  }
 
-        table.setTopCard(topCard);
+  @Override
+  protected boolean isHumanPlayer(Player player) {
+    return player instanceof HumanPlayer;
+  }
 
-        while (this.finalWinner == null) { 
-            for (Player player : players) {
-                System.out.println("Top card on table: " + table.getTopCardAsString());
-                System.out.println("Player " + player.getName() + "'s turn.");
+  @Override
+  protected void playRounds() {
+    System.out.println("Playing rounds of Uno...");
 
-                List<Card> playableCards = player.getPlayableCards(table.getTopCard());
+    Card topCard = deck.draw();
 
-                if (playableCards.isEmpty()) {
-                    System.out.println("No playable cards. Drawing a card from deck...");
-                    
-                    if (deck.size() == 0) {
-                        System.out.println("Deck is empty. Refreshing deck from played cards...");
-                        List<Card> refreshedCards = table.refresh();
-                        deck.addCards(refreshedCards);
-                        deck.shuffle();
-                    }
+    table.setTopCard(topCard);
 
-                    player.drawCard(deck);
-                    continue;
-                }
+    while (this.finalWinner == null) {
+      for (Player player : players) {
+        System.out.println("Top card on table: " + table.getTopCardAsString());
+        System.out.println("Player " + player.getName() + "'s turn.");
 
-                Card playedCard = player.takeTurn();
+        List<Card> playableCards = player.getPlayableCards(table.getTopCard());
 
-                if (player.handCardIsEmpty()) {
-                    this.finalWinner = player;
-                    break;
-                }
+        if (playableCards.isEmpty()) {
+          System.out.println("No playable cards. Drawing a card from deck...");
 
-                table.swapTopCard(playedCard);
-            }
+          if (deck.size() == 0) {
+            System.out.println("Deck is empty. Refreshing deck from played cards...");
+            List<Card> refreshedCards = table.refresh();
+            deck.addCards(refreshedCards);
+            deck.shuffle();
+          }
+
+          player.drawCard(deck);
+          continue;
         }
-    }
 
-    protected void revealCard(Deck deck) {
-        Card revealedCard = deck.draw();
-        System.out.println("Revealed card: " + revealedCard);
+        Card playedCard = player.takeTurn();
+
+        if (player.handCardIsEmpty()) {
+          this.finalWinner = player;
+          break;
+        }
+
+        table.swapTopCard(playedCard);
+      }
     }
+  }
+
+  protected void revealCard(Deck deck) {
+    Card revealedCard = deck.draw();
+    System.out.println("Revealed card: " + revealedCard);
+  }
 }

@@ -10,15 +10,15 @@ public abstract class Game<T extends Card, P extends Player<T>> {
 
     protected List<P> players = new ArrayList<>();
 
-    protected int MAX_PLAYERS = 4;
+    protected int MAX_PLAYERS;
 
-    protected int CARDS_PER_PLAYER = 13;
+    protected int CARDS_PER_PLAYER;
 
     protected Player<T> finalWinner;
 
     protected Scanner scanner = new Scanner(System.in);
 
-    final public void run() {
+    public final void run() {
         setup();
         start();
         end();
@@ -38,12 +38,17 @@ public abstract class Game<T extends Card, P extends Player<T>> {
             for (int i = 0; i < numPlayers; i++) {
                 players.add(createHumanPlayer());
             }
+
+            for (int i = numPlayers; i < MAX_PLAYERS; i++) {
+                P aiPlayer = createAIPlayer();
+                aiPlayer.setName("AI Player " + (i + 1 - numPlayers));
+                players.add(aiPlayer);
+            }
         }
 
         this.deck = setDeck();
 
         this.deck.shuffle();
-
     };
 
     private void start() {
@@ -68,7 +73,6 @@ public abstract class Game<T extends Card, P extends Player<T>> {
         System.out.println("Ending the game...");
 
         System.out.println("The final winner is: " + finalWinner.getName());
-
     };
 
     protected void drawCards() {
@@ -81,9 +85,12 @@ public abstract class Game<T extends Card, P extends Player<T>> {
 
     protected abstract P createHumanPlayer();
 
+    protected abstract P createAIPlayer();
+
     protected abstract boolean isHumanPlayer(P player);
 
     protected abstract Deck<T> setDeck();
 
     protected abstract void playRounds();
+
 }

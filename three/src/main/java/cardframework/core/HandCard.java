@@ -4,26 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class HandCard<T extends Card> {
-    
-    protected List<T> cards = new ArrayList<>();
 
-    public void addCard(T card) {
-        cards.add(card);
-    }
+  protected List<T> cards = new ArrayList<>();
 
-    public T get(int index) {
-        return cards.get(index);
-    }
+  public void addCard(T card) {
+    cards.add(card);
+  }
 
-    public List<T> getAllCards() {
-        return new ArrayList<>(cards);
-    }
+  public T get(int index) {
+    return cards.get(index);
+  }
 
-    public T remove(int index) {
-        return cards.remove(index);
-    }
+  public List<T> getAllCards() {
+    return new ArrayList<>(cards);
+  }
 
-    public int size() {
-        return cards.size();
-    }
+  public T remove(int index) {
+    return cards.remove(index);
+  }
+
+  public int size() {
+    return cards.size();
+  }
 }
