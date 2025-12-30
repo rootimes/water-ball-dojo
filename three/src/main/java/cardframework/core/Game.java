@@ -47,7 +47,6 @@ public abstract class Game<T extends Card, P extends Player<T>> {
 		}
 
 		this.deck = setDeck();
-
 		this.deck.shuffle();
 	};
 
