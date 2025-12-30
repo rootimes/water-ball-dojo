@@ -61,27 +61,24 @@ public abstract class Game<T extends Card, P extends Player<T>> {
             }
         }
 
-        drawCards();
-
-        System.out.println("Game is now in progress...");
-
-        playRounds();
-    };
-
-    private void end() {
-
-        System.out.println("Ending the game...");
-
-        System.out.println("The final winner is: " + finalWinner.getName());
-    };
-
-    protected void drawCards() {
         for (int i = 0; i < CARDS_PER_PLAYER; i++) {
             for (P player : players) {
                 player.drawCard(deck);
             }
         }
-    }
+
+        System.out.println("Playing rounds of " + this.getClass().getSimpleName() + "...");
+
+        beforeRound();
+
+        playRound();
+    };
+
+    private void end() {
+        System.out.println("Ending the game...");
+
+        System.out.println("The final winner is: " + finalWinner.getName());
+    };
 
     protected abstract P createHumanPlayer();
 
@@ -91,6 +88,9 @@ public abstract class Game<T extends Card, P extends Player<T>> {
 
     protected abstract Deck<T> setDeck();
 
-    protected abstract void playRounds();
+    protected abstract void beforeRound();
 
+    protected abstract void playRound();
+
+    protected abstract boolean isGameOver();
 }

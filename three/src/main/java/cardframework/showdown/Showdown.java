@@ -13,6 +13,8 @@ public class Showdown extends cardframework.core.Game<Card, Player> {
 
   protected static final int MAX_ROUNDS = 13;
 
+  protected int currentRound = 0;
+
   public Showdown() {
     this.MAX_PLAYERS = 4;
     this.CARDS_PER_PLAYER = 13;
@@ -39,48 +41,41 @@ public class Showdown extends cardframework.core.Game<Card, Player> {
   }
 
   @Override
-  protected void playRounds() {
-    System.out.println("Playing rounds of Showdown Poker...");
-
-    Map<Player, Card> playerCards = new HashMap<>();
-
-    for (int round = 1; round <= MAX_ROUNDS; round++) {
-      System.out.println("Starting round " + round);
-
-      for (Player player : players) {
-        Card showCard = player.takeTurn();
-        playerCards.put(player, showCard);
-      }
-
-      Player roundWinner = pickRoundWinner(playerCards);
-
-      System.out.println("Round winner: " + roundWinner.getName());
-
-      roundWinner.addScore(1);
-    }
-
-    Player finalWinner =
-        players.stream()
-            .max((p1, p2) -> Integer.compare(p1.getScore(), p2.getScore()))
-            .orElse(null);
-
-    this.finalWinner = finalWinner;
+  protected void beforeRound() {
   }
 
-  private Player pickRoundWinner(Map<Player, Card> playerCards) {
+  @Override
+  protected void playRound() {
+    currentRound++;
+    System.out.println("Starting round " + currentRound);
+
     Player winner = null;
     Card highestCard = null;
+    for (Player player : players) {
+      Card showCard = player.takeTurn();
 
-    for (Map.Entry<Player, Card> entry : playerCards.entrySet()) {
-      Player player = entry.getKey();
-      Card card = entry.getValue();
-
-      if (highestCard == null || card.compareTo(highestCard) > 0) {
-        highestCard = card;
+      if (highestCard == null || showCard.compareTo(highestCard) > 0) {
+        highestCard = showCard;
         winner = player;
       }
     }
 
-    return winner;
+    System.out.println("Round winner: " + winner.getName());
+    winner.addScore(1);
+
+    if (isGameOver()) {
+      Player finalWinner = players.stream()
+          .max((p1, p2) -> Integer.compare(p1.getScore(), p2.getScore()))
+          .orElse(null);
+
+      this.finalWinner = finalWinner;
+    } else {
+      playRound();
+    }
   }
+
+  protected boolean isGameOver() {
+    return currentRound >= MAX_ROUNDS;
+  }
+
 }

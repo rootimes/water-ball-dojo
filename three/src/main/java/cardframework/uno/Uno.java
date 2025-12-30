@@ -39,48 +39,50 @@ public class Uno extends cardframework.core.Game<Card, Player> {
     }
 
     @Override
-    protected void playRounds() {
-        System.out.println("Playing rounds of Uno...");
-
+    protected void beforeRound() {
         Card topCard = deck.draw();
-
         table.setTopCard(topCard);
+    }
 
-        while (this.finalWinner == null) {
-            for (Player player : players) {
-                System.out.println("Top card on table: " + table.getTopCardAsString());
-                System.out.println("Player " + player.getName() + "'s turn.");
+    @Override
+    protected void playRound() {
+        for (Player player : players) {
+            System.out.println("Top card on table: " + table.getTopCardAsString());
+            System.out.println("Player " + player.getName() + "'s turn.");
 
-                List<Card> playableCards = player.getPlayableCards(table.getTopCard());
+            List<Card> playableCards = player.getPlayableCards(table.getTopCard());
 
-                if (playableCards.isEmpty()) {
-                    System.out.println("No playable cards. Drawing a card from deck...");
+            if (playableCards.isEmpty()) {
+                System.out.println("No playable cards. Drawing a card from deck...");
 
-                    if (deck.size() == 0) {
-                        System.out.println("Deck is empty. Refreshing deck from played cards...");
-                        List<Card> refreshedCards = table.refresh();
-                        deck.addCards(refreshedCards);
-                        deck.shuffle();
-                    }
-
-                    player.drawCard(deck);
-                    continue;
+                if (deck.size() == 0) {
+                    System.out.println("Deck is empty. Refreshing deck from played cards...");
+                    List<Card> refreshedCards = table.refresh();
+                    deck.addCards(refreshedCards);
+                    deck.shuffle();
                 }
 
-                Card playedCard = player.takeTurn();
-
-                if (player.handCardIsEmpty()) {
-                    this.finalWinner = player;
-                    break;
-                }
-
-                table.swapTopCard(playedCard);
+                player.drawCard(deck);
+                continue;
             }
+
+            Card playedCard = player.takeTurn();
+
+            if (player.handCardIsEmpty()) {
+                this.finalWinner = player;
+                break;
+            }
+
+            table.swapTopCard(playedCard);
+        }
+
+        if (!isGameOver()) {
+            playRound();
         }
     }
 
-    protected void revealCard(Deck deck) {
-        Card revealedCard = deck.draw();
-        System.out.println("Revealed card: " + revealedCard);
+    @Override
+    protected boolean isGameOver() {
+        return finalWinner != null;
     }
 }
