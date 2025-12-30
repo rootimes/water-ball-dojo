@@ -1,8 +1,5 @@
 package cardframework.showdown;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import cardframework.showdown.card.Card;
 import cardframework.showdown.deck.Deck;
 import cardframework.showdown.player.AIPlayer;
@@ -41,8 +38,7 @@ public class Showdown extends cardframework.core.Game<Card, Player> {
   }
 
   @Override
-  protected void beforeRound() {
-  }
+  protected void beforeRound() {}
 
   @Override
   protected void playRound() {
@@ -64,9 +60,10 @@ public class Showdown extends cardframework.core.Game<Card, Player> {
     winner.addScore(1);
 
     if (isGameOver()) {
-      Player finalWinner = players.stream()
-          .max((p1, p2) -> Integer.compare(p1.getScore(), p2.getScore()))
-          .orElse(null);
+      Player finalWinner =
+          players.stream()
+              .max((p1, p2) -> Integer.compare(p1.getScore(), p2.getScore()))
+              .orElse(null);
 
       this.finalWinner = finalWinner;
     } else {
@@ -77,5 +74,4 @@ public class Showdown extends cardframework.core.Game<Card, Player> {
   protected boolean isGameOver() {
     return currentRound >= MAX_ROUNDS;
   }
-
 }

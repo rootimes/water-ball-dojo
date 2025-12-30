@@ -4,8 +4,7 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class Player<T extends Card> {
 
-  @Nullable
-  protected String name;
+  @Nullable protected String name;
 
   protected HandCard<T> handCard;
 
