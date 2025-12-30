@@ -39,6 +39,7 @@
         <version>2.43.0</version>
         <configuration>
           <java>
+            <eclipse />
             <removeUnusedImports />
             <importOrder>
               <order>java,javax,org,com,</order>
