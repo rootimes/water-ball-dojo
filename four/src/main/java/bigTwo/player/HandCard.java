@@ -7,21 +7,21 @@ import bigTwo.Card.Card;
 
 public class HandCard {
 
-    protected List<Card> cards = new ArrayList<>();
+	protected List<Card> cards = new ArrayList<>();
 
-    public int size() {
-        return cards.size();
-    }
+	public int size() {
+		return cards.size();
+	}
 
-    public void add(Card card) {
-        cards.add(card);
-    }
+	public void add(Card card) {
+		cards.add(card);
+	}
 
-    public Card getCard(int index) {
-        return cards.get(index);
-    }
+	public Card getCard(int index) {
+		return cards.get(index);
+	}
 
-    public boolean removeCards(List<Card> cards) {
-        return this.cards.removeAll(cards);
-    }
+	public boolean removeCards(List<Card> cards) {
+		return this.cards.removeAll(cards);
+	}
 }
