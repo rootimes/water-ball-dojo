@@ -18,7 +18,19 @@ public abstract class CardPattern<T extends CardPattern<T>> {
         return size;
     }
 
+    public Card getCard(int index) {
+        return cards.get(index);
+    }
+
     public List<Card> getCards() {
         return cards;
+    }
+
+    protected boolean isValidSize(List<Card> cards) {
+        if (cards == null) {
+            return false;
+        }
+
+        return cards.size() == size;
     }
 }
