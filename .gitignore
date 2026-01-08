@@ -25,3 +25,6 @@ replay_pid*
 
 # asta files
 *.asta.lock
+
+# spotless files
+spotless-index
