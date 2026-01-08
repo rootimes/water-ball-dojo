@@ -19,4 +19,13 @@ public enum Rank {
 	public String getSymbol() {
 		return symbol;
 	}
+
+	public static Rank fromSymbol(String symbol) {
+		for (Rank rank : values()) {
+			if (rank.symbol.equals(symbol)) {
+				return rank;
+			}
+		}
+		throw new IllegalArgumentException("Unknown rank symbol: " + symbol);
+	}
 }

@@ -7,6 +7,8 @@ import bigTwo.Card.Card;
 public class Single extends CardPattern<Single> {
 	private int size = 1;
 
+	private String name = "單張";
+
 	public Single(List<Card> cards) {
 		this.cards = cards;
 	}

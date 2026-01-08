@@ -1,8 +1,8 @@
 package bigTwo.Card;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Collections;
 
 public class Deck {
 	private List<Card> cards = new ArrayList<>();
@@ -12,6 +12,20 @@ public class Deck {
 			for (Rank rank : Rank.values()) {
 				cards.add(new Card(rank, suit));
 			}
+		}
+	}
+
+	public Deck(String deckString) {
+		String[] cardStrings = deckString.trim().split("\\s+");
+		for (String cardStr : cardStrings) {
+			int bracketStart = cardStr.indexOf('[');
+			int bracketEnd = cardStr.indexOf(']');
+			String suitCode = cardStr.substring(0, bracketStart);
+			String rankSymbol = cardStr.substring(bracketStart + 1, bracketEnd);
+
+			Suit suit = Suit.fromCode(suitCode);
+			Rank rank = Rank.fromSymbol(rankSymbol);
+			cards.add(new Card(rank, suit));
 		}
 	}
 
@@ -25,5 +39,9 @@ public class Deck {
 		}
 
 		return null;
+	}
+
+	public boolean hasCards() {
+		return !cards.isEmpty();
 	}
 }

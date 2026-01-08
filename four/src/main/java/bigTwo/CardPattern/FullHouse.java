@@ -9,6 +9,8 @@ import bigTwo.Card.Card;
 public class FullHouse extends CardPattern<FullHouse> {
 	private int size = 5;
 
+	private String name = "葫蘆";
+
 	public FullHouse(List<Card> cards) {
 		this.cards = cards;
 	}

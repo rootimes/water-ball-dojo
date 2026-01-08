@@ -21,6 +21,14 @@ public class HandCard {
 		return cards.get(index);
 	}
 
+	public List<Card> getCards() {
+		return cards;
+	}
+
+	public void sort() {
+		cards.sort(Card::compareTo);
+	}
+
 	public boolean removeCards(List<Card> cards) {
 		return this.cards.removeAll(cards);
 	}

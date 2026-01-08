@@ -26,6 +26,31 @@ public abstract class Player {
 
 	public abstract void pass();
 
+	public String showHandCards() {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < handCard.size(); i++) {
+			Card card = handCard.getCard(i);
+			sb.append(card.toString());
+			sb.append(" ");
+		}
+		return sb.toString().trim();
+	}
+
+	public String showHandCardIndexes() {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < handCard.size(); i++) {
+			Card card = handCard.getCard(i);
+			int cardWidth = card.toString().length();
+			sb.append(String.format("%-" + cardWidth + "d", i));
+			sb.append(" ");
+		}
+		return sb.toString().trim();
+	}
+
+	public Card getHandCard(int index) {
+		return handCard.getCard(index);
+	}
+
 	public List<Card> getCardsByString(String input) {
 		String[] parts = input.split(" ");
 		List<Card> selectedCards = new ArrayList<>();
@@ -34,6 +59,10 @@ public abstract class Player {
 			selectedCards.add(handCard.getCard(index));
 		}
 		return selectedCards;
+	}
+
+	public void sortHandCards() {
+		handCard.sort();
 	}
 
 	public void addCard(Card card) {

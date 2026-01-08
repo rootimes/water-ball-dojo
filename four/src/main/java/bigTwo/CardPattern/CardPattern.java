@@ -8,6 +8,8 @@ import bigTwo.Card.Card;
 public abstract class CardPattern<T extends CardPattern<T>> {
 	protected int size;
 
+	protected String name;
+
 	protected List<Card> cards = new ArrayList<>();
 
 	public abstract int compareTo(T other);
@@ -24,6 +26,17 @@ public abstract class CardPattern<T extends CardPattern<T>> {
 
 	public List<Card> getCards() {
 		return cards;
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.name).append(" ");
+
+		for (Card card : cards) {
+			sb.append(card.toString()).append(" ");
+		}
+
+		return sb.toString().trim();
 	}
 
 	protected boolean isValidSize(List<Card> cards) {
