@@ -1,9 +1,10 @@
 package bigTwo.Card;
 
 public enum Rank {
-    TWO(0, "2"), THREE(1, "3"), FOUR(2, "4"), FIVE(3, "5"),
-    SIX(4, "6"), SEVEN(5, "7"), EIGHT(6, "8"), NINE(7, "9"),
-    TEN(8, "10"), JACK(9, "J"), QUEEN(10, "Q"), KING(11, "K"), ACE(12, "A");
+    THREE(0, "3"), FOUR(1, "4"), FIVE(2, "5"),
+    SIX(3, "6"), SEVEN(4, "7"), EIGHT(5, "8"), NINE(6, "9"),
+    TEN(7, "10"), JACK(8, "J"), QUEEN(9, "Q"), KING(10, "K"),
+    ACE(11, "A"), TWO(12, "2");
 
     private final int value;
     private final String symbol;
