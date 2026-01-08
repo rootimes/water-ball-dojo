@@ -30,14 +30,16 @@ public class Pair extends CardPattern<Pair> {
 
     @Override
     public boolean validate(List<Card> cards) {
-        if (isValidSize(cards)) {
-            Card a = cards.get(0);
-            Card b = cards.get(1);
-            if (a.getRankValue() == b.getRankValue()) {
-                return true;
-            }
+        if (!isValidSize(cards)) {
+            return false;
         }
 
-        return false;
+        Card a = cards.get(0);
+        Card b = cards.get(1);
+        if (a.getRankValue() != b.getRankValue()) {
+            return false;
+        }
+
+        return true;
     }
 }

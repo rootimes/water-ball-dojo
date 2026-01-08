@@ -1,7 +1,7 @@
 package bigTwo.Card;
 
 public enum Suit {
-    CLUBS(0, "方塊"), DIAMONDS(1, "菱形"),
+    CLUBS(0, "梅花"), DIAMONDS(1, "菱形"),
     HEARTS(2, "愛心"), SPADES(3, "黑桃");
 
     private final int value;

@@ -25,17 +25,19 @@ public class Straight extends CardPattern<Straight> {
 
     @Override
     public boolean validate(List<Card> cards) {
-        if (isValidSize(cards)) {
-            for (int i = 0; i < size - 1; i++) {
-                Card a = cards.get(i);
-                Card b = cards.get(i + 1);
-                int currentRank = a.getRankValue();
-                int nextRank = b.getRankValue();
-                if (nextRank != currentRank + 1) {
-                    return false;
-                }
+        if (!isValidSize(cards)) {
+            return false;
+        }
+        for (int i = 0; i < size - 1; i++) {
+            Card a = cards.get(i);
+            Card b = cards.get(i + 1);
+            int currentRank = a.getRankValue();
+            int nextRank = b.getRankValue();
+            if (nextRank != currentRank + 1) {
+                return false;
             }
         }
+        
         return true;
     }
 

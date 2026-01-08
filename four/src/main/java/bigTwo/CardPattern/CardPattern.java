@@ -27,8 +27,10 @@ public abstract class CardPattern<T extends CardPattern<T>> {
     }
 
     protected boolean isValidSize(List<Card> cards) {
-        if (cards == null) {
-            return false;
+        for (Card card : cards) {
+            if (card == null) {
+                return false;
+            }
         }
 
         return cards.size() == size;

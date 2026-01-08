@@ -25,10 +25,6 @@ public class Single extends CardPattern<Single> {
 
     @Override
     public boolean validate(List<Card> cards) {
-        if (isValidSize(cards)) {
-            return true;
-        }
-
-        return false;
+        return isValidSize(cards);
     }
 }
