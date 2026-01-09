@@ -26,5 +26,5 @@ replay_pid*
 # asta files
 *.asta.lock
 
-# spotless files
-spotless-index
+# target directory
+target/
