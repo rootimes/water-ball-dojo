@@ -1,16 +1,18 @@
 package bigTwo.player;
 
+import java.util.ArrayList;
 import java.util.List;
 import bigTwo.Card.Card;
 
 public class Human extends Player {
 
-    public List<Card> play() {
-        return null; // Implementation for human player to play cards
+    public List<Card> play(String input) {
+        String[] parts = input.split(" ");
+		List<Card> selectedCards = new ArrayList<>();
+		for (String part : parts) {
+			int index = Integer.parseInt(part.trim());
+			selectedCards.add(handCard.getCard(index));
+		}
+		return selectedCards;
     }
-
-    public void pass() {
-        // Implementation for human player to pass the turn
-    }
-    
 }

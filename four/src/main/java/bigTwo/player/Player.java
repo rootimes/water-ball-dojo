@@ -6,9 +6,9 @@ import java.util.List;
 import bigTwo.Card.Card;
 
 public abstract class Player {
-	private String name;
+	protected String name;
 
-	private HandCard handCard;
+	protected HandCard handCard;
 
 	public Player() {
 		this.handCard = new HandCard();
@@ -22,9 +22,7 @@ public abstract class Player {
 		return name;
 	}
 
-	public abstract List<Card> play();
-
-	public abstract void pass();
+	public abstract List<Card> play(String input);
 
 	public String showHandCards() {
 		StringBuilder sb = new StringBuilder();
@@ -51,14 +49,8 @@ public abstract class Player {
 		return handCard.getCard(index);
 	}
 
-	public List<Card> getCardsByString(String input) {
-		String[] parts = input.split(" ");
-		List<Card> selectedCards = new ArrayList<>();
-		for (String part : parts) {
-			int index = Integer.parseInt(part.trim());
-			selectedCards.add(handCard.getCard(index));
-		}
-		return selectedCards;
+	public int getHandCardSize() {
+		return handCard.size();
 	}
 
 	public void sortHandCards() {
