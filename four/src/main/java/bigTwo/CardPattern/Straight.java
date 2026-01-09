@@ -5,11 +5,10 @@ import java.util.List;
 import bigTwo.Card.Card;
 
 public class Straight extends CardPattern<Straight> {
-	private int size = 5;
-
-	private String name = "順子";
 
 	public Straight(List<Card> cards) {
+		this.size = 5;
+		this.name = "順子";
 		this.cards = cards;
 	}
 
