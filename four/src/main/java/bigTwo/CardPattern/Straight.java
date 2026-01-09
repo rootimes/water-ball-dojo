@@ -31,23 +31,37 @@ public class Straight extends CardPattern<Straight> {
 			return false;
 		}
 
-		final int MAX_RANK = 12;
+		final int RANKS = 13;
+		boolean[] present = new boolean[RANKS];
 
-		// 先排序牌，以便檢查是否為連續數字
-		List<Card> sortedCards = cards.stream()
-				.sorted((a, b) -> Integer.compare(a.getRankValue(), b.getRankValue()))
-				.toList();
-
-		if (isStraight(sortedCards)) {
-			return true;
+		for (Card c : cards) {
+			int r = c.getRankValue();
+			if (r < 0 || r >= RANKS)
+				return false;
+			if (present[r])
+				return false;
+			present[r] = true;
 		}
 
-		List<Integer> wrappedRanks = sortedCards.stream()
-				.map(card -> card.getRankValue() == 0 ? MAX_RANK + 1 : card.getRankValue())
-				.sorted()
-				.toList();
+		int n = cards.size();
 
-		return isStraightValues(wrappedRanks);
+		for (int start = 0; start < RANKS; start++) {
+			if (!present[start])
+				continue;
+
+			boolean ok = true;
+			for (int step = 1; step < n; step++) {
+				int expected = (start + step) % RANKS;
+				if (!present[expected]) {
+					ok = false;
+					break;
+				}
+			}
+			if (ok)
+				return true;
+		}
+
+		return false;
 	}
 
 	private Card getHighestCard() {
@@ -59,25 +73,5 @@ public class Straight extends CardPattern<Straight> {
 			}
 		}
 		return highest;
-	}
-
-	private boolean isStraight(List<Card> cards) {
-		for (int i = 0; i < cards.size() - 1; i++) {
-			int current = cards.get(i).getRankValue();
-			int next = cards.get(i + 1).getRankValue();
-			if (next != current + 1) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private boolean isStraightValues(List<Integer> values) {
-		for (int i = 0; i < values.size() - 1; i++) {
-			if (values.get(i + 1) != values.get(i) + 1) {
-				return false;
-			}
-		}
-		return true;
 	}
 }
