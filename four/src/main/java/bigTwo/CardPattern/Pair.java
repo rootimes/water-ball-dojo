@@ -14,7 +14,7 @@ public class Pair extends CardPattern<Pair> {
 	}
 
 	@Override
-	public int compareTo(Pair other) {
+	protected int compareToSameType(Pair other) {
 		Card a1 = this.getCard(0);
 		Card a2 = this.getCard(1);
 		Card b1 = other.getCard(0);

@@ -12,7 +12,12 @@ public abstract class CardPattern<T extends CardPattern<T>> {
 
 	protected List<Card> cards = new ArrayList<>();
 
-	public abstract int compareTo(T other);
+	@SuppressWarnings("unchecked")
+	public int compareTo(CardPattern<?> other) {
+		return compareToSameType((T) other);
+	}
+
+	protected abstract int compareToSameType(T other);
 
 	public abstract boolean validate(List<Card> cards);
 

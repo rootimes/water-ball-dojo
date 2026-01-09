@@ -14,7 +14,7 @@ public class Straight extends CardPattern<Straight> {
 	}
 
 	@Override
-	public int compareTo(Straight other) {
+	protected int compareToSameType(Straight other) {
 		Card thisHighest = this.getHighestCard();
 		Card otherHighest = other.getHighestCard();
 

@@ -14,7 +14,7 @@ public class Single extends CardPattern<Single> {
 	}
 
 	@Override
-	public int compareTo(Single other) {
+	protected int compareToSameType(Single other) {
 		Card a = this.getCard(0);
 		Card b = other.getCard(0);
 

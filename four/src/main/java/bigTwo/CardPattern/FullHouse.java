@@ -16,7 +16,7 @@ public class FullHouse extends CardPattern<FullHouse> {
 	}
 
 	@Override
-	public int compareTo(FullHouse other) {
+	protected int compareToSameType(FullHouse other) {
 
 		int thisThreeRank = tripleRankValue(this.cards);
 
