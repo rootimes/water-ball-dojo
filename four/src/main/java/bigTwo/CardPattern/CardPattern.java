@@ -37,7 +37,6 @@ public abstract class CardPattern<T extends CardPattern<T>> {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.name).append(" ");
 
-		// 將牌按照從小到大排序後輸出
 		cards.stream()
 				.sorted(Card::compareTo)
 				.forEach(card -> sb.append(card.toString()).append(" "));
