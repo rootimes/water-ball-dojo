@@ -79,7 +79,25 @@ public class BigTwo {
 
 		firstRound(handler, topPlayer);
 
+		// 第一輪讓其他玩家也打牌
 		int index = players.indexOf(topPlayer);
+		for (int i = 1; i < players.size(); i++) {
+			index = (index + 1) % players.size();
+			Player player = players.get(index);
+
+			System.out.println("輪到" + player.getName() + "了");
+			System.out.println(player.showHandCardIndexes());
+			System.out.println(player.showHandCards());
+
+			playRound(handler, player);
+
+			if (player.getHandCardSize() == 0) {
+				winner = player;
+				return;
+			}
+		}
+
+		// 後續回合
 		while (winner == null) {
 			index = (index + 1) % players.size();
 			Player player = players.get(index);
@@ -114,7 +132,7 @@ public class BigTwo {
 			player.addCard(card);
 			i = (i + 1) % players.size();
 		}
-		
+
 		// 發完牌後排序每個玩家的手牌
 		for (Player player : players) {
 			player.sortHandCards();
@@ -138,10 +156,12 @@ public class BigTwo {
 		String input = scanner.nextLine().trim();
 
 		if (input.equals("-1") && topPlayer != player) {
-			System.out.println("玩家 " + player.getName() + " PASS");
+			System.out.println("玩家 " + player.getName() + " PASS.");
 			return null;
 		} else if (input.equals("-1") && topPlayer == player) {
 			System.out.println("你不能在新的回合中喊 PASS");
+			System.out.println(player.showHandCardIndexes());
+			System.out.println(player.showHandCards());
 			return firstRound(handler, player);
 		}
 
@@ -156,6 +176,8 @@ public class BigTwo {
 			return pattern;
 		} else {
 			System.out.println("此牌型不合法，請再嘗試一次。");
+			System.out.println(player.showHandCardIndexes());
+			System.out.println(player.showHandCards());
 			return firstRound(handler, player);
 		}
 	}
@@ -168,6 +190,8 @@ public class BigTwo {
 			return null;
 		} else if (input.equals("-1") && topPlayer == player) {
 			System.out.println("你不能在新的回合中喊 PASS");
+			System.out.println(player.showHandCardIndexes());
+			System.out.println(player.showHandCards());
 			return playRound(handler, player);
 		}
 
@@ -180,8 +204,10 @@ public class BigTwo {
 			topPlay = pattern;
 			topPlayer = player;
 			return pattern;
-		} else{
+		} else {
 			System.out.println("此牌型不合法，請再嘗試一次。");
+			System.out.println(player.showHandCardIndexes());
+			System.out.println(player.showHandCards());
 			return playRound(handler, player);
 		}
 	}
@@ -190,7 +216,7 @@ public class BigTwo {
 		if (pattern == null) {
 			return false;
 		}
-		
+
 		if (pattern.getCards().stream().noneMatch(card -> card.isClub3())) {
 			return false;
 		}
@@ -202,7 +228,7 @@ public class BigTwo {
 		if (pattern == null) {
 			return false;
 		}
-		
+
 		if (topPlay == null) {
 			return true;
 		}

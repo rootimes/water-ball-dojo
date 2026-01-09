@@ -30,9 +30,15 @@ public class Straight extends CardPattern<Straight> {
 		if (!isValidSize(cards)) {
 			return false;
 		}
+		
+		// 先排序牌，以便檢查是否為連續數字
+		List<Card> sortedCards = cards.stream()
+				.sorted((a, b) -> Integer.compare(a.getRankValue(), b.getRankValue()))
+				.toList();
+		
 		for (int i = 0; i < size - 1; i++) {
-			Card a = cards.get(i);
-			Card b = cards.get(i + 1);
+			Card a = sortedCards.get(i);
+			Card b = sortedCards.get(i + 1);
 			int currentRank = a.getRankValue();
 			int nextRank = b.getRankValue();
 			if (nextRank != currentRank + 1) {
