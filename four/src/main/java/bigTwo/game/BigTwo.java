@@ -15,7 +15,7 @@ import bigTwo.player.Player;
 import java.util.Scanner;
 import bigTwo.Card.Card;
 
-public class BigTwo  {
+public class BigTwo {
 
 	private Deck deck;
 
@@ -51,31 +51,37 @@ public class BigTwo  {
 	public void start() {
 		System.out.println("新的回合開始了。");
 
-		Player topPlayer = getPlayerHasClub3();
+		topPlayer = getPlayerHasClub3();
 
 		System.out.println("輪到" + topPlayer.getName() + "了");
+
+		CardHandler<?> handler = new SingleHandler(new PairHandler(new StraightHandler(new FullHouseHandler(null))));
 
 		System.out.println(topPlayer.showHandCardIndexes());
 		System.out.println(topPlayer.showHandCards());
 
-		CardHandler<?> handler = new SingleHandler(new PairHandler(new StraightHandler(new FullHouseHandler(null))));
-
-		List<Card> playedCards = topPlayer.play();
-		CardPattern<?> pattern = handler.handle(playedCards);
-
-		System.out.println("玩家 " + topPlayer.getName() + " 打出了 " + pattern.toString());
+		firstRound(handler, topPlayer);
 
 		int index = players.indexOf(topPlayer);
 		while (winner == null) {
 			index = (index + 1) % players.size();
-			Player currentPlayer = players.get(index);
+			Player player = players.get(index);
 
-			System.out.println("輪到" + currentPlayer.getName() + "了");
+			if (player == topPlayer) {
+				topPlay = null;
+				System.out.println("新的回合開始了。");
+			}
 
-			System.out.println(currentPlayer.showHandCardIndexes());
-			System.out.println(currentPlayer.showHandCards());
+			System.out.println("輪到" + player.getName() + "了");
 
-			// TODO: 處理玩家出牌或過牌的邏輯
+			System.out.println(player.showHandCardIndexes());
+			System.out.println(player.showHandCards());
+
+			playRound(handler, player);
+
+			if (player.getHandCardSize() == 0) {
+				winner = player;
+			}
 		}
 	}
 
@@ -95,7 +101,6 @@ public class BigTwo  {
 
 	private Player getPlayerHasClub3() {
 		for (Player player : players) {
-			// 假設 Card 類別有一個方法 isClub3() 用來檢查是否是梅花3
 			for (int i = 0; i < 13; i++) {
 				Card card = player.getHandCard(i);
 				if (card.isClub3()) {
@@ -104,5 +109,76 @@ public class BigTwo  {
 			}
 		}
 		return null;
+	}
+
+	// TODO: 重構這兩個方法，合併重複程式碼，樣板方法? 策略模式?
+	private CardPattern<?> firstRound(CardHandler<?> handler, Player player) {
+		String input = scanner.nextLine().trim();
+
+		if (input.equals("-1") && topPlayer != player) {
+			System.out.println("玩家 " + player.getName() + " PASS");
+			return null;
+		} else if (input.equals("-1") && topPlayer == player) {
+			System.out.println("你不能在新的回合中喊 PASS");
+			return firstRound(handler, player);
+		}
+
+		List<Card> playedCards = topPlayer.play(input);
+		CardPattern<?> pattern = handler.handle(playedCards);
+
+		if (isValidPlayForFirstRound(pattern)) {
+			System.out.println("玩家 " + player.getName() + " 打出了 " + pattern.toString());
+			topPlay = pattern;
+			topPlayer = player;
+			return pattern;
+		} else {
+			System.out.println("此牌型不合法，請再嘗試一次。");
+			return firstRound(handler, player);
+		}
+	}
+
+	private CardPattern<?> playRound(CardHandler<?> handler, Player player) {
+		String input = scanner.nextLine().trim();
+
+		if (input.equals("-1") && topPlayer != player) {
+			System.out.println("玩家 " + player.getName() + " PASS");
+			return null;
+		} else if (input.equals("-1") && topPlayer == player) {
+			System.out.println("你不能在新的回合中喊 PASS");
+			return playRound(handler, player);
+		}
+
+		List<Card> playedCards = player.play(input);
+		CardPattern<?> pattern = handler.handle(playedCards);
+
+		if (isValidPlay(pattern)) {
+			System.out.println("玩家 " + player.getName() + " 打出了 " + pattern.toString());
+			topPlay = pattern;
+			topPlayer = player;
+			return pattern;
+		} else {
+			System.out.println("此牌型不合法，請再嘗試一次。");
+			return playRound(handler, player);
+		}
+	}
+
+	private boolean isValidPlayForFirstRound(CardPattern<?> pattern) {
+		if (pattern.getCards().stream().noneMatch(card -> card.isClub3())) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private boolean isValidPlay(CardPattern<?> pattern) {
+		if (topPlay == null) {
+			return true;
+		}
+
+		if (!pattern.getClass().equals(topPlay.getClass())) {
+			return false;
+		}
+
+		return pattern.compareTo(topPlay) > 0;
 	}
 }
