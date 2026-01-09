@@ -29,7 +29,7 @@ public class BigTwo {
 
 	Scanner scanner = new Scanner(System.in);
 
-	// 題目無描述電腦玩家，暫不加入
+	// 互動模式：手動輸入名字，自動洗牌
 	public BigTwo() {
 		for (int i = 0; i < 4; i++) {
 			Player human = new Human();
@@ -44,6 +44,23 @@ public class BigTwo {
 		deck = new Deck();
 
 		deck.shuffle();
+
+		dealCards();
+	}
+
+	// 測試模式：從輸入讀取牌堆
+	public BigTwo(boolean testMode) {
+		String deckInput = scanner.nextLine();
+		deck = new Deck(deckInput);
+
+		for (int i = 0; i < 4; i++) {
+			Player human = new Human();
+
+			String name = scanner.nextLine();
+
+			human.name(name);
+			players.add(human);
+		}
 
 		dealCards();
 	}
@@ -97,6 +114,11 @@ public class BigTwo {
 			player.addCard(card);
 			i = (i + 1) % players.size();
 		}
+		
+		// 發完牌後排序每個玩家的手牌
+		for (Player player : players) {
+			player.sortHandCards();
+		}
 	}
 
 	private Player getPlayerHasClub3() {
@@ -123,10 +145,11 @@ public class BigTwo {
 			return firstRound(handler, player);
 		}
 
-		List<Card> playedCards = topPlayer.play(input);
+		List<Card> playedCards = player.play(input);
 		CardPattern<?> pattern = handler.handle(playedCards);
 
 		if (isValidPlayForFirstRound(pattern)) {
+			player.removeCards(playedCards);
 			System.out.println("玩家 " + player.getName() + " 打出了 " + pattern.toString());
 			topPlay = pattern;
 			topPlayer = player;
@@ -141,7 +164,7 @@ public class BigTwo {
 		String input = scanner.nextLine().trim();
 
 		if (input.equals("-1") && topPlayer != player) {
-			System.out.println("玩家 " + player.getName() + " PASS");
+			System.out.println("玩家 " + player.getName() + " PASS.");
 			return null;
 		} else if (input.equals("-1") && topPlayer == player) {
 			System.out.println("你不能在新的回合中喊 PASS");
@@ -152,17 +175,22 @@ public class BigTwo {
 		CardPattern<?> pattern = handler.handle(playedCards);
 
 		if (isValidPlay(pattern)) {
+			player.removeCards(playedCards);
 			System.out.println("玩家 " + player.getName() + " 打出了 " + pattern.toString());
 			topPlay = pattern;
 			topPlayer = player;
 			return pattern;
-		} else {
+		} else{
 			System.out.println("此牌型不合法，請再嘗試一次。");
 			return playRound(handler, player);
 		}
 	}
 
 	private boolean isValidPlayForFirstRound(CardPattern<?> pattern) {
+		if (pattern == null) {
+			return false;
+		}
+		
 		if (pattern.getCards().stream().noneMatch(card -> card.isClub3())) {
 			return false;
 		}
@@ -171,6 +199,10 @@ public class BigTwo {
 	}
 
 	private boolean isValidPlay(CardPattern<?> pattern) {
+		if (pattern == null) {
+			return false;
+		}
+		
 		if (topPlay == null) {
 			return true;
 		}
