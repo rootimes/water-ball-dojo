@@ -11,8 +11,9 @@ public class CurseObserver implements DeathObserver {
     }
 
     @Override
-    public void update() {
-        System.out.println("A curse has been lifted upon the death of the role.");
+    public void update(int effect) {
+        if (caster.isAlive()) {
+            caster.heal(effect);
+        }
     }
-    
 }

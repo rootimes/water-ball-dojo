@@ -1,7 +1,30 @@
 package rpg.role.action;
 
-public class CurseSkill implements Action {
-    public void handle() {
-        System.out.println("Casting a curse!");
+import rpg.role.Role;
+import rpg.role.observer.CurseObserver;
+import java.util.List;
+
+public class CurseSkill extends Action {
+
+    public CurseSkill() {
+        super(100, 0);
     }
+
+    @Override
+    public void handle(List<Role> targets, Role self) {
+        self.consumeMp(mp);
+        for (Role target : targets) {
+            effect(target, self);
+        }
+    }
+
+    public void effect(Role target, Role caster) {
+        target.registerDeathObserver(new CurseObserver(caster), caster);
+    }
+
+    @Override
+    public void effect(Role target) {
+        // No direct effect on the target when the curse is applied
+    }
+
 }

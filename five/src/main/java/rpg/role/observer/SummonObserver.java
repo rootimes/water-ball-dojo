@@ -6,13 +6,17 @@ public class SummonObserver implements DeathObserver {
 
     private final Role summoner;
 
+    private final int HEAL_AMOUNT = 30;
+
     public SummonObserver(Role summoner) {
         this.summoner = summoner;
     }
 
     @Override
-    public void update() {
-        System.out.println("A summoned creature vanishes upon the death of the role.");
+    public void update(int effect) {
+        if (summoner.isAlive()) {
+            summoner.heal(HEAL_AMOUNT);
+        }
     }
 
 }
