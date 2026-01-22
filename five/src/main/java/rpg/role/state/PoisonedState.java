@@ -1,8 +1,19 @@
 package rpg.role.state;
 
+import rpg.role.Role;
+
 public class PoisonedState extends State {
+
+    private static final int DAMAGE_PER_TURN = 30;
+
+    private int round;
+
+    public void enter() {
+        this.round = 3;
+    }
+
     @Override
-    public void onTurnStart(rpg.role.Role attacker) {
-        attacker.takeDamage(5);
+    public void onTurnStart(Role self) {
+        self.takeDamage(DAMAGE_PER_TURN);
     }
 }

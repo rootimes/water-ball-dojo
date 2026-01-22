@@ -1,30 +1,36 @@
 package rpg.role.state;
 
-import org.jetbrains.annotations.Nullable;
-
 import rpg.role.Role;
 
 public abstract class State {
 
-    @Nullable
-    protected Integer round;
+    protected int round;
 
-    public void enter(int round) {
-        this.round = round;
+    public void enter() {
+        this.round = 0;
     };
 
     public void exit() {
-        this.round = null;
+        this.round = 0;
     };
 
-    public void onTurnStart(Role attacker) {
+    public void onTurnStart(Role self) {
     };
 
-    public boolean canMove(Role attacker) {
+    public boolean canMove(Role self) {
         return true;
     };
 
-    public int adjustDamage(Role attacker, int damage) {
+    public int adjustDamage(int damage) {
         return damage;
+    }
+
+    public void onTurnEnd(Role self) {
+        if (this.round > 0) {
+            this.round--;
+            if (this.round == 0) {
+                self.enterState(new NormalState());
+            }
+        }
     }
 }

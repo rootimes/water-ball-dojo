@@ -16,5 +16,14 @@ public abstract class Role {
     protected List<Action> actions = new ArrayList<>();
 
     public void takeDamage(int damage) {
+        this.hp -= damage;
+    }
+
+    public void enterState(State newState) {
+        if (this.state != null) {
+            this.state.exit();
+        }
+        this.state = newState;
+        this.state.enter();
     }
 }
