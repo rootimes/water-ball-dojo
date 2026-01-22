@@ -2,7 +2,8 @@ package bigTwo.player;
 
 import java.util.ArrayList;
 import java.util.List;
-import bigTwo.Card.Card;
+
+import bigTwo.card.Card;
 
 public class Human extends Player {
 

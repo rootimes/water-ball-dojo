@@ -1,9 +1,9 @@
-package bigTwo.CardHandler;
+package bigTwo.cardhandler;
 
 import java.util.List;
 
-import bigTwo.Card.Card;
-import bigTwo.CardPattern.Straight;
+import bigTwo.card.Card;
+import bigTwo.cardpattern.Straight;
 
 public class StraightHandler extends CardHandler<Straight> {
 

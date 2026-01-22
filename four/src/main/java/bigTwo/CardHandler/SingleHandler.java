@@ -1,9 +1,9 @@
-package bigTwo.CardHandler;
+package bigTwo.cardhandler;
 
 import java.util.List;
 
-import bigTwo.Card.Card;
-import bigTwo.CardPattern.Single;
+import bigTwo.card.Card;
+import bigTwo.cardpattern.Single;
 
 public class SingleHandler extends CardHandler<Single> {
 

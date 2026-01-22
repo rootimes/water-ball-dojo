@@ -1,4 +1,4 @@
-package bigTwo.Card;
+package bigTwo.card;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package bigTwo.Card;
+package bigTwo.card;
 
 public class Card {
 

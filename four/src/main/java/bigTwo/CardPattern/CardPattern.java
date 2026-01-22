@@ -1,9 +1,9 @@
-package bigTwo.CardPattern;
+package bigTwo.cardpattern;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import bigTwo.Card.Card;
+import bigTwo.card.Card;
 
 public abstract class CardPattern<T extends CardPattern<T>> {
 	protected int size;

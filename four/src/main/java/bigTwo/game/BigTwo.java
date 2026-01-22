@@ -3,17 +3,17 @@ package bigTwo.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import bigTwo.Card.Deck;
-import bigTwo.CardHandler.CardHandler;
-import bigTwo.CardHandler.FullHouseHandler;
-import bigTwo.CardHandler.PairHandler;
-import bigTwo.CardHandler.SingleHandler;
-import bigTwo.CardHandler.StraightHandler;
-import bigTwo.CardPattern.CardPattern;
+import bigTwo.card.Card;
+import bigTwo.card.Deck;
+import bigTwo.cardhandler.CardHandler;
+import bigTwo.cardhandler.FullHouseHandler;
+import bigTwo.cardhandler.PairHandler;
+import bigTwo.cardhandler.SingleHandler;
+import bigTwo.cardhandler.StraightHandler;
+import bigTwo.cardpattern.CardPattern;
 import bigTwo.player.Human;
 import bigTwo.player.Player;
 import java.util.Scanner;
-import bigTwo.Card.Card;
 
 public class BigTwo {
 

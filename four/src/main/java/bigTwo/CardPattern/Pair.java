@@ -1,8 +1,8 @@
-package bigTwo.CardPattern;
+package bigTwo.cardpattern;
 
 import java.util.List;
 
-import bigTwo.Card.Card;
+import bigTwo.card.Card;
 
 public class Pair extends CardPattern<Pair> {
 

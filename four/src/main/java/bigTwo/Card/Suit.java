@@ -1,4 +1,4 @@
-package bigTwo.Card;
+package bigTwo.card;
 
 public enum Suit {
 	CLUB(0, "梅花", "C"), DIAMOND(1, "菱形", "D"), HEART(2, "愛心", "H"), SPADE(3, "黑桃", "S");

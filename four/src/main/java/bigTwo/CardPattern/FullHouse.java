@@ -1,10 +1,10 @@
-package bigTwo.CardPattern;
+package bigTwo.cardpattern;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import bigTwo.Card.Card;
+import bigTwo.card.Card;
 
 public class FullHouse extends CardPattern<FullHouse> {
 

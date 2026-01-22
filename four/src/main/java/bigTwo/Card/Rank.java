@@ -1,4 +1,4 @@
-package bigTwo.Card;
+package bigTwo.card;
 
 public enum Rank {
 	THREE(0, "3"), FOUR(1, "4"), FIVE(2, "5"), SIX(3, "6"), SEVEN(4, "7"), EIGHT(5, "8"), NINE(6, "9"), TEN(7,
