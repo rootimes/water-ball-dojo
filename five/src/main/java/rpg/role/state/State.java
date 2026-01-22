@@ -3,8 +3,11 @@ package rpg.role.state;
 import rpg.role.Role;
 
 public abstract class State {
-
     protected int round;
+
+    public String getName() {
+        return this.getClass().getSimpleName();
+    }
 
     public void enter() {
         this.round = 0;
