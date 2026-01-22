@@ -1,8 +1,14 @@
 package rpg.role.action;
 
-public class WaterBallSkill implements Action {
-    public void handle() {
-        System.out.println("Casting Water Ball!");
+import rpg.role.Role;
+
+public class WaterBallSkill extends Action {
+    public WaterBallSkill() {
+        super(50, 120);
     }
-    
+
+    @Override
+    protected void effect(Role target) {
+        target.takeDamage(str);
+    }
 }

@@ -1,8 +1,15 @@
 package rpg.role.action;
 
-public class FireBallSkill implements Action {
-    public void handle() {
-        System.out.println("Casting Fire Ball!");
+import rpg.role.Role;
+
+public class FireBallSkill extends Action {
+
+    public FireBallSkill() {
+        super(50, 50);
     }
-    
+
+    @Override
+    protected void effect(Role target) {
+        target.takeDamage(str);
+    }
 }

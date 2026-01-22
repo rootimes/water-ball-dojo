@@ -1,7 +1,15 @@
 package rpg.role.action;
 
-public class CheerUpSkill implements Action {
-    public void handle() {
-        System.out.println("Cheer up!");
+import rpg.role.Role;
+import rpg.role.state.CheerUpState;
+
+public class CheerUpSkill extends Action {
+
+    public CheerUpSkill() {
+        super(100, 0);
+    }
+
+    public void effect(Role target) {
+        target.enterState(new CheerUpState());
     }
 }

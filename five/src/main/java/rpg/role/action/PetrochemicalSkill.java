@@ -1,7 +1,16 @@
 package rpg.role.action;
 
-public class PetrochemicalSkill implements Action {
-    public void handle() {
-        System.out.println("Using Petrochemical Skill!");
+import rpg.role.Role;
+import rpg.role.state.PetrochemicalState;
+
+public class PetrochemicalSkill extends Action {
+    
+    public PetrochemicalSkill() {
+        super(100, 0);
+    }
+
+    @Override
+    protected void effect(Role target) {
+        target.enterState(new PetrochemicalState());
     }
 }

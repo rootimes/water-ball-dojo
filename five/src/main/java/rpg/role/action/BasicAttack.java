@@ -1,7 +1,14 @@
 package rpg.role.action;
 
-public class BasicAttack implements Action {
-    public void handle() {
-        System.out.println("Basic attack!");
+import rpg.role.Role;
+
+public class BasicAttack extends Action {
+    public BasicAttack(int str) {
+        super(0, str);
+    }
+
+    @Override
+    protected void effect(Role target) {
+        target.takeDamage(str);
     }
 }
