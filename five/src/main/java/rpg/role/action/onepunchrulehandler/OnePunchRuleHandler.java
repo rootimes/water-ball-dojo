@@ -1,5 +1,7 @@
 package rpg.role.action.onepunchrulehandler;
 
+import rpg.role.Role;
+
 public abstract class OnePunchRuleHandler {
     
     protected OnePunchRuleHandler next;
@@ -8,5 +10,5 @@ public abstract class OnePunchRuleHandler {
         this.next = next;
     }
 
-    abstract void handle(OnePunchRuleHandler handler);
+    public abstract void handle(Role target);
 }
