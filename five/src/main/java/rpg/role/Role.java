@@ -1,22 +1,95 @@
 package rpg.role;
 
 import rpg.role.state.State;
-import rpg.role.action.Action;
+import rpg.role.state.NormalState;
+import rpg.role.action.*;
+import rpg.role.observer.DeathObserver;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import rpg.troop.Troop;
 
 public abstract class Role {
 
+    protected String name;
     protected int hp;
-
     protected int mp;
-
+    protected int str;
+    protected Troop troop;
     protected State state;
+    protected List<ActionInterface> actions = new ArrayList<>();
 
-    protected List<Action> actions = new ArrayList<>();
+    protected Map<Role, DeathObserver> deathObservers = new HashMap<>();
+
+    public Role(String input, Troop troop) {
+        String[] parts = input.trim().split("\\s+");
+
+        this.name = parts[0];
+        this.str = Integer.parseInt(parts[1]);
+        this.hp = Integer.parseInt(parts[2]);
+        this.mp = Integer.parseInt(parts[3]);
+
+        this.actions.add(new BasicAttack(this.str));
+
+        if (parts.length > 4) {
+            String skillName = parts[4];
+            this.actions.add(createSkill(skillName));
+        }
+
+        this.state = new NormalState();
+        this.troop = troop;
+    }
+
+    public abstract ActionInterface selectAction();
+
+    public abstract List<Role> selectTarget(List<Troop> troops);
+
+    public void takeAction(List<Role> targets) {
+        // Implementation of action execution
+    }
+
+    public Troop getTroop() {
+        return troop;
+    }
+
+    public boolean isAlive() {
+        return this.hp > 0;
+    }
+
+    public int getHp() {
+        return this.hp;
+    }
+
+    public boolean hasEnoughMP(int cost) {
+        return this.mp >= cost;
+    }
 
     public void takeDamage(int damage) {
         this.hp -= damage;
+    }
+
+    public void consumeMp(int cost) {
+        this.mp -= cost;
+    }
+
+    public void heal(int amount) {
+        this.hp += amount;
+    }
+
+    public void die() {
+        this.hp = 0;
+        notifyDeathObservers();
+    }
+
+    public boolean canMove() {
+        return this.state.canMove(this);
+    }
+
+    public String getStateName() {
+        return this.state.getName();
     }
 
     public void enterState(State newState) {
@@ -25,5 +98,42 @@ public abstract class Role {
         }
         this.state = newState;
         this.state.enter();
+    }
+
+    public void registerDeathObserver(DeathObserver observer, Role caster) {
+        deathObservers.put(caster, observer);
+    }
+
+    public void notifyDeathObservers() {
+        for (DeathObserver observer : deathObservers.values()) {
+            observer.update(this.mp);
+        }
+    }
+
+    private ActionInterface createSkill(String skillName) {
+        switch (skillName) {
+            case "鼓舞":
+                return new CheerUpSkill();
+            case "下毒":
+                return new PoisonSkill();
+            case "詛咒":
+                return new CurseSkill();
+            case "石化":
+                return new PetrochemicalSkill();
+            case "自我治療":
+                return new SelfHealingSkill();
+            case "召喚":
+                return new SummonSkill();
+            case "一拳":
+                return new OnePunchSkill();
+            case "水球":
+                return new WaterBallSkill();
+            case "火球":
+                return new FireBallSkill();
+            case "自爆":
+                return new SelfExplosionSkill();
+            default:
+                throw new IllegalArgumentException("Unknown skill: " + skillName);
+        }
     }
 }
