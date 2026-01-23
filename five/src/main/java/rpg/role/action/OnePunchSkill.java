@@ -24,7 +24,7 @@ public class OnePunchSkill extends Action {
     }
 
     @Override
-    public void effect(Role target) {
-        new HighHpRule(new AbnormalStateRule(new CheerUpStateRule(new NormalStateRule(null)))).handle(target);
+    public void effect(Role target, Role self) {
+        new HighHpRule(new AbnormalStateRule(new CheerUpStateRule(new NormalStateRule(null)))).handle(target, self);
     }
 }

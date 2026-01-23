@@ -29,11 +29,11 @@ public class SummonSkill extends Action {
 
     @Override
     public void handle(List<Role> targets, Role self) {
-        effect(self);
+        effect(self, self);
     }
 
     @Override
-    protected void effect(Role self) {
+    protected void effect(Role target, Role self) {
         Troop troop = self.getTroop();
 
         Role slime = new AI("Slime 100  0 50", troop);

@@ -26,13 +26,9 @@ public class CurseSkill extends Action {
         }
     }
 
-    public void effect(Role target, Role caster) {
-        target.registerDeathObserver(new CurseObserver(caster), caster);
-    }
-
     @Override
-    public void effect(Role target) {
-        // No direct effect on the target when the curse is applied
+    public void effect(Role target, Role self) {
+        target.registerDeathObserver(new CurseObserver(self), self);
     }
 
 }

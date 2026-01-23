@@ -10,14 +10,15 @@ public class HighHpRule extends OnePunchRuleHandler {
         super(next);
     }
 
-    public void handle(Role target) {
+    public void handle(Role target, Role self) {
         if (isHighHp(target)) {
-            target.takeDamage(STR);
+            int damage = self.adjustDamage(STR);
+            target.takeDamage(damage);
             return;
         }
 
         if (next != null) {
-            next.handle(target);
+            next.handle(target, self);
         }
     }
 

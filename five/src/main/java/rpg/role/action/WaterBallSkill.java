@@ -17,7 +17,8 @@ public class WaterBallSkill extends Action {
     }
 
     @Override
-    protected void effect(Role target) {
-        target.takeDamage(str);
+    protected void effect(Role target, Role self) {
+        int damage = self.adjustDamage(STR);
+        target.takeDamage(damage);
     }
 }

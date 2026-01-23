@@ -6,7 +6,8 @@ import java.util.Scanner;
 import rpg.troop.Troop;
 import rpg.role.Role;
 import rpg.role.action.Action;
-import rpg.role.action.Action;
+import rpg.role.aistrategy.ActionSeedStrategy;
+import rpg.role.aistrategy.TargetSeedStrategy;
 import rpg.role.AI;
 import rpg.role.Hero;
 
@@ -19,6 +20,8 @@ public class RPG {
 
     Scanner scanner = new Scanner(System.in);
 
+    private boolean win = false;
+
     public void start() {
 
         setup();
@@ -26,27 +29,36 @@ public class RPG {
         for (Troop troop : troops) {
             for (int i = 0; i < troop.size(); i++) {
                 if (isGameOver()) {
-                    break;
+                    return;
                 }
 
                 Role role = troop.get(i);
 
-                if (!role.isAlive() || !role.canMove()) {
+                if (!role.isAlive()) {
                     continue;
                 }
 
-                Action action = S1(role);
+                if (role.canMove()) {
+                    role.onTurnStart();
 
-                List<Role> targets = S2(action, role);
+                    Action action = S1(role);
 
-                s3(action, targets, role);
+                    List<Role> targets = S2(action, role);
+
+                    s3(action, targets, role);
+
+                    role.onTurnEnd();
+                }
             }
         }
-
     }
 
     public void end() {
-        System.out.println("Game ended.");
+        if (win) {
+            System.out.println("你獲勝了！");
+        } else {
+            System.out.println("你失敗了！");
+        }
     }
 
     private Action S1(Role role) {
@@ -78,8 +90,12 @@ public class RPG {
 
     private boolean isGameOver() {
         Role hero = T1.get(0);
-        if (hero.isAlive()) {
-            return T2.isEmpty();
+        if (hero.isAlive() && T2.isEmpty()) {
+            this.win = true;
+            return true;
+        } else if (!hero.isAlive()) {
+            this.win = false;
+            return true;
         }
 
         return false;
@@ -115,6 +131,7 @@ public class RPG {
         while (!input.contains("結束")) {
             input = scanner.nextLine();
             AI ai = new AI(input, troop);
+            ai.setAIStrategies(new ActionSeedStrategy(), new TargetSeedStrategy());
             troop.add(ai);
         }
     }

@@ -6,19 +6,23 @@ import rpg.role.Role;
 
 public class AbnormalStateRule extends OnePunchRuleHandler {
 
+    private static final int STR = 80;
+
     public AbnormalStateRule(OnePunchRuleHandler next) {
         super(next);
     }
 
-    public void handle(Role target) {
+    public void handle(Role target, Role self) {
         if (isAbnormalState(target)) {
             for (int i = 0; i < 3; i++) {
-                target.takeDamage(80);
+                int damage = self.adjustDamage(STR);
+                target.takeDamage(damage);
             }
+            return;
         }
 
         if (next != null) {
-            next.handle(target);
+            next.handle(target, self);
         }
     }
 

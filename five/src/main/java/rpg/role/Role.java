@@ -113,6 +113,18 @@ public abstract class Role {
         this.state.enter();
     }
 
+    public void onTurnStart() {
+        this.state.onTurnStart(this);
+    }
+
+    public void onTurnEnd() {
+        this.state.onTurnEnd(this);
+    }
+
+    public int adjustDamage(int damage) {
+        return this.state.adjustDamage(damage);
+    }
+
     public void registerDeathObserver(DeathObserver observer, Role caster) {
         deathObservers.put(caster, observer);
     }

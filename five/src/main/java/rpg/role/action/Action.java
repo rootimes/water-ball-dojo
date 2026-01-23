@@ -45,7 +45,7 @@ public abstract class Action implements ActionInterface {
     @Override
     public void handle(List<Role> targets, Role self) {
         for (Role target : targets) {
-            effect(target);
+            effect(target, self);
         }
     }
 
@@ -53,5 +53,5 @@ public abstract class Action implements ActionInterface {
         return mp;
     };
 
-    protected abstract void effect(Role target);
+    protected abstract void effect(Role target, Role self);
 }

@@ -20,15 +20,14 @@ public class SelfExplosionSkill extends Action {
 
     @Override
     public void handle(List<Role> targets, Role self) {
-
-        self.die();
         for (Role target : targets) {
-            effect(target);
+            effect(target, self);
         }
+        self.die();
     }
 
     @Override
-    protected void effect(Role target) {
-        target.takeDamage(str);
+    protected void effect(Role target, Role self) {
+        target.takeDamage(self.adjustDamage(str));
     }
 }

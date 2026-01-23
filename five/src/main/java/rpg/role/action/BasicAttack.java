@@ -17,7 +17,8 @@ public class BasicAttack extends Action {
     }
 
     @Override
-    protected void effect(Role target) {
+    protected void effect(Role target, Role self) {
+        int str = self.adjustDamage(this.str);
         target.takeDamage(str);
     }
 }

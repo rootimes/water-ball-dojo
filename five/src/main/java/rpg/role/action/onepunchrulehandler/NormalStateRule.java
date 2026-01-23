@@ -4,17 +4,21 @@ import rpg.role.Role;
 
 public class NormalStateRule extends OnePunchRuleHandler {
 
+    private static final int STR = 100;
+
     public NormalStateRule(OnePunchRuleHandler next) {
         super(next);
     }
 
-    public void handle(Role target) {
+    public void handle(Role target, Role self) {
         if (isNormalState(target)) {
-            System.out.println("Handling Normal State Rule!");
+            int damage = self.adjustDamage(STR);
+            target.takeDamage(damage);
+            return;
         }
 
         if (next != null) {
-            next.handle(target);
+            next.handle(target, self);
         }
     }
 

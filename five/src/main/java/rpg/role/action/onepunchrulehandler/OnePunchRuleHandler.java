@@ -10,5 +10,5 @@ public abstract class OnePunchRuleHandler {
         this.next = next;
     }
 
-    public abstract void handle(Role target);
+    public abstract void handle(Role target, Role self);
 }
