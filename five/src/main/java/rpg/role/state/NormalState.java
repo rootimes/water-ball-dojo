@@ -4,7 +4,7 @@ import rpg.role.Role;
 
 public class NormalState extends State {
 
-    @Override
-    public void onTurnEnd(Role self) {
-    }
+	@Override
+	public void onTurnEnd(Role self) {
+	}
 }

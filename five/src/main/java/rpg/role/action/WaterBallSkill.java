@@ -4,21 +4,21 @@ import rpg.role.Role;
 
 public class WaterBallSkill extends Action {
 
-    private static final String NAME = "水球";
+	private static final String NAME = "水球";
 
-    private static final int MP_COST = 50;
+	private static final int MP_COST = 50;
 
-    private static final int STR = 120;
+	private static final int STR = 120;
 
-    private static final int TARGET_COUNT = 1;
+	private static final int TARGET_COUNT = 1;
 
-    public WaterBallSkill() {
-        super(NAME, MP_COST, STR, TARGET_COUNT);
-    }
+	public WaterBallSkill() {
+		super(NAME, MP_COST, STR, TARGET_COUNT);
+	}
 
-    @Override
-    protected void effect(Role target, Role self) {
-        int damage = self.adjustDamage(STR);
-        target.takeDamage(damage);
-    }
+	@Override
+	protected void effect(Role target, Role self) {
+		int damage = self.adjustDamage(STR);
+		target.takeDamage(damage);
+	}
 }
