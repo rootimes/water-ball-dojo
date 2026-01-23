@@ -129,10 +129,10 @@ public class RPG {
 	private void readTroopMembers(Troop troop) {
 		String input = scanner.nextLine();
 		while (!input.contains("結束")) {
-			input = scanner.nextLine();
 			AI ai = new AI(input, troop);
 			ai.setAIStrategies(new ActionSeedStrategy(), new TargetSeedStrategy());
 			troop.add(ai);
+			input = scanner.nextLine();
 		}
 	}
 }
