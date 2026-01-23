@@ -42,7 +42,11 @@ public abstract class Action implements ActionInterface {
 	@Override
 	public void handle(List<Role> targets, Role self) {
 		for (Role target : targets) {
-			effect(target, self);
+			System.out.printf("[%d]%s 攻擊 [%d]%s。\n", self.getTroop().getNumber(), self.getName(),
+					target.getTroop().getNumber(), target.getName());
+			int damage = effect(target, self);
+			System.out.printf("[%d]%s 對 [%d]%s 造成 %d 點傷害。\n", self.getTroop().getNumber(), self.getName(),
+					target.getTroop().getNumber(), target.getName(), damage);
 		}
 	}
 
@@ -50,5 +54,5 @@ public abstract class Action implements ActionInterface {
 		return mp;
 	};
 
-	protected abstract void effect(Role target, Role self);
+	protected abstract int effect(Role target, Role self);
 }

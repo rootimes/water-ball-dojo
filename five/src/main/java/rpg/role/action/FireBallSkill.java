@@ -17,8 +17,9 @@ public class FireBallSkill extends Action {
 	}
 
 	@Override
-	protected void effect(Role target, Role self) {
+	protected int effect(Role target, Role self) {
 		int damage = self.adjustDamage(STR);
 		target.takeDamage(damage);
+		return damage;
 	}
 }

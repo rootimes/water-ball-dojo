@@ -20,15 +20,9 @@ public class CurseSkill extends Action {
 	}
 
 	@Override
-	public void handle(List<Role> targets, Role self) {
-		for (Role target : targets) {
-			effect(target, self);
-		}
-	}
-
-	@Override
-	public void effect(Role target, Role self) {
+	public int effect(Role target, Role self) {
 		target.registerDeathObserver(new CurseObserver(self), self);
+		return 0;
 	}
 
 }

@@ -18,7 +18,8 @@ public class PetrochemicalSkill extends Action {
 	}
 
 	@Override
-	protected void effect(Role target, Role self) {
+	protected int effect(Role target, Role self) {
 		target.enterState(new PetrochemicalState());
+		return 0;
 	}
 }

@@ -7,6 +7,15 @@ import rpg.role.Role;
 
 public class Troop {
 	private List<Role> roles = new ArrayList<>();
+	private int number;
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public int getNumber() {
+		return number;
+	}
 
 	public void add(Role role) {
 		roles.add(role);
@@ -17,7 +26,7 @@ public class Troop {
 	}
 
 	public boolean isEmpty() {
-		return roles.isEmpty();
+		return getAliveRoles().isEmpty();
 	}
 
 	public Role get(int index) {

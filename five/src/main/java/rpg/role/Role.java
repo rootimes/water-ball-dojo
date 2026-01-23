@@ -27,9 +27,9 @@ public abstract class Role {
 		String[] parts = input.trim().split("\\s+");
 
 		this.name = parts[0];
-		this.str = Integer.parseInt(parts[1]);
-		this.hp = Integer.parseInt(parts[2]);
-		this.mp = Integer.parseInt(parts[3]);
+		this.hp = Integer.parseInt(parts[1]);
+		this.mp = Integer.parseInt(parts[2]);
+		this.str = Integer.parseInt(parts[3]);
 
 		this.actions.add(new BasicAttack(this.str));
 
@@ -65,6 +65,14 @@ public abstract class Role {
 
 	public int getHp() {
 		return this.hp;
+	}
+
+	public int getMp() {
+		return this.mp;
+	}
+
+	public int getStr() {
+		return this.str;
 	}
 
 	protected Action getAction(int index) {

@@ -22,6 +22,11 @@ public class RPG {
 
 	private boolean win = false;
 
+	public RPG() {
+		T1.setNumber(1);
+		T2.setNumber(2);
+	}
+
 	public void start() {
 
 		setup();
@@ -39,6 +44,9 @@ public class RPG {
 				}
 
 				if (role.canMove()) {
+					System.out.printf("輪到 [%d]%s (HP: %d, MP: %d, STR: %d, State: %s)。\n",
+							troops.indexOf(troop) + 1, role.getName(), role.getHp(), role.getMp(), role.getStr(),
+							role.getStateName());
 					role.onTurnStart();
 
 					Action action = S1(role);
@@ -111,10 +119,10 @@ public class RPG {
 	private void setup() {
 		String input = skipComments();
 		Hero hero = new Hero(input, T1);
+		hero.setScanner(this.scanner);
 		T1.add(hero);
 
 		readTroopMembers(T1);
-		skipComments();
 		readTroopMembers(T2);
 	}
 
@@ -128,6 +136,9 @@ public class RPG {
 
 	private void readTroopMembers(Troop troop) {
 		String input = scanner.nextLine();
+		while (input.contains("#")) {
+			input = scanner.nextLine();
+		}
 		while (!input.contains("結束")) {
 			AI ai = new AI(input, troop);
 			ai.setAIStrategies(new ActionSeedStrategy(), new TargetSeedStrategy());

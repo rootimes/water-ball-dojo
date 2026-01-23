@@ -17,7 +17,8 @@ public class PoisonSkill extends Action {
 		super(NAME, MP_COST, STR, TARGET_COUNT);
 	}
 
-	protected void effect(Role target, Role self) {
+	protected int effect(Role target, Role self) {
 		target.enterState(new PoisonedState());
+		return 0;
 	}
 }
