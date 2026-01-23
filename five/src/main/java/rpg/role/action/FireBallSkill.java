@@ -1,17 +1,25 @@
 package rpg.role.action;
 
 import rpg.role.Role;
+import rpg.troop.Troop;
+import java.util.List;
 
 public class FireBallSkill extends Action {
 
-    public static final String NAME = "火球";
+    private static final String NAME = "火球";
+
+    private static final int MP_COST = 50;
+
+    private static final int STR = 50;
+
+    private static final int TARGET_COUNT = 1;
 
     public FireBallSkill() {
-        super(50, 50);
+        super(NAME, MP_COST, STR, TARGET_COUNT);
     }
 
     @Override
     protected void effect(Role target) {
-        target.takeDamage(str);
+        target.takeDamage(STR);
     }
 }

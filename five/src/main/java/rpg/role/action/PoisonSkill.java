@@ -5,10 +5,16 @@ import rpg.role.state.PoisonedState;
 
 public class PoisonSkill extends Action {
     
-    public static final String NAME = "下毒";
+    private static final String NAME = "下毒";
+
+    private static final int MP_COST = 80;
+
+    private static final int STR = 0;
+
+    private static final int TARGET_COUNT = 1;
     
     public PoisonSkill() {
-        super(80, 0);
+        super(NAME, MP_COST, STR, TARGET_COUNT);
     }
 
     protected void effect(Role target) {

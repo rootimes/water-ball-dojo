@@ -10,10 +10,21 @@ import rpg.troop.Troop;
 
 public class SummonSkill extends Action {
 
-    public static final String NAME = "召喚";
+    private static final String NAME = "召喚";
+
+    private static final int MP_COST = 150;
+
+    private static final int STR = 0;
+
+    private static final int TARGET_COUNT = Integer.MAX_VALUE;
 
     public SummonSkill() {
-        super(150, 0);
+        super(NAME, MP_COST, STR, TARGET_COUNT);
+    }
+
+    @Override
+    public List<Role> getCandidates(List<Troop> troops, Role self) {
+        return List.of();
     }
 
     @Override

@@ -6,10 +6,16 @@ import rpg.role.Role;
 
 public class SelfExplosionSkill extends Action {
 
-    public static final String NAME = "自爆";
+    private static final String NAME = "自爆";
+
+    private static final int MP_COST = 150;
+
+    private static final int STR = 200;
+
+    private static final int TARGET_COUNT = Integer.MAX_VALUE;
 
     public SelfExplosionSkill() {
-        super(200, 150);
+        super(NAME, MP_COST, STR, TARGET_COUNT);
     }
 
     @Override

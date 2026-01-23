@@ -3,22 +3,43 @@ package rpg.role.action;
 import java.util.List;
 
 import rpg.role.Role;
+import rpg.troop.Troop;
 
 public abstract class Action implements ActionInterface {
-
-    protected static final String NAME = "未知技能";
-
     protected int mp;
 
     protected int str;
 
-    public Action(int mp, int str) {
+    protected String name;
+
+    protected int targetCount;
+
+    public Action(String name, int mp, int str, int targetCount) {
+        this.name = name;
         this.mp = mp;
         this.str = str;
+        this.targetCount = targetCount;
     }
 
     public String getName() {
-        return NAME;
+        return name;
+    }
+
+    public int getTargetCount() {
+        return targetCount;
+    }
+
+    public List<Role> getCandidates(List<Troop> troops, Role self) {
+        Troop ownTroop = self.getTroop();
+
+        Troop enemyTroop = troops.stream()
+                .filter(troop -> troop != ownTroop)
+                .findFirst()
+                .orElse(null);
+
+        List<Role> enemies = enemyTroop.getAliveRoles();
+
+        return enemies;
     }
 
     @Override
