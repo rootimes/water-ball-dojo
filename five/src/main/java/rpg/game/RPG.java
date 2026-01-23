@@ -39,7 +39,7 @@ public class RPG {
 
                 List<Role> targets = S2(action, role);
 
-                s3(targets, role);
+                s3(action, targets, role);
             }
         }
 
@@ -59,11 +59,21 @@ public class RPG {
     }
 
     private List<Role> S2(Action action, Role role) {
-        return role.selectTargets(action, troops);
+        List<Role> candidates = action.getCandidates(troops, role);
+
+        int actionTargetCount = action.getTargetCount();
+
+        if (exceedsAvailableCandidates(candidates, actionTargetCount)) {
+            return candidates;
+        } else if (actionTargetCount == 0) {
+            return List.of();
+        }
+
+        return role.SelectTargets(action, candidates);
     }
 
-    private void s3(List<Role> targets, Role role) {
-        role.takeAction(targets);
+    private void s3(Action action, List<Role> targets, Role role) {
+        role.takeAction(action, targets);
     }
 
     private boolean isGameOver() {
@@ -72,6 +82,13 @@ public class RPG {
             return T2.isEmpty();
         }
 
+        return false;
+    }
+
+    private boolean exceedsAvailableCandidates(List<Role> candidates, int targetCount) {
+        if (targetCount > candidates.size()) {
+            return true;
+        }
         return false;
     }
 

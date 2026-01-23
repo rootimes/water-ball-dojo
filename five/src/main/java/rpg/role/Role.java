@@ -45,10 +45,12 @@ public abstract class Role {
 
     public abstract Action selectAction();
 
-    public abstract List<Role> selectTargets(Action action, List<Troop> troops);
+    public abstract List<Role> SelectTargets(Action action, List<Role> candidates);
 
-    public void takeAction(List<Role> targets) {
-        // Implementation of action execution
+    public void takeAction(Action action, List<Role> targets) {
+        this.consumeMp(action.getMp());
+
+        action.handle(targets, this);
     }
 
     public Troop getTroop() {

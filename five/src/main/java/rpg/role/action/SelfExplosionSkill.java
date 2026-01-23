@@ -20,7 +20,7 @@ public class SelfExplosionSkill extends Action {
 
     @Override
     public void handle(List<Role> targets, Role self) {
-        self.consumeMp(mp);
+
         self.die();
         for (Role target : targets) {
             effect(target);

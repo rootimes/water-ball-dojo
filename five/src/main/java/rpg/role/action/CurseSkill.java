@@ -21,7 +21,6 @@ public class CurseSkill extends Action {
 
     @Override
     public void handle(List<Role> targets, Role self) {
-        self.consumeMp(mp);
         for (Role target : targets) {
             effect(target, self);
         }

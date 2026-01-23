@@ -16,7 +16,7 @@ public class SummonSkill extends Action {
 
     private static final int STR = 0;
 
-    private static final int TARGET_COUNT = Integer.MAX_VALUE;
+    private static final int TARGET_COUNT = 0;
 
     public SummonSkill() {
         super(NAME, MP_COST, STR, TARGET_COUNT);
@@ -29,7 +29,6 @@ public class SummonSkill extends Action {
 
     @Override
     public void handle(List<Role> targets, Role self) {
-        self.consumeMp(mp);
         effect(self);
     }
 

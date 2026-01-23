@@ -44,7 +44,6 @@ public abstract class Action implements ActionInterface {
 
     @Override
     public void handle(List<Role> targets, Role self) {
-        self.consumeMp(mp);
         for (Role target : targets) {
             effect(target);
         }
