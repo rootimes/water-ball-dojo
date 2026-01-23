@@ -5,6 +5,8 @@ import rpg.role.state.CheerUpState;
 
 public class CheerUpSkill extends Action {
 
+    public static final String NAME = "鼓舞";
+
     public CheerUpSkill() {
         super(100, 0);
     }

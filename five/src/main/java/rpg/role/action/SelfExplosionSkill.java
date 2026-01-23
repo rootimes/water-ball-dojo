@@ -6,6 +6,8 @@ import rpg.role.Role;
 
 public class SelfExplosionSkill extends Action {
 
+    public static final String NAME = "自爆";
+
     public SelfExplosionSkill() {
         super(200, 150);
     }

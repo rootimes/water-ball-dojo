@@ -6,6 +6,8 @@ import java.util.List;
 
 public class CurseSkill extends Action {
 
+    public static final String NAME = "詛咒";
+
     public CurseSkill() {
         super(100, 0);
     }

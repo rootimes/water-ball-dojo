@@ -20,7 +20,7 @@ public abstract class Role {
     protected int str;
     protected Troop troop;
     protected State state;
-    protected List<ActionInterface> actions = new ArrayList<>();
+    protected List<Action> actions = new ArrayList<>();
 
     protected Map<Role, DeathObserver> deathObservers = new HashMap<>();
 
@@ -43,9 +43,9 @@ public abstract class Role {
         this.troop = troop;
     }
 
-    public abstract ActionInterface selectAction();
+    public abstract Action selectAction();
 
-    public abstract List<Role> selectTarget(List<Troop> troops);
+    public abstract List<Role> selectTargets(Action action, List<Troop> troops);
 
     public void takeAction(List<Role> targets) {
         // Implementation of action execution
@@ -61,6 +61,14 @@ public abstract class Role {
 
     public int getHp() {
         return this.hp;
+    }
+
+    protected Action getAction(int index) {
+        return actions.get(index);
+    }
+
+    protected int getActionsSize() {
+        return actions.size();
     }
 
     public boolean hasEnoughMP(int cost) {
@@ -110,7 +118,7 @@ public abstract class Role {
         }
     }
 
-    private ActionInterface createSkill(String skillName) {
+    private Action createSkill(String skillName) {
         switch (skillName) {
             case "鼓舞":
                 return new CheerUpSkill();
@@ -124,7 +132,7 @@ public abstract class Role {
                 return new SelfHealingSkill();
             case "召喚":
                 return new SummonSkill();
-            case "一拳":
+            case "一拳攻擊":
                 return new OnePunchSkill();
             case "水球":
                 return new WaterBallSkill();

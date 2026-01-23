@@ -5,6 +5,8 @@ import rpg.role.Role;
 
 public class SelfHealingSkill extends Action {
 
+    public static final String NAME = "自我治療";
+
     public SelfHealingSkill() {
         super(50, 150);
     }

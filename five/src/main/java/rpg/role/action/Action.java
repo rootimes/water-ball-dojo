@@ -6,6 +6,8 @@ import rpg.role.Role;
 
 public abstract class Action implements ActionInterface {
 
+    protected static final String NAME = "未知技能";
+
     protected int mp;
 
     protected int str;
@@ -13,6 +15,10 @@ public abstract class Action implements ActionInterface {
     public Action(int mp, int str) {
         this.mp = mp;
         this.str = str;
+    }
+
+    public String getName() {
+        return NAME;
     }
 
     @Override

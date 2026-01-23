@@ -5,6 +5,8 @@ import rpg.role.state.PoisonedState;
 
 public class PoisonSkill extends Action {
     
+    public static final String NAME = "下毒";
+    
     public PoisonSkill() {
         super(80, 0);
     }

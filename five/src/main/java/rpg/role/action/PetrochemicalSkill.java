@@ -5,6 +5,8 @@ import rpg.role.state.PetrochemicalState;
 
 public class PetrochemicalSkill extends Action {
     
+    public static final String NAME = "石化";
+    
     public PetrochemicalSkill() {
         super(100, 0);
     }

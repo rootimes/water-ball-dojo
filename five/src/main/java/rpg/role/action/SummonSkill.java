@@ -10,6 +10,8 @@ import rpg.troop.Troop;
 
 public class SummonSkill extends Action {
 
+    public static final String NAME = "召喚";
+
     public SummonSkill() {
         super(150, 0);
     }
