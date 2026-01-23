@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 import rpg.troop.Troop;
 import rpg.role.Role;
-import rpg.role.action.ActionInterface;
+import rpg.role.action.Action;
+import rpg.role.action.Action;
 import rpg.role.AI;
 import rpg.role.Hero;
 
@@ -34,9 +35,9 @@ public class RPG {
                     continue;
                 }
 
-                ActionInterface action = S1(role);
+                Action action = S1(role);
 
-                List<Role> targets = S2(role);
+                List<Role> targets = S2(action, role);
 
                 s3(targets, role);
             }
@@ -48,8 +49,8 @@ public class RPG {
         System.out.println("Game ended.");
     }
 
-    private ActionInterface S1(Role role) {
-        ActionInterface action = role.selectAction();
+    private Action S1(Role role) {
+        Action action = role.selectAction();
 
         while (!role.hasEnoughMP(action.getMp())) {
             action = role.selectAction();
@@ -57,8 +58,8 @@ public class RPG {
         return action;
     }
 
-    private List<Role> S2(Role role) {
-        return role.selectTarget(troops);
+    private List<Role> S2(Action action, Role role) {
+        return role.selectTargets(action, troops);
     }
 
     private void s3(List<Role> targets, Role role) {
