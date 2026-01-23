@@ -4,6 +4,7 @@ import rpg.role.action.Action;
 import rpg.troop.Troop;
 import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Hero extends Role {
     private Scanner scanner = new Scanner(System.in);
@@ -31,8 +32,33 @@ public class Hero extends Role {
         return selectAction();
     }
 
-    public List<Role> selectTargets(Action action, List<Troop> troops) {
-        // Implementation for hero target selection
-        return null;
+    public List<Role> SelectTargets(Action action, List<Role> candidates) {
+        int targetCount = action.getTargetCount();
+
+        System.out.print("選擇" + targetCount + "位目標：");
+
+        for (int i = 0; i < candidates.size(); i++) {
+            System.out.print("(" + i + ") " + candidates.get(i).getName());
+            if (i < candidates.size() - 1) {
+                System.out.print(" ");
+            }
+        }
+
+        String[] parts = scanner.nextLine().split(",");
+        int[] choices = new int[parts.length];
+        for (int i = 0; i < parts.length; i++) {
+            choices[i] = Integer.parseInt(parts[i]);
+        }
+
+        if (choices.length != targetCount) {
+            return SelectTargets(action, candidates);
+        }
+
+        List<Role> selectedTargets = new ArrayList<>();
+        for (int choice : choices) {
+            selectedTargets.add(candidates.get(choice));
+        }
+
+        return selectedTargets;
     }
 }

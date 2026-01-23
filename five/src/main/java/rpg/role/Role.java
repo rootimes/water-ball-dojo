@@ -49,7 +49,6 @@ public abstract class Role {
 
     public void takeAction(Action action, List<Role> targets) {
         this.consumeMp(action.getMp());
-
         action.handle(targets, this);
     }
 
@@ -59,6 +58,10 @@ public abstract class Role {
 
     public boolean isAlive() {
         return this.hp > 0;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public int getHp() {
