@@ -8,16 +8,12 @@ import rpg.role.action.Action;
 public class ActionSeedStrategy implements AIActionStrategy {
 	@Override
 	public Action handle(List<Action> actions, AI role) {
-		int seed = role.getSeed();
-
-		Action action = actions.get(seed % actions.size());
-
-		if (role.hasEnoughMP(action.getMp())) {
+		Action action;
+		do {
+			int seed = role.getSeed();
+			action = actions.get(seed % actions.size());
 			role.increaseSeed();
-			return action;
-		} else {
-			role.increaseSeed();
-			return handle(actions, role);
-		}
+		} while (!role.hasEnoughMP(action.getMp()));
+		return action;
 	}
 }

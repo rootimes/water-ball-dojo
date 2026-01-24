@@ -25,6 +25,8 @@ public class Hero extends Role {
 			System.out.printf("(%d) %s ", i, getActionName(i));
 		}
 
+		System.out.print("\n");
+
 		int choice = scanner.nextInt();
 		scanner.nextLine();
 
@@ -42,13 +44,15 @@ public class Hero extends Role {
 
 		for (int i = 0; i < candidates.size(); i++) {
 			Role role = candidates.get(i);
-			System.out.printf("(%d) %s", i, role.getName());
+			System.out.printf("(%d) [%d]%s ", i, role.getTroopNumber(), role.getName());
 		}
+
+		System.out.print("\n");
 
 		String[] parts = scanner.nextLine().split(",");
 		int[] choices = new int[parts.length];
 		for (int i = 0; i < parts.length; i++) {
-			choices[i] = Integer.parseInt(parts[i]);
+			choices[i] = Integer.parseInt(parts[i].trim());
 		}
 
 		if (choices.length != targetCount) {
