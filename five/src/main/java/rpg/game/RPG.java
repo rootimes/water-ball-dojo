@@ -31,30 +31,32 @@ public class RPG {
 
 		setup();
 
-		for (Troop troop : troops) {
-			for (int i = 0; i < troop.size(); i++) {
-				if (isGameOver()) {
-					return;
-				}
+		while (!isGameOver()) {
+			for (Troop troop : troops) {
+				for (int i = 0; i < troop.size(); i++) {
+					if (isGameOver()) {
+						return;
+					}
 
-				Role role = troop.get(i);
+					Role role = troop.get(i);
 
-				if (!role.isAlive()) {
-					continue;
-				}
+					if (!role.isAlive()) {
+						continue;
+					}
 
-				if (role.canMove()) {
 					System.out.printf("輪到 [%d]%s (HP: %d, MP: %d, STR: %d, State: %s)。\n", role.getTroopNumber(),
 							role.getName(), role.getHp(), role.getMp(), role.getStr(), role.getStateName());
-					role.onTurnStart();
+					if (role.canMove()) {
+						role.onTurnStart();
 
-					Action action = S1(role);
+						Action action = S1(role);
 
-					List<Role> targets = S2(action, role);
+						List<Role> targets = S2(action, role);
 
-					s3(action, targets, role);
+						s3(action, targets, role);
 
-					role.onTurnEnd();
+						role.onTurnEnd();
+					}
 				}
 			}
 		}
@@ -62,9 +64,9 @@ public class RPG {
 
 	public void end() {
 		if (win) {
-			System.out.println("你獲勝了！");
+			System.out.print("你獲勝了！");
 		} else {
-			System.out.println("你失敗了！");
+			System.out.print("你失敗了！");
 		}
 	}
 
@@ -72,7 +74,7 @@ public class RPG {
 		Action action = role.selectAction();
 
 		while (!role.hasEnoughMP(action.getMp())) {
-			System.out.println("你缺乏 MP，不能進行此行動。");
+			System.out.println("MP 不足，請重新選擇行動。");
 			action = role.selectAction();
 		}
 		return action;
@@ -83,7 +85,7 @@ public class RPG {
 
 		int targetCount = action.getTargetCount();
 
-		if (targetCount > candidates.size()) {
+		if (targetCount >= candidates.size()) {
 			return candidates;
 		} else if (targetCount == 0) {
 			return List.of();
@@ -110,33 +112,49 @@ public class RPG {
 	}
 
 	private void setup() {
-		String input = skipComments();
-		Hero hero = new Hero(input, T1);
+		moveToSectionStart("軍隊-1");
+
+		String heroLine = nextNonCommentNonBlankLine();
+		Hero hero = new Hero(heroLine, T1);
 		hero.setScanner(this.scanner);
 		T1.add(hero);
 
-		readTroopMembers(T1);
-		readTroopMembers(T2);
+		readTroopMembersUntilEnd(T1, "軍隊-1");
+
+		moveToSectionStart("軍隊-2");
+		readTroopMembersUntilEnd(T2, "軍隊-2");
 	}
 
-	private String skipComments() {
-		String input = scanner.nextLine();
-		while (input.contains("#")) {
-			input = scanner.nextLine();
+	private void moveToSectionStart(String troopTag) {
+		String line = scanner.nextLine();
+		while (!(line.startsWith("#") && line.contains(troopTag) && line.contains("開始"))) {
+			line = scanner.nextLine();
 		}
-		return input;
 	}
 
-	private void readTroopMembers(Troop troop) {
-		String input = scanner.nextLine();
-		while (input.contains("#")) {
-			input = scanner.nextLine();
+	private String nextNonCommentNonBlankLine() {
+		String line = scanner.nextLine();
+		while (line.isBlank() || line.startsWith("#")) {
+			line = scanner.nextLine();
 		}
-		while (!input.contains("結束")) {
-			AI ai = new AI(input, troop);
-			ai.setAIStrategies(new ActionSeedStrategy(), new TargetSeedStrategy());
-			troop.add(ai);
-			input = scanner.nextLine();
+		return line;
+	}
+
+	private void readTroopMembersUntilEnd(Troop troop, String troopTag) {
+		String line = scanner.nextLine();
+
+		while (true) {
+			if (line.startsWith("#") && line.contains(troopTag) && line.contains("結束")) {
+				break;
+			}
+
+			if (!line.isBlank() && !line.startsWith("#")) {
+				AI ai = new AI(line, troop);
+				ai.setAIStrategies(new ActionSeedStrategy(), new TargetSeedStrategy());
+				troop.add(ai);
+			}
+
+			line = scanner.nextLine();
 		}
 	}
 }
