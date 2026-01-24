@@ -34,6 +34,11 @@ public class AI extends Role {
 
 	@Override
 	public Action selectAction() {
+		System.out.print("選擇行動：");
+
+		for (int i = 0; i < getActionsSize(); i++) {
+			System.out.printf("(%d) %s ", i, getActionName(i));
+		}
 		return this.actionStrategy.handle(this.actions, this);
 	}
 

@@ -1,7 +1,5 @@
 package rpg.role.action;
 
-import java.util.List;
-
 import rpg.role.Role;
 import rpg.role.observer.CurseObserver;
 
@@ -20,9 +18,8 @@ public class CurseSkill extends Action {
 	}
 
 	@Override
-	public int effect(Role target, Role self) {
+	public void effect(Role target, Role self) {
 		target.registerDeathObserver(new CurseObserver(self), self);
-		return 0;
 	}
 
 }

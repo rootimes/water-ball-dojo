@@ -30,6 +30,12 @@ public class SelfHealingSkill extends Action {
 	}
 
 	@Override
+	protected void printAttackInfo(List<Role> targets, Role self) {
+		System.out.printf("[%d]%s 使用了 %s。\n", self.getTroopNumber(), self.getName(),
+				this.getName());
+	}
+
+	@Override
 	protected void effect(Role target, Role self) {
 		self.heal(str);
 	}

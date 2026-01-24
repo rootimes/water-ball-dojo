@@ -1,5 +1,6 @@
 package rpg.role.action;
 
+import java.util.List;
 import rpg.role.Role;
 
 public class BasicAttack extends Action {
@@ -15,9 +16,11 @@ public class BasicAttack extends Action {
 	}
 
 	@Override
-	protected int effect(Role target, Role self) {
-		int damage = self.adjustDamage(this.str);
-		target.takeDamage(damage);
-		return damage;
+	protected void printAttackInfo(List<Role> targets, Role self) {
+		Role target = targets.get(0);
+
+		System.out.printf("[%d]%s 攻擊 [%d]%s。\n", self.getTroopNumber(), self.getName(),
+				target.getTroopNumber(), target.getName());
 	}
+
 }

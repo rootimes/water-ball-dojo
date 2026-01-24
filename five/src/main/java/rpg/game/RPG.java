@@ -44,9 +44,8 @@ public class RPG {
 				}
 
 				if (role.canMove()) {
-					System.out.printf("輪到 [%d]%s (HP: %d, MP: %d, STR: %d, State: %s)。\n",
-							troops.indexOf(troop) + 1, role.getName(), role.getHp(), role.getMp(), role.getStr(),
-							role.getStateName());
+					System.out.printf("輪到 [%d]%s (HP: %d, MP: %d, STR: %d, State: %s)。\n", role.getTroopNumber(),
+							role.getName(), role.getHp(), role.getMp(), role.getStr(), role.getStateName());
 					role.onTurnStart();
 
 					Action action = S1(role);
@@ -73,6 +72,7 @@ public class RPG {
 		Action action = role.selectAction();
 
 		while (!role.hasEnoughMP(action.getMp())) {
+			System.out.println("你缺乏 MP，不能進行此行動。");
 			action = role.selectAction();
 		}
 		return action;
@@ -81,11 +81,11 @@ public class RPG {
 	private List<Role> S2(Action action, Role role) {
 		List<Role> candidates = action.getCandidates(troops, role);
 
-		int actionTargetCount = action.getTargetCount();
+		int targetCount = action.getTargetCount();
 
-		if (exceedsAvailableCandidates(candidates, actionTargetCount)) {
+		if (targetCount > candidates.size()) {
 			return candidates;
-		} else if (actionTargetCount == 0) {
+		} else if (targetCount == 0) {
 			return List.of();
 		}
 
@@ -106,13 +106,6 @@ public class RPG {
 			return true;
 		}
 
-		return false;
-	}
-
-	private boolean exceedsAvailableCandidates(List<Role> candidates, int targetCount) {
-		if (targetCount > candidates.size()) {
-			return true;
-		}
 		return false;
 	}
 

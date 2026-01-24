@@ -1,7 +1,5 @@
 package rpg.role.action;
 
-import rpg.role.Role;
-
 public class WaterBallSkill extends Action {
 
 	private static final String NAME = "水球";
@@ -14,12 +12,5 @@ public class WaterBallSkill extends Action {
 
 	public WaterBallSkill() {
 		super(NAME, MP_COST, STR, TARGET_COUNT);
-	}
-
-	@Override
-	protected int effect(Role target, Role self) {
-		int damage = self.adjustDamage(STR);
-		target.takeDamage(damage);
-		return damage;
 	}
 }

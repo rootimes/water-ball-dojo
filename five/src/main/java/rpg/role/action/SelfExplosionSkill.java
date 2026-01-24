@@ -25,9 +25,4 @@ public class SelfExplosionSkill extends Action {
 		}
 		self.die();
 	}
-
-	@Override
-	protected void effect(Role target, Role self) {
-		target.takeDamage(self.adjustDamage(str));
-	}
 }

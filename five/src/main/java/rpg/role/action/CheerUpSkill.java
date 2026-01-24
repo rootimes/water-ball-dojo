@@ -30,8 +30,7 @@ public class CheerUpSkill extends Action {
 		return allies;
 	}
 
-	public int effect(Role target, Role self) {
+	public void effect(Role target, Role self) {
 		target.enterState(new CheerUpState());
-		return 0;
 	}
 }

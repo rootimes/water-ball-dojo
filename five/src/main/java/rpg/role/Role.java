@@ -55,6 +55,10 @@ public abstract class Role {
 		return troop;
 	}
 
+	public int getTroopNumber() {
+		return troop.getNumber();
+	}
+
 	public boolean isAlive() {
 		return this.hp > 0;
 	}
@@ -77,6 +81,10 @@ public abstract class Role {
 
 	protected Action getAction(int index) {
 		return actions.get(index);
+	}
+
+	protected String getActionName(int index) {
+		return actions.get(index).getName();
 	}
 
 	protected int getActionsSize() {
