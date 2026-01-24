@@ -49,7 +49,7 @@ public class AI extends Role {
 	}
 
 	@Override
-	public List<Role> SelectTargets(Action action, List<Role> candidates) {
+	public List<Role> selectTargets(Action action, List<Role> candidates) {
 		return this.targetStrategy.handle(action, candidates, this);
 	}
 }

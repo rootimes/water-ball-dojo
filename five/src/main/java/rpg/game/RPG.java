@@ -94,7 +94,7 @@ public class RPG {
 			return List.of();
 		}
 
-		return role.SelectTargets(action, candidates);
+		return role.selectTargets(action, candidates);
 	}
 
 	private void s3(Action action, List<Role> targets, Role role) {

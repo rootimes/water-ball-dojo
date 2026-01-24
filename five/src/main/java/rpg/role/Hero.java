@@ -18,17 +18,19 @@ public class Hero extends Role {
 		super(input, troop);
 	}
 
+	@Override
 	public Action selectAction() {
 		System.out.print("選擇行動：");
-
 		for (int i = 0; i < getActionsSize(); i++) {
 			System.out.printf("(%d) %s", i, getActionName(i));
-			if (i < getActionsSize() - 1) {
+			if (i < getActionsSize() - 1)
 				System.out.print(" ");
-			}
 		}
-
 		System.out.println();
+
+		if (!scanner.hasNextLine()) {
+			throw new IllegalStateException("沒有更多輸入可讀（測試 .in 不足）");
+		}
 
 		int choice = scanner.nextInt();
 		scanner.nextLine();
@@ -37,10 +39,13 @@ public class Hero extends Role {
 			return getAction(choice);
 		}
 
+		System.out.println("輸入超出範圍，請重新選擇行動。");
+
 		return selectAction();
 	}
 
-	public List<Role> SelectTargets(Action action, List<Role> candidates) {
+	@Override
+	public List<Role> selectTargets(Action action, List<Role> candidates) {
 		int targetCount = action.getTargetCount();
 
 		System.out.printf("選擇 %d 位目標: ", targetCount);
@@ -62,7 +67,7 @@ public class Hero extends Role {
 		}
 
 		if (choices.length != targetCount) {
-			return SelectTargets(action, candidates);
+			return selectTargets(action, candidates);
 		}
 
 		List<Role> selectedTargets = new ArrayList<>();

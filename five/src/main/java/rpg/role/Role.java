@@ -46,7 +46,7 @@ public abstract class Role {
 
 	public abstract Action selectAction();
 
-	public abstract List<Role> SelectTargets(Action action, List<Role> candidates);
+	public abstract List<Role> selectTargets(Action action, List<Role> candidates);
 
 	public void takeAction(Action action, List<Role> targets) {
 		this.consumeMp(action.getMp());
