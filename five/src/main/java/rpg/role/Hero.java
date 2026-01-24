@@ -22,10 +22,13 @@ public class Hero extends Role {
 		System.out.print("選擇行動：");
 
 		for (int i = 0; i < getActionsSize(); i++) {
-			System.out.printf("(%d) %s ", i, getActionName(i));
+			System.out.printf("(%d) %s", i, getActionName(i));
+			if (i < getActionsSize() - 1) {
+				System.out.print(" ");
+			}
 		}
 
-		System.out.print("\n");
+		System.out.println();
 
 		int choice = scanner.nextInt();
 		scanner.nextLine();
@@ -40,14 +43,17 @@ public class Hero extends Role {
 	public List<Role> SelectTargets(Action action, List<Role> candidates) {
 		int targetCount = action.getTargetCount();
 
-		System.out.printf("選擇 %d 位目標：", targetCount);
+		System.out.printf("選擇 %d 位目標: ", targetCount);
 
 		for (int i = 0; i < candidates.size(); i++) {
 			Role role = candidates.get(i);
-			System.out.printf("(%d) [%d]%s ", i, role.getTroopNumber(), role.getName());
+			System.out.printf("(%d) [%d]%s", i, role.getTroopNumber(), role.getName());
+			if (i < candidates.size() - 1) {
+				System.out.print(" ");
+			}
 		}
 
-		System.out.print("\n");
+		System.out.println();
 
 		String[] parts = scanner.nextLine().split(",");
 		int[] choices = new int[parts.length];

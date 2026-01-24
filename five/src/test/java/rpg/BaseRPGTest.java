@@ -39,14 +39,27 @@ public abstract class BaseRPGTest {
 		setInputStream(scenario + ".in");
 		String expected = getExpectedString(scenario + ".out");
 
-		Main.main(new String[0]);
-		String actual = outContent.toString(StandardCharsets.UTF_8).replaceAll("\\r\\n", "\\n");
+		Throwable thrown = null;
+		String actual = null;
 
 		try {
-			Files.write(Paths.get("target/expected.txt"), expected.getBytes(StandardCharsets.UTF_8));
-			Files.write(Paths.get("target/actual.txt"), actual.getBytes(StandardCharsets.UTF_8));
-		} catch (IOException e) {
-			e.printStackTrace();
+			Main.main(new String[0]);
+		} catch (Throwable t) {
+			thrown = t;
+		} finally {
+			actual = outContent.toString(StandardCharsets.UTF_8).replaceAll("\r\n", "\n");
+			try {
+				Files.write(Paths.get("target/expected.txt"), expected.getBytes(StandardCharsets.UTF_8));
+				Files.write(Paths.get("target/actual_partial.txt"), actual.getBytes(StandardCharsets.UTF_8));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (thrown != null) {
+			throw new AssertionError(
+					"程式執行中拋出例外；已輸出部分結果到 target/actual_partial.txt",
+					thrown);
 		}
 		assertEquals(expected, actual);
 	}

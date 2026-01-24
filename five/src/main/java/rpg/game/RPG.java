@@ -64,9 +64,9 @@ public class RPG {
 
 	public void end() {
 		if (win) {
-			System.out.print("你獲勝了！");
+			System.out.println("你獲勝了！");
 		} else {
-			System.out.print("你失敗了！");
+			System.out.println("你失敗了！");
 		}
 	}
 

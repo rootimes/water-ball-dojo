@@ -7,7 +7,7 @@ public class PetrochemicalSkill extends Action {
 
 	private static final String NAME = "石化";
 
-	private static final int MP_COST = 0;
+	private static final int MP_COST = 100;
 
 	private static final int STR = 0;
 

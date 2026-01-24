@@ -37,10 +37,13 @@ public class AI extends Role {
 		System.out.print("選擇行動：");
 
 		for (int i = 0; i < getActionsSize(); i++) {
-			System.out.printf("(%d) %s ", i, getActionName(i));
+			System.out.printf("(%d) %s", i, getActionName(i));
+			if (i < getActionsSize() - 1) {
+				System.out.print(" ");
+			}
 		}
 
-		System.out.print("\n");
+		System.out.println();
 
 		return this.actionStrategy.handle(this.actions, this);
 	}
