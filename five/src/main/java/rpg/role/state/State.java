@@ -5,8 +5,10 @@ import rpg.role.Role;
 public abstract class State {
 	protected int round;
 
+	protected String name;
+
 	public String getName() {
-		return this.getClass().getSimpleName();
+		return name;
 	}
 
 	public void enter() {

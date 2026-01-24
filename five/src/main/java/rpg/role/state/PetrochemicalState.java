@@ -4,7 +4,14 @@ import rpg.role.Role;
 
 public class PetrochemicalState extends State {
 
-	private int round;
+	private static final String NAME = "石化";
+
+	private static final int ROUND = 3;
+
+	public PetrochemicalState() {
+		this.name = NAME;
+		this.round = ROUND;
+	}
 
 	public void enter() {
 		this.round = 3;

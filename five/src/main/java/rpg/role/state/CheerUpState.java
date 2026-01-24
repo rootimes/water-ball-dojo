@@ -3,10 +3,17 @@ package rpg.role.state;
 public class CheerUpState extends State {
 	private static final int EXT_STR = 50;
 
-	private int round;
+	private static final String NAME = "鼓舞";
+	
+	private static final int ROUND = 3;
+
+	public CheerUpState() {
+		this.name = NAME;
+		this.round = ROUND;
+	}
 
 	public void enter() {
-		this.round = 3;
+		this.round = ROUND;
 	}
 
 	public int adjustDamage(int damage) {
