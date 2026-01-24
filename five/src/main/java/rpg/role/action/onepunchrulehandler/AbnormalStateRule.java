@@ -12,22 +12,23 @@ public class AbnormalStateRule extends OnePunchRuleHandler {
 		super(next);
 	}
 
-	public void handle(Role target, Role self) {
-		if (isAbnormalState(target)) {
-			for (int i = 0; i < 3; i++) {
-				int damage = self.adjustDamage(STR);
-				target.takeDamage(damage);
-			}
-			return;
-		}
+	@Override
+	protected void effect(Role target, Role self) {
+		for (int i = 0; i < 3; i++) {
+			int damage = self.adjustDamage(STR);
+			target.takeDamage(damage);
+			printDamage(target, self, damage);
+			printDie(target, self);
 
-		if (next != null) {
-			next.handle(target, self);
+			if (!target.isAlive()) {
+				break;
+			}
 		}
 	}
 
-	private boolean isAbnormalState(Role target) {
+	@Override
+	protected boolean shouldApply(Role target, Role self) {
 		List<String> abnormalStates = List.of("PoisonedState", "PetrochemicalState");
-		return abnormalStates.contains(target.getStateName());
+		return abnormalStates.contains(target.getStateClassName());
 	}
 }

@@ -11,20 +11,17 @@ public class CheerUpStateRule extends OnePunchRuleHandler {
 		super(next);
 	}
 
-	public void handle(Role target, Role self) {
-		if (isCheerUpState(target)) {
-			int damage = self.adjustDamage(STR);
-			target.takeDamage(damage);
-			target.enterState(new NormalState());
-			return;
-		}
-
-		if (next != null) {
-			next.handle(target, self);
-		}
+	@Override
+	protected void effect(Role target, Role self) {
+		int damage = self.adjustDamage(STR);
+		target.takeDamage(damage);
+		printDamage(target, self, damage);
+		target.enterState(new NormalState());
+		printDie(target, self);
 	}
 
-	private boolean isCheerUpState(Role target) {
+	@Override
+	protected boolean shouldApply(Role target, Role self) {
 		return target.getStateName().equals("CheerUpState");
 	}
 }
