@@ -34,8 +34,10 @@ public abstract class Role {
 		this.actions.add(new BasicAttack(this.str));
 
 		if (parts.length > 4) {
-			String skillName = parts[4];
-			this.actions.add(createSkill(skillName));
+			for (int i = 4; i < parts.length; i++) {
+				String skillName = parts[i];
+				this.actions.add(createSkill(skillName));
+			}
 		}
 
 		this.state = new NormalState();
