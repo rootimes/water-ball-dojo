@@ -65,11 +65,13 @@ public abstract class Action implements ActionInterface {
 	protected void effect(Role target, Role self) {
 		int damage = self.adjustDamage(this.str);
 
+		target.takeDamage(damage);
+
 		System.out.printf("[%d]%s 對 [%d]%s 造成 %d 點傷害。\n", self.getTroopNumber(), self.getName(),
 				target.getTroopNumber(), target.getName(), damage);
 
 		if (!target.isAlive()) {
-			System.out.printf("[%d]%s 死亡\n", target.getTroopNumber(), target.getName());
+			System.out.printf("[%d]%s 死亡。\n", target.getTroopNumber(), target.getName());
 		}
 	}
 }
