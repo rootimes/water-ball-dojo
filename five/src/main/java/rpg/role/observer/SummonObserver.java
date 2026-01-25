@@ -13,7 +13,7 @@ public class SummonObserver implements DeathObserver {
 	}
 
 	@Override
-	public void update(int effect) {
+	public void update(int value) {
 		if (summoner.isAlive()) {
 			summoner.heal(HEAL_AMOUNT);
 		}

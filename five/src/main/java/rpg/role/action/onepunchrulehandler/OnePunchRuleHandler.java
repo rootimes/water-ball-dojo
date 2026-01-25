@@ -33,6 +33,7 @@ public abstract class OnePunchRuleHandler {
 	protected void printDie(Role target, Role self) {
 		if (!target.isAlive()) {
 			System.out.printf("[%d]%s 死亡。\n", target.getTroopNumber(), target.getName());
+			target.die();
 		}
 	}
 }

@@ -94,7 +94,12 @@ public abstract class Role {
 	}
 
 	public boolean hasEnoughMP(int cost) {
-		return this.mp >= cost;
+		if (this.mp < cost) {
+			System.out.println("你缺乏 MP，不能進行此行動。");
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	public void takeDamage(int damage) {

@@ -11,9 +11,9 @@ public class CurseObserver implements DeathObserver {
 	}
 
 	@Override
-	public void update(int effect) {
+	public void update(int value) {
 		if (caster.isAlive()) {
-			caster.heal(effect);
+			caster.heal(value);
 		}
 	}
 }

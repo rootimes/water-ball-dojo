@@ -1,6 +1,8 @@
 package rpg.role.action;
 
 import java.util.List;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import rpg.role.Role;
 import rpg.troop.Troop;
@@ -52,14 +54,20 @@ public abstract class Action implements ActionInterface {
 	};
 
 	protected void printAttackInfo(List<Role> targets, Role self) {
+
 		StringBuilder sb = new StringBuilder();
-
+		StringJoiner joiner = new StringJoiner(", ");
 		for (Role target : targets) {
-			sb.append(String.format(" [%d]%s", target.getTroopNumber(), target.getName()));
+			joiner.add(String.format("[%d]%s", target.getTroopNumber(), target.getName()));
 		}
+		sb.append(joiner.toString());
 
-		System.out.printf("[%d]%s 對 %s 使用了 %s。\n", self.getTroopNumber(), self.getName(), sb.toString(),
-				this.getName());
+		if (targets.isEmpty()) {
+			System.out.printf("[%d]%s 使用了 %s。\n", self.getTroopNumber(), self.getName(), this.getName());
+		} else {
+			System.out.printf("[%d]%s 對 %s 使用了 %s。\n", self.getTroopNumber(), self.getName(), sb.toString(),
+					this.getName());
+		}
 	}
 
 	protected void effect(Role target, Role self) {
@@ -72,6 +80,7 @@ public abstract class Action implements ActionInterface {
 
 		if (!target.isAlive()) {
 			System.out.printf("[%d]%s 死亡。\n", target.getTroopNumber(), target.getName());
+			target.die();
 		}
 	}
 }

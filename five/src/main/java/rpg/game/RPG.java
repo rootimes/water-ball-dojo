@@ -73,11 +73,8 @@ public class RPG {
 	private Action S1(Role role) {
 		Action action = role.selectAction();
 
-		if (role instanceof Hero) {
-			while (!role.hasEnoughMP(action.getMp())) {
-				System.out.println("MP 不足，請重新選擇行動。");
-				action = role.selectAction();
-			}
+		while (!role.hasEnoughMP(action.getMp())) {
+			action = role.selectAction();
 		}
 
 		return action;
