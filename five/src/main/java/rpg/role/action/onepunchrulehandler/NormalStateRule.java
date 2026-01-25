@@ -20,6 +20,6 @@ public class NormalStateRule extends OnePunchRuleHandler {
 
 	@Override
 	protected boolean shouldApply(Role target, Role self) {
-		return target.getStateName().equals("NormalState");
+		return target.getStateClassName().equals("NormalState");
 	}
 }

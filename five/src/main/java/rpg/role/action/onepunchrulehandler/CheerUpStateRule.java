@@ -22,6 +22,6 @@ public class CheerUpStateRule extends OnePunchRuleHandler {
 
 	@Override
 	protected boolean shouldApply(Role target, Role self) {
-		return target.getStateName().equals("CheerUpState");
+		return target.getStateClassName().equals("CheerUpState");
 	}
 }
