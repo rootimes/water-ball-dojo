@@ -7,9 +7,9 @@ import rpg.troop.Troop;
 
 public interface ActionInterface {
 
-	public abstract void handle(List<Role> targets, Role self);
+  public abstract void handle(List<Role> targets, Role self);
 
-	public abstract int getMp();
+  public abstract int getMp();
 
-	public abstract List<Role> getCandidates(List<Troop> troops, Role self);
+  public abstract List<Role> getCandidates(List<Troop> troops, Role self);
 }

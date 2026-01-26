@@ -3,38 +3,40 @@ package rpg.role.state;
 import rpg.role.Role;
 
 public abstract class State {
-	protected int round;
+  protected int round;
 
-	protected String name;
+  protected String name;
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void enter() {
-	};
+  public void enter() {}
+  ;
 
-	public void exit() {
-		this.round = 0;
-	};
+  public void exit() {
+    this.round = 0;
+  }
+  ;
 
-	public void onTurnStart(Role self) {
-	};
+  public void onTurnStart(Role self) {}
+  ;
 
-	public boolean canMove(Role self) {
-		return true;
-	};
+  public boolean canMove(Role self) {
+    return true;
+  }
+  ;
 
-	public int adjustDamage(int damage) {
-		return damage;
-	}
+  public int adjustDamage(int damage) {
+    return damage;
+  }
 
-	public void onTurnEnd(Role self) {
-		if (this.round > 0) {
-			this.round--;
-			if (this.round == 0) {
-				self.enterState(new NormalState());
-			}
-		}
-	}
+  public void onTurnEnd(Role self) {
+    if (this.round > 0) {
+      this.round--;
+      if (this.round == 0) {
+        self.enterState(new NormalState());
+      }
+    }
+  }
 }

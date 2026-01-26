@@ -5,22 +5,22 @@ import rpg.role.state.NormalState;
 
 public class CheerUpStateRule extends OnePunchRuleHandler {
 
-	private static final int STR = 100;
+  private static final int STR = 100;
 
-	public CheerUpStateRule(OnePunchRuleHandler next) {
-		super(next);
-	}
+  public CheerUpStateRule(OnePunchRuleHandler next) {
+    super(next);
+  }
 
-	@Override
-	protected void effect(Role target, Role self) {
-		int damage = self.adjustDamage(STR);
-		printDamage(target, self, damage);
-		target.takeDamage(damage);
-		target.enterState(new NormalState());
-	}
+  @Override
+  protected void effect(Role target, Role self) {
+    int damage = self.adjustDamage(STR);
+    printDamage(target, self, damage);
+    target.takeDamage(damage);
+    target.enterState(new NormalState());
+  }
 
-	@Override
-	protected boolean shouldApply(Role target, Role self) {
-		return target.getStateClassName().equals("CheerUpState");
-	}
+  @Override
+  protected boolean shouldApply(Role target, Role self) {
+    return target.getStateClassName().equals("CheerUpState");
+  }
 }
