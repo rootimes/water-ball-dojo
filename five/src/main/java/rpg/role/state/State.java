@@ -12,7 +12,6 @@ public abstract class State {
 	}
 
 	public void enter() {
-		this.round = 0;
 	};
 
 	public void exit() {

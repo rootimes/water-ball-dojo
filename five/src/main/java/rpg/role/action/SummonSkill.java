@@ -27,12 +27,7 @@ public class SummonSkill extends Action {
 	}
 
 	@Override
-	public void handle(List<Role> targets, Role self) {
-		effect(self, self);
-	}
-
-	@Override
-	protected void printAttackInfo(List<Role> targets, Role self) {
+	protected void printActionInfo(List<Role> targets, Role self) {
 		System.out.printf("[%d]%s 使用了 %s。\n", self.getTroopNumber(), self.getName(), this.getName());
 	}
 

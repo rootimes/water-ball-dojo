@@ -13,7 +13,6 @@ public abstract class OnePunchRuleHandler {
 	public void handle(Role target, Role self) {
 		if (shouldApply(target, self)) {
 			effect(target, self);
-			return;
 		}
 
 		if (next != null) {
@@ -28,12 +27,5 @@ public abstract class OnePunchRuleHandler {
 	protected void printDamage(Role target, Role self, int damage) {
 		System.out.printf("[%d]%s 對 [%d]%s 造成 %d 點傷害。\n", self.getTroopNumber(), self.getName(),
 				target.getTroopNumber(), target.getName(), damage);
-	}
-
-	protected void printDie(Role target, Role self) {
-		if (!target.isAlive()) {
-			System.out.printf("[%d]%s 死亡。\n", target.getTroopNumber(), target.getName());
-			target.die();
-		}
 	}
 }

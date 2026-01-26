@@ -104,6 +104,10 @@ public abstract class Role {
 
 	public void takeDamage(int damage) {
 		this.hp -= damage;
+
+		if (this.hp <= 0) {
+			die();
+		}
 	}
 
 	public void consumeMp(int cost) {
@@ -116,6 +120,8 @@ public abstract class Role {
 
 	public void die() {
 		this.hp = 0;
+		enterState(new NormalState());
+		System.out.printf("[%d]%s 死亡。\n", this.getTroopNumber(), this.getName());
 		notifyDeathObservers();
 	}
 

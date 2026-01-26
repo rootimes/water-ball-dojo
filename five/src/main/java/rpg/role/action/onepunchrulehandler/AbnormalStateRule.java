@@ -16,10 +16,8 @@ public class AbnormalStateRule extends OnePunchRuleHandler {
 	protected void effect(Role target, Role self) {
 		for (int i = 0; i < 3; i++) {
 			int damage = self.adjustDamage(STR);
-			target.takeDamage(damage);
 			printDamage(target, self, damage);
-			printDie(target, self);
-
+			target.takeDamage(damage);
 			if (!target.isAlive()) {
 				break;
 			}

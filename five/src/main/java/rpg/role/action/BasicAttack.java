@@ -17,7 +17,7 @@ public class BasicAttack extends Action {
 	}
 
 	@Override
-	protected void printAttackInfo(List<Role> targets, Role self) {
+	protected void printActionInfo(List<Role> targets, Role self) {
 		Role target = targets.get(0);
 
 		System.out.printf("[%d]%s 攻擊 [%d]%s。\n", self.getTroopNumber(), self.getName(), target.getTroopNumber(),

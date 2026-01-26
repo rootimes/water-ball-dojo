@@ -13,9 +13,8 @@ public class HighHpRule extends OnePunchRuleHandler {
 	@Override
 	protected void effect(Role target, Role self) {
 		int damage = self.adjustDamage(STR);
-		target.takeDamage(damage);
 		printDamage(target, self, damage);
-		printDie(target, self);
+		target.takeDamage(damage);
 	}
 
 	@Override

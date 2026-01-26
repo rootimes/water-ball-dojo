@@ -14,10 +14,9 @@ public class CheerUpStateRule extends OnePunchRuleHandler {
 	@Override
 	protected void effect(Role target, Role self) {
 		int damage = self.adjustDamage(STR);
-		target.takeDamage(damage);
 		printDamage(target, self, damage);
+		target.takeDamage(damage);
 		target.enterState(new NormalState());
-		printDie(target, self);
 	}
 
 	@Override
