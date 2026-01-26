@@ -13,6 +13,12 @@ public class AbnormalStateRule extends OnePunchRuleHandler {
   }
 
   @Override
+  protected boolean shouldApply(Role target, Role self) {
+    List<String> abnormalStates = List.of("PoisonedState", "PetrochemicalState");
+    return abnormalStates.contains(target.getStateClassName());
+  }
+
+  @Override
   protected void effect(Role target, Role self) {
     for (int i = 0; i < 3; i++) {
       int damage = self.adjustDamage(STR);
@@ -22,11 +28,5 @@ public class AbnormalStateRule extends OnePunchRuleHandler {
         break;
       }
     }
-  }
-
-  @Override
-  protected boolean shouldApply(Role target, Role self) {
-    List<String> abnormalStates = List.of("PoisonedState", "PetrochemicalState");
-    return abnormalStates.contains(target.getStateClassName());
   }
 }

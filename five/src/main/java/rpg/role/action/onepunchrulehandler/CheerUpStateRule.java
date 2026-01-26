@@ -12,15 +12,15 @@ public class CheerUpStateRule extends OnePunchRuleHandler {
   }
 
   @Override
+  protected boolean shouldApply(Role target, Role self) {
+    return target.getStateClassName().equals("CheerUpState");
+  }
+
+  @Override
   protected void effect(Role target, Role self) {
     int damage = self.adjustDamage(STR);
     printDamage(target, self, damage);
     target.takeDamage(damage);
     target.enterState(new NormalState());
-  }
-
-  @Override
-  protected boolean shouldApply(Role target, Role self) {
-    return target.getStateClassName().equals("CheerUpState");
   }
 }

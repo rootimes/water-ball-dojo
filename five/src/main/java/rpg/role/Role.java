@@ -53,53 +53,8 @@ public abstract class Role {
     action.handle(targets, this);
   }
 
-  public Troop getTroop() {
-    return troop;
-  }
-
-  public int getTroopNumber() {
-    return troop.getNumber();
-  }
-
   public boolean isAlive() {
     return this.hp > 0;
-  }
-
-  public String getName() {
-    return this.name;
-  }
-
-  public int getHp() {
-    return this.hp;
-  }
-
-  public int getMp() {
-    return this.mp;
-  }
-
-  public int getStr() {
-    return this.str;
-  }
-
-  protected Action getAction(int index) {
-    return actions.get(index);
-  }
-
-  protected String getActionName(int index) {
-    return actions.get(index).getName();
-  }
-
-  protected int getActionsSize() {
-    return actions.size();
-  }
-
-  public boolean hasEnoughMP(int cost) {
-    if (this.mp < cost) {
-      System.out.println("你缺乏 MP，不能進行此行動。");
-      return false;
-    } else {
-      return true;
-    }
   }
 
   public void takeDamage(int damage) {
@@ -132,14 +87,6 @@ public abstract class Role {
     return this.state.canMove(this);
   }
 
-  public String getStateClassName() {
-    return this.state.getClass().getSimpleName();
-  }
-
-  public String getStateName() {
-    return this.state.getName();
-  }
-
   public void enterState(State newState) {
     if (this.state != null) {
       this.state.exit();
@@ -168,6 +115,59 @@ public abstract class Role {
     for (DeathObserver observer : deathObservers.values()) {
       observer.update(this.mp);
     }
+  }
+
+  public boolean hasEnoughMP(int cost) {
+    if (this.mp < cost) {
+      System.out.println("你缺乏 MP，不能進行此行動。");
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  public Troop getTroop() {
+    return troop;
+  }
+
+  public int getTroopNumber() {
+    return troop.getNumber();
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public int getHp() {
+    return this.hp;
+  }
+
+  public int getMp() {
+    return this.mp;
+  }
+
+  public int getStr() {
+    return this.str;
+  }
+
+  public String getStateClassName() {
+    return this.state.getClass().getSimpleName();
+  }
+
+  public String getStateName() {
+    return this.state.getName();
+  }
+
+  protected Action getAction(int index) {
+    return actions.get(index);
+  }
+
+  protected String getActionName(int index) {
+    return actions.get(index).getName();
+  }
+
+  protected int getActionsSize() {
+    return actions.size();
   }
 
   private Action createSkill(String skillName) {

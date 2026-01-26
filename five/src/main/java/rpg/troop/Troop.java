@@ -9,14 +9,6 @@ public class Troop {
   private List<Role> roles = new ArrayList<>();
   private int number;
 
-  public void setNumber(int number) {
-    this.number = number;
-  }
-
-  public int getNumber() {
-    return number;
-  }
-
   public void add(Role role) {
     roles.add(role);
   }
@@ -29,10 +21,6 @@ public class Troop {
     return getAliveRoles().isEmpty();
   }
 
-  public Role get(int index) {
-    return roles.get(index);
-  }
-
   public List<Role> getAliveRoles() {
     List<Role> aliveRoles = new ArrayList<>();
     for (Role role : roles) {
@@ -41,5 +29,17 @@ public class Troop {
       }
     }
     return aliveRoles;
+  }
+
+  public void setNumber(int number) {
+    this.number = number;
+  }
+
+  public int getNumber() {
+    return number;
+  }
+
+  public Role get(int index) {
+    return roles.get(index);
   }
 }

@@ -10,10 +10,6 @@ import rpg.troop.Troop;
 public class Hero extends Role {
   private Scanner scanner;
 
-  public void setScanner(Scanner scanner) {
-    this.scanner = scanner;
-  }
-
   public Hero(String input, Troop troop) {
     super(input, troop);
   }
@@ -75,5 +71,9 @@ public class Hero extends Role {
     }
 
     return selectedTargets;
+  }
+
+  public void setScanner(Scanner scanner) {
+    this.scanner = scanner;
   }
 }

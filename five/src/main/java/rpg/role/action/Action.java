@@ -22,14 +22,6 @@ public abstract class Action implements ActionInterface {
     this.targetCount = targetCount;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public int getTargetCount() {
-    return targetCount;
-  }
-
   public List<Role> getCandidates(List<Troop> troops, Role self) {
     Troop ownTroop = self.getTroop();
 
@@ -48,10 +40,17 @@ public abstract class Action implements ActionInterface {
     }
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public int getTargetCount() {
+    return targetCount;
+  }
+
   public int getMp() {
     return mp;
   }
-  ;
 
   protected void printActionInfo(List<Role> targets, Role self) {
     StringBuilder sb = new StringBuilder();

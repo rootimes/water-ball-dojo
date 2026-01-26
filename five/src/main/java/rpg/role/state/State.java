@@ -7,25 +7,17 @@ public abstract class State {
 
   protected String name;
 
-  public String getName() {
-    return name;
-  }
-
   public void enter() {}
-  ;
 
   public void exit() {
     this.round = 0;
   }
-  ;
 
   public void onTurnStart(Role self) {}
-  ;
 
   public boolean canMove(Role self) {
     return true;
   }
-  ;
 
   public int adjustDamage(int damage) {
     return damage;
@@ -38,5 +30,9 @@ public abstract class State {
         self.enterState(new NormalState());
       }
     }
+  }
+
+  public String getName() {
+    return name;
   }
 }

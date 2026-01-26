@@ -11,14 +11,14 @@ public class HighHpRule extends OnePunchRuleHandler {
   }
 
   @Override
+  protected boolean shouldApply(Role target, Role self) {
+    return target.getHp() > 500;
+  }
+
+  @Override
   protected void effect(Role target, Role self) {
     int damage = self.adjustDamage(STR);
     printDamage(target, self, damage);
     target.takeDamage(damage);
-  }
-
-  @Override
-  protected boolean shouldApply(Role target, Role self) {
-    return target.getHp() > 500;
   }
 }

@@ -16,6 +16,10 @@ public class SelfExplosionSkill extends Action {
 
   private static final int TARGET_COUNT = Integer.MAX_VALUE;
 
+  public SelfExplosionSkill() {
+    super(NAME, MP_COST, STR, TARGET_COUNT);
+  }
+
   @Override
   public List<Role> getCandidates(List<Troop> troops, Role self) {
 
@@ -27,10 +31,6 @@ public class SelfExplosionSkill extends Action {
     }
 
     return roles;
-  }
-
-  public SelfExplosionSkill() {
-    super(NAME, MP_COST, STR, TARGET_COUNT);
   }
 
   @Override

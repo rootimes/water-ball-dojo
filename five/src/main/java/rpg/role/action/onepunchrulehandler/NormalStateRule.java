@@ -11,14 +11,14 @@ public class NormalStateRule extends OnePunchRuleHandler {
   }
 
   @Override
+  protected boolean shouldApply(Role target, Role self) {
+    return target.getStateClassName().equals("NormalState");
+  }
+
+  @Override
   protected void effect(Role target, Role self) {
     int damage = self.adjustDamage(STR);
     printDamage(target, self, damage);
     target.takeDamage(damage);
-  }
-
-  @Override
-  protected boolean shouldApply(Role target, Role self) {
-    return target.getStateClassName().equals("NormalState");
   }
 }

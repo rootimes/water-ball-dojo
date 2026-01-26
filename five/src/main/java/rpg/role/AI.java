@@ -19,10 +19,6 @@ public class AI extends Role {
     super(input, troop);
   }
 
-  public int getSeed() {
-    return seed;
-  }
-
   public int increaseSeed() {
     return ++seed;
   }
@@ -51,5 +47,9 @@ public class AI extends Role {
   @Override
   public List<Role> selectTargets(Action action, List<Role> candidates) {
     return this.targetStrategy.handle(action, candidates, this);
+  }
+
+  public int getSeed() {
+    return seed;
   }
 }
