@@ -14,7 +14,7 @@ public class PoisonedState extends State {
 		this.name = NAME;
 		this.round = ROUND;
 	}
-	
+
 	public void enter() {
 		this.round = 3;
 	}

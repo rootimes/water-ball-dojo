@@ -1,10 +1,5 @@
 package rpg.role.action;
 
-import java.util.List;
-
-import rpg.role.Role;
-import rpg.troop.Troop;
-
 public class FireBallSkill extends Action {
 
 	private static final String NAME = "火球";

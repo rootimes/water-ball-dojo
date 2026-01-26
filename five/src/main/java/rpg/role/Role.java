@@ -172,27 +172,27 @@ public abstract class Role {
 
 	private Action createSkill(String skillName) {
 		switch (skillName) {
-			case "鼓舞":
+			case "鼓舞" :
 				return new CheerUpSkill();
-			case "下毒":
+			case "下毒" :
 				return new PoisonSkill();
-			case "詛咒":
+			case "詛咒" :
 				return new CurseSkill();
-			case "石化":
+			case "石化" :
 				return new PetrochemicalSkill();
-			case "自我治療":
+			case "自我治療" :
 				return new SelfHealingSkill();
-			case "召喚":
+			case "召喚" :
 				return new SummonSkill();
-			case "一拳攻擊":
+			case "一拳攻擊" :
 				return new OnePunchSkill();
-			case "水球":
+			case "水球" :
 				return new WaterBallSkill();
-			case "火球":
+			case "火球" :
 				return new FireBallSkill();
-			case "自爆":
+			case "自爆" :
 				return new SelfExplosionSkill();
-			default:
+			default :
 				throw new IllegalArgumentException("Unknown skill: " + skillName);
 		}
 	}

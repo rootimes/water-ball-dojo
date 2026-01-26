@@ -57,9 +57,7 @@ public abstract class BaseRPGTest {
 		}
 
 		if (thrown != null) {
-			throw new AssertionError(
-					"程式執行中拋出例外；已輸出部分結果到 target/actual_partial.txt",
-					thrown);
+			throw new AssertionError("程式執行中拋出例外；已輸出部分結果到 target/actual_partial.txt", thrown);
 		}
 		assertEquals(expected, actual);
 	}
