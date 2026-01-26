@@ -126,6 +126,9 @@ public abstract class Role {
 	}
 
 	public boolean canMove() {
+		if (this.hp <= 0) {
+			return false;
+		}
 		return this.state.canMove(this);
 	}
 

@@ -46,8 +46,10 @@ public class RPG {
 
 					System.out.printf("輪到 [%d]%s (HP: %d, MP: %d, STR: %d, State: %s)。\n", role.getTroopNumber(),
 							role.getName(), role.getHp(), role.getMp(), role.getStr(), role.getStateName());
+
+					role.onTurnStart();
+
 					if (role.canMove()) {
-						role.onTurnStart();
 
 						Action action = S1(role);
 
@@ -55,8 +57,9 @@ public class RPG {
 
 						s3(action, targets, role);
 
-						role.onTurnEnd();
 					}
+
+					role.onTurnEnd();
 				}
 			}
 		}

@@ -13,6 +13,7 @@ public abstract class OnePunchRuleHandler {
 	public void handle(Role target, Role self) {
 		if (shouldApply(target, self)) {
 			effect(target, self);
+			return;
 		}
 
 		if (next != null) {
