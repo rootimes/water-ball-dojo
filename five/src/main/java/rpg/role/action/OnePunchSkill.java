@@ -12,12 +12,12 @@ public class OnePunchSkill extends Action {
 
   private static final int MP_COST = 180;
 
-  private static final int STR = 0;
+  private static final int STR = 100;
 
   private static final int TARGET_COUNT = 1;
 
   public OnePunchSkill() {
-    super(NAME, MP_COST, 0, TARGET_COUNT);
+    super(NAME, MP_COST, STR, TARGET_COUNT);
   }
 
   @Override

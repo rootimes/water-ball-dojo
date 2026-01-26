@@ -108,7 +108,7 @@ public class RPG {
 
   private boolean isGameOver() {
     Role hero = T1.get(0);
-    if (hero.isAlive() && T2.isEmpty()) {
+    if (hero.isAlive() && T2.isAnnihilated()) {
       this.win = true;
       return true;
     } else if (!hero.isAlive()) {
@@ -130,6 +130,7 @@ public class RPG {
     readTroopMembersUntilEnd(T1, "軍隊-1");
 
     moveToSectionStart("軍隊-2");
+
     readTroopMembersUntilEnd(T2, "軍隊-2");
   }
 

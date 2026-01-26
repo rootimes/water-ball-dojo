@@ -24,9 +24,7 @@ public abstract class Action implements ActionInterface {
 
   public List<Role> getCandidates(List<Troop> troops, Role self) {
     Troop ownTroop = self.getTroop();
-
     Troop enemyTroop = troops.stream().filter(troop -> troop != ownTroop).findFirst().orElse(null);
-
     List<Role> enemies = enemyTroop.getAliveRoles();
 
     return enemies;

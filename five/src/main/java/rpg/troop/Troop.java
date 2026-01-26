@@ -17,7 +17,7 @@ public class Troop {
     return roles.size();
   }
 
-  public boolean isEmpty() {
+  public boolean isAnnihilated() {
     return getAliveRoles().isEmpty();
   }
 

@@ -69,8 +69,8 @@ public abstract class Role {
     this.mp -= cost;
   }
 
-  public void heal(int amount) {
-    this.hp += amount;
+  public void heal(int value) {
+    this.hp += value;
   }
 
   public void die() {
