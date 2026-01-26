@@ -2,7 +2,6 @@ package rpg.role.action;
 
 import java.util.List;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 import rpg.role.Role;
 import rpg.troop.Troop;
