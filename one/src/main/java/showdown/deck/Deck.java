@@ -10,32 +10,32 @@ import showdown.card.Suit;
 
 public class Deck {
 
-    private final List<Card> cards = new ArrayList<>();
+  private final List<Card> cards = new ArrayList<>();
 
-    public Deck() {
-        for (Suit suit : Suit.values()) {
-            for (Rank rank : Rank.values()) {
-                cards.add(new Card(rank, suit));
-            }
-        }
+  public Deck() {
+    for (Suit suit : Suit.values()) {
+      for (Rank rank : Rank.values()) {
+        cards.add(new Card(rank, suit));
+      }
     }
+  }
 
-    public void shuffle() {
-        Collections.shuffle(cards);
-    }
+  public void shuffle() {
+    Collections.shuffle(cards);
+  }
 
-    public Card draw() {
-        if (this.isEmpty()) {
-            throw new IllegalStateException("No more cards.");
-        }
-        return cards.remove(cards.size() - 1);
+  public Card draw() {
+    if (this.isEmpty()) {
+      throw new IllegalStateException("No more cards.");
     }
+    return cards.remove(cards.size() - 1);
+  }
 
-    public int size() {
-        return cards.size();
-    }
+  public int size() {
+    return cards.size();
+  }
 
-    private boolean isEmpty() {
-        return cards.isEmpty();
-    }
+  private boolean isEmpty() {
+    return cards.isEmpty();
+  }
 }

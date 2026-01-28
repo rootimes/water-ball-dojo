@@ -1,72 +1,71 @@
 package bigTwo.cardpattern;
 
+import bigTwo.card.Card;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import bigTwo.card.Card;
-
 public class FullHouse extends CardPattern<FullHouse> {
 
-	public FullHouse(List<Card> cards) {
-		this.size = 5;
-		this.name = "葫蘆";
-		this.cards = cards;
-	}
+  public FullHouse(List<Card> cards) {
+    this.size = 5;
+    this.name = "葫蘆";
+    this.cards = cards;
+  }
 
-	@Override
-	protected int compareToSameType(FullHouse other) {
+  @Override
+  protected int compareToSameType(FullHouse other) {
 
-		int thisThreeRank = tripleRankValue(this.cards);
+    int thisThreeRank = tripleRankValue(this.cards);
 
-		int otherThreeRank = tripleRankValue(other.cards);
+    int otherThreeRank = tripleRankValue(other.cards);
 
-		return Integer.compare(thisThreeRank, otherThreeRank);
-	}
+    return Integer.compare(thisThreeRank, otherThreeRank);
+  }
 
-	@Override
-	public boolean validate(List<Card> cards) {
-		if (!isValidSize(cards)) {
-			return false;
-		}
+  @Override
+  public boolean validate(List<Card> cards) {
+    if (!isValidSize(cards)) {
+      return false;
+    }
 
-		Map<Integer, Integer> rankCount = new HashMap<>();
+    Map<Integer, Integer> rankCount = new HashMap<>();
 
-		for (Card card : cards) {
-			int rank = card.getRankValue();
-			rankCount.put(rank, rankCount.getOrDefault(rank, 0) + 1);
-		}
+    for (Card card : cards) {
+      int rank = card.getRankValue();
+      rankCount.put(rank, rankCount.getOrDefault(rank, 0) + 1);
+    }
 
-		if (rankCount.size() != 2) {
-			return false;
-		}
+    if (rankCount.size() != 2) {
+      return false;
+    }
 
-		boolean hasThree = false;
-		boolean hasTwo = false;
+    boolean hasThree = false;
+    boolean hasTwo = false;
 
-		for (int count : rankCount.values()) {
-			if (count == 3) {
-				hasThree = true;
-			} else if (count == 2) {
-				hasTwo = true;
-			}
-		}
+    for (int count : rankCount.values()) {
+      if (count == 3) {
+        hasThree = true;
+      } else if (count == 2) {
+        hasTwo = true;
+      }
+    }
 
-		return hasThree && hasTwo;
-	}
+    return hasThree && hasTwo;
+  }
 
-	private int tripleRankValue(List<Card> cards) {
-		Map<Integer, Integer> rankCount = new HashMap<>();
-		for (Card card : cards) {
-			int rank = card.getRankValue();
-			rankCount.put(rank, rankCount.getOrDefault(rank, 0) + 1);
-		}
-		for (Map.Entry<Integer, Integer> entry : rankCount.entrySet()) {
-			if (entry.getValue() == 3) {
-				return entry.getKey();
-			}
-		}
+  private int tripleRankValue(List<Card> cards) {
+    Map<Integer, Integer> rankCount = new HashMap<>();
+    for (Card card : cards) {
+      int rank = card.getRankValue();
+      rankCount.put(rank, rankCount.getOrDefault(rank, 0) + 1);
+    }
+    for (Map.Entry<Integer, Integer> entry : rankCount.entrySet()) {
+      if (entry.getValue() == 3) {
+        return entry.getKey();
+      }
+    }
 
-		throw new IllegalStateException("Invalid Full House: No triple found.");
-	}
+    throw new IllegalStateException("Invalid Full House: No triple found.");
+  }
 }

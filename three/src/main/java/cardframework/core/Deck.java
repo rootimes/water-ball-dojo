@@ -6,25 +6,25 @@ import java.util.List;
 
 public abstract class Deck<T extends Card> {
 
-	protected final List<T> cards = new ArrayList<>();
+  protected final List<T> cards = new ArrayList<>();
 
-	public void shuffle() {
-		Collections.shuffle(cards);
-	}
+  public void shuffle() {
+    Collections.shuffle(cards);
+  }
 
-	public T draw() {
-		if (this.size() == 0) {
-			throw new IllegalStateException("No cards left in the deck to draw.");
-		}
+  public T draw() {
+    if (this.size() == 0) {
+      throw new IllegalStateException("No cards left in the deck to draw.");
+    }
 
-		return cards.remove(cards.size() - 1);
-	}
+    return cards.remove(cards.size() - 1);
+  }
 
-	public int size() {
-		return cards.size();
-	}
+  public int size() {
+    return cards.size();
+  }
 
-	public void addCards(List<T> cards) {
-		this.cards.addAll(cards);
-	}
+  public void addCards(List<T> cards) {
+    this.cards.addAll(cards);
+  }
 }
