@@ -6,5 +6,5 @@ import rpg.role.AI;
 import rpg.role.action.Action;
 
 public interface AIActionStrategy {
-  Action handle(List<Action> actions, AI role);
+	Action handle(List<Action> actions, AI role);
 }

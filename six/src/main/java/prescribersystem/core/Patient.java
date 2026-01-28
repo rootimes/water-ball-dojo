@@ -1,3 +1,4 @@
 package prescribersystem.core;
 
-public class Patient {}
+public class Patient {
+}

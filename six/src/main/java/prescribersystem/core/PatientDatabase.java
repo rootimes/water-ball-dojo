@@ -1,3 +1,4 @@
 package prescribersystem.core;
 
-public class PatientDatabase {}
+public class PatientDatabase {
+}

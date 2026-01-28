@@ -1,3 +1,4 @@
 package prescribersystem.core;
 
-public class Prescription {}
+public class Prescription {
+}

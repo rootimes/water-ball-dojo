@@ -1,53 +1,54 @@
 package bigTwo.cardpattern;
 
-import bigTwo.card.Card;
 import java.util.ArrayList;
 import java.util.List;
 
+import bigTwo.card.Card;
+
 public abstract class CardPattern<T extends CardPattern<T>> {
-  protected int size;
+	protected int size;
 
-  protected String name;
+	protected String name;
 
-  protected List<Card> cards = new ArrayList<>();
+	protected List<Card> cards = new ArrayList<>();
 
-  @SuppressWarnings("unchecked")
-  public int compareTo(CardPattern<?> other) {
-    return compareToSameType((T) other);
-  }
+	@SuppressWarnings("unchecked")
+	public int compareTo(CardPattern<?> other) {
+		return compareToSameType((T) other);
+	}
 
-  protected abstract int compareToSameType(T other);
+	protected abstract int compareToSameType(T other);
 
-  public abstract boolean validate(List<Card> cards);
+	public abstract boolean validate(List<Card> cards);
 
-  public int getSize() {
-    return size;
-  }
+	public int getSize() {
+		return size;
+	}
 
-  public Card getCard(int index) {
-    return cards.get(index);
-  }
+	public Card getCard(int index) {
+		return cards.get(index);
+	}
 
-  public List<Card> getCards() {
-    return cards;
-  }
+	public List<Card> getCards() {
+		return cards;
+	}
 
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(this.name).append(" ");
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.name).append(" ");
 
-    cards.stream().sorted(Card::compareTo).forEach(card -> sb.append(card.toString()).append(" "));
+		cards.stream().sorted(Card::compareTo).forEach(card -> sb.append(card.toString()).append(" "));
 
-    return sb.toString().trim();
-  }
+		return sb.toString().trim();
+	}
 
-  protected boolean isValidSize(List<Card> cards) {
-    for (Card card : cards) {
-      if (card == null) {
-        return false;
-      }
-    }
+	protected boolean isValidSize(List<Card> cards) {
+		for (Card card : cards) {
+			if (card == null) {
+				return false;
+			}
+		}
 
-    return cards.size() == size;
-  }
+		return cards.size() == size;
+	}
 }

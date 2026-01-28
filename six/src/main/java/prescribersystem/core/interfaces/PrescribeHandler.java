@@ -1,3 +1,4 @@
 package prescribersystem.core.interfaces;
 
-public interface PrescribeHandler {}
+public interface PrescribeHandler {
+}

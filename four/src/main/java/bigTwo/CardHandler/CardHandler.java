@@ -1,29 +1,30 @@
 package bigTwo.cardhandler;
 
+import java.util.List;
+
 import bigTwo.card.Card;
 import bigTwo.cardpattern.CardPattern;
-import java.util.List;
 
 public abstract class CardHandler<P extends CardPattern<P>> {
 
-  protected CardHandler<?> next;
+	protected CardHandler<?> next;
 
-  public CardHandler(CardHandler<?> next) {
-    this.next = next;
-  }
+	public CardHandler(CardHandler<?> next) {
+		this.next = next;
+	}
 
-  public CardPattern<?> handle(List<Card> cards) {
+	public CardPattern<?> handle(List<Card> cards) {
 
-    P pattern = tryCardPattern(cards);
+		P pattern = tryCardPattern(cards);
 
-    if (pattern.validate(cards)) {
-      return pattern;
-    } else if (next != null) {
-      return next.handle(cards);
-    }
+		if (pattern.validate(cards)) {
+			return pattern;
+		} else if (next != null) {
+			return next.handle(cards);
+		}
 
-    return null;
-  }
+		return null;
+	}
 
-  protected abstract P tryCardPattern(List<Card> cards);
+	protected abstract P tryCardPattern(List<Card> cards);
 }

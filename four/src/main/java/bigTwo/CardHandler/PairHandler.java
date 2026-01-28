@@ -1,16 +1,17 @@
 package bigTwo.cardhandler;
 
+import java.util.List;
+
 import bigTwo.card.Card;
 import bigTwo.cardpattern.Pair;
-import java.util.List;
 
 public class PairHandler extends CardHandler<Pair> {
 
-  public PairHandler(CardHandler<?> next) {
-    super(next);
-  }
+	public PairHandler(CardHandler<?> next) {
+		super(next);
+	}
 
-  protected Pair tryCardPattern(List<Card> cards) {
-    return new Pair(cards);
-  }
+	protected Pair tryCardPattern(List<Card> cards) {
+		return new Pair(cards);
+	}
 }

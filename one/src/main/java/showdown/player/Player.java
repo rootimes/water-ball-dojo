@@ -9,87 +9,88 @@ import showdown.deck.Deck;
 
 public abstract class Player implements Comparable<Player> {
 
-  @Nullable private String name;
+	@Nullable
+	private String name;
 
-  private int score;
+	private int score;
 
-  protected HandCard handCard;
+	protected HandCard handCard;
 
-  private boolean hasUsedExchange = false;
+	private boolean hasUsedExchange = false;
 
-  private ExchangeState exchangeState;
+	private ExchangeState exchangeState;
 
-  public Player() {
-    this.handCard = new HandCard();
-    this.score = 0;
-  }
+	public Player() {
+		this.handCard = new HandCard();
+		this.score = 0;
+	}
 
-  public String getName() {
-    return name;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  public int getScore() {
-    return score;
-  }
+	public int getScore() {
+		return score;
+	}
 
-  public void addScore(int point) {
-    this.score += point;
-  }
+	public void addScore(int point) {
+		this.score += point;
+	}
 
-  public void drawCard(Deck deck) {
-    Card card = deck.draw();
-    this.handCard.add(card);
-  }
+	public void drawCard(Deck deck) {
+		Card card = deck.draw();
+		this.handCard.add(card);
+	}
 
-  public HandCard getHandCard() {
-    return handCard;
-  }
+	public HandCard getHandCard() {
+		return handCard;
+	}
 
-  public boolean hasUsedExchange() {
-    return hasUsedExchange;
-  }
+	public boolean hasUsedExchange() {
+		return hasUsedExchange;
+	}
 
-  public ExchangeState getExchangeState() {
-    return exchangeState;
-  }
+	public ExchangeState getExchangeState() {
+		return exchangeState;
+	}
 
-  public void startExchange(Player other, int rounds) {
-    this.exchangeState = new ExchangeState(this, other, rounds);
-    other.exchangeState = this.exchangeState;
-    this.hasUsedExchange = true;
+	public void startExchange(Player other, int rounds) {
+		this.exchangeState = new ExchangeState(this, other, rounds);
+		other.exchangeState = this.exchangeState;
+		this.hasUsedExchange = true;
 
-    this.exchange(other);
-  }
+		this.exchange(other);
+	}
 
-  public void updateExchangeState() {
-    if (this.exchangeState != null && this.exchangeState.isPlayerA(this)) {
-      this.exchangeState.decrementRound();
-      if (this.exchangeState.isExpired()) {
-        Player other = this.exchangeState.getOtherPlayer(this);
-        this.exchange(other);
-        other.exchangeState = null;
-        this.exchangeState = null;
-      }
-    }
-  }
+	public void updateExchangeState() {
+		if (this.exchangeState != null && this.exchangeState.isPlayerA(this)) {
+			this.exchangeState.decrementRound();
+			if (this.exchangeState.isExpired()) {
+				Player other = this.exchangeState.getOtherPlayer(this);
+				this.exchange(other);
+				other.exchangeState = null;
+				this.exchangeState = null;
+			}
+		}
+	}
 
-  public abstract Card takeTurn(List<Player> candidates);
+	public abstract Card takeTurn(List<Player> candidates);
 
-  protected abstract Card showCard();
+	protected abstract Card showCard();
 
-  protected abstract boolean canExchange(List<Player> candidates);
+	protected abstract boolean canExchange(List<Player> candidates);
 
-  protected void exchange(Player other) {
-    HandCard temp = this.handCard;
-    this.handCard = other.handCard;
-    other.handCard = temp;
-  }
+	protected void exchange(Player other) {
+		HandCard temp = this.handCard;
+		this.handCard = other.handCard;
+		other.handCard = temp;
+	}
 
-  public int compareTo(Player other) {
-    return Integer.compare(this.score, other.score);
-  }
+	public int compareTo(Player other) {
+		return Integer.compare(this.score, other.score);
+	}
 }

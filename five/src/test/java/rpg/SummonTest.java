@@ -6,8 +6,8 @@ import java.net.URISyntaxException;
 import org.junit.jupiter.api.Test;
 
 class SummonTest extends BaseRPGTest {
-  @Test
-  void testSummon() throws URISyntaxException, IOException {
-    testRPG("summon");
-  }
+	@Test
+	void testSummon() throws URISyntaxException, IOException {
+		testRPG("summon");
+	}
 }

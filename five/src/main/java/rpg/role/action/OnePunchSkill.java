@@ -8,21 +8,20 @@ import rpg.role.action.onepunchrulehandler.NormalStateRule;
 
 public class OnePunchSkill extends Action {
 
-  private static final String NAME = "一拳攻擊";
+	private static final String NAME = "一拳攻擊";
 
-  private static final int MP_COST = 180;
+	private static final int MP_COST = 180;
 
-  private static final int STR = 100;
+	private static final int STR = 100;
 
-  private static final int TARGET_COUNT = 1;
+	private static final int TARGET_COUNT = 1;
 
-  public OnePunchSkill() {
-    super(NAME, MP_COST, STR, TARGET_COUNT);
-  }
+	public OnePunchSkill() {
+		super(NAME, MP_COST, STR, TARGET_COUNT);
+	}
 
-  @Override
-  public void effect(Role target, Role self) {
-    new HighHpRule(new AbnormalStateRule(new CheerUpStateRule(new NormalStateRule(null))))
-        .handle(target, self);
-  }
+	@Override
+	public void effect(Role target, Role self) {
+		new HighHpRule(new AbnormalStateRule(new CheerUpStateRule(new NormalStateRule(null)))).handle(target, self);
+	}
 }

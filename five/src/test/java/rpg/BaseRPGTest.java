@@ -20,61 +20,55 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class BaseRPGTest {
-  private final InputStream originalIn = in;
-  private final PrintStream originalOut = out;
-  private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	private final InputStream originalIn = in;
+	private final PrintStream originalOut = out;
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
-  @BeforeEach
-  public void setUpStreams() {
-    setOut(new PrintStream(outContent, true, StandardCharsets.UTF_8));
-  }
+	@BeforeEach
+	public void setUpStreams() {
+		setOut(new PrintStream(outContent, true, StandardCharsets.UTF_8));
+	}
 
-  @AfterEach
-  public void restoreStreams() {
-    setIn(originalIn);
-    setOut(originalOut);
-  }
+	@AfterEach
+	public void restoreStreams() {
+		setIn(originalIn);
+		setOut(originalOut);
+	}
 
-  protected void testRPG(String scenario) throws URISyntaxException, IOException {
-    setInputStream(scenario + ".in");
-    String expected = getExpectedString(scenario + ".out");
+	protected void testRPG(String scenario) throws URISyntaxException, IOException {
+		setInputStream(scenario + ".in");
+		String expected = getExpectedString(scenario + ".out");
 
-    Throwable thrown = null;
-    String actual = null;
+		Throwable thrown = null;
+		String actual = null;
 
-    try {
-      Main.main(new String[0]);
-    } catch (Throwable t) {
-      thrown = t;
-    } finally {
-      actual = outContent.toString(StandardCharsets.UTF_8).replaceAll("\r\n", "\n");
-      try {
-        Files.write(Paths.get("target/expected.txt"), expected.getBytes(StandardCharsets.UTF_8));
-        Files.write(
-            Paths.get("target/actual_partial.txt"), actual.getBytes(StandardCharsets.UTF_8));
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
+		try {
+			Main.main(new String[0]);
+		} catch (Throwable t) {
+			thrown = t;
+		} finally {
+			actual = outContent.toString(StandardCharsets.UTF_8).replaceAll("\r\n", "\n");
+			try {
+				Files.write(Paths.get("target/expected.txt"), expected.getBytes(StandardCharsets.UTF_8));
+				Files.write(Paths.get("target/actual_partial.txt"), actual.getBytes(StandardCharsets.UTF_8));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
-    if (thrown != null) {
-      throw new AssertionError("程式執行中拋出例外；已輸出部分結果到 target/actual_partial.txt", thrown);
-    }
-    assertEquals(expected, actual);
-  }
+		if (thrown != null) {
+			throw new AssertionError("程式執行中拋出例外；已輸出部分結果到 target/actual_partial.txt", thrown);
+		}
+		assertEquals(expected, actual);
+	}
 
-  private void setInputStream(String resourceName) throws URISyntaxException, IOException {
-    setIn(
-        new ByteArrayInputStream(
-            Files.readAllBytes(
-                Paths.get(getClass().getClassLoader().getResource(resourceName).toURI()))));
-  }
+	private void setInputStream(String resourceName) throws URISyntaxException, IOException {
+		setIn(new ByteArrayInputStream(
+				Files.readAllBytes(Paths.get(getClass().getClassLoader().getResource(resourceName).toURI()))));
+	}
 
-  private String getExpectedString(String resourceName) throws URISyntaxException, IOException {
-    return new String(
-            Files.readAllBytes(
-                Paths.get(getClass().getClassLoader().getResource(resourceName).toURI())),
-            StandardCharsets.UTF_8)
-        .replaceAll("\\r\\n", "\\n");
-  }
+	private String getExpectedString(String resourceName) throws URISyntaxException, IOException {
+		return new String(Files.readAllBytes(Paths.get(getClass().getClassLoader().getResource(resourceName).toURI())),
+				StandardCharsets.UTF_8).replaceAll("\\r\\n", "\\n");
+	}
 }

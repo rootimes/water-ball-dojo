@@ -4,31 +4,32 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class Player<T extends Card> {
 
-  @Nullable protected String name;
+	@Nullable
+	protected String name;
 
-  protected HandCard<T> handCard;
+	protected HandCard<T> handCard;
 
-  public Player() {
-    this.name = null;
-    this.handCard = createHandCard();
-  }
+	public Player() {
+		this.name = null;
+		this.handCard = createHandCard();
+	}
 
-  public String getName() {
-    return name;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  public void drawCard(Deck<T> deck) {
-    T drawnCard = deck.draw();
-    this.handCard.addCard(drawnCard);
-  }
+	public void drawCard(Deck<T> deck) {
+		T drawnCard = deck.draw();
+		this.handCard.addCard(drawnCard);
+	}
 
-  public abstract T takeTurn();
+	public abstract T takeTurn();
 
-  protected abstract T showCard(int index);
+	protected abstract T showCard(int index);
 
-  protected abstract HandCard<T> createHandCard();
+	protected abstract HandCard<T> createHandCard();
 }

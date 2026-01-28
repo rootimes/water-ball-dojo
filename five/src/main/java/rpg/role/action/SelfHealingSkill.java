@@ -7,36 +7,36 @@ import rpg.troop.Troop;
 
 public class SelfHealingSkill extends Action {
 
-  private static final String NAME = "自我治療";
+	private static final String NAME = "自我治療";
 
-  private static final int MP_COST = 50;
+	private static final int MP_COST = 50;
 
-  private static final int STR = 150;
+	private static final int STR = 150;
 
-  private static final int TARGET_COUNT = 0;
+	private static final int TARGET_COUNT = 0;
 
-  public SelfHealingSkill() {
-    super(NAME, MP_COST, STR, TARGET_COUNT);
-  }
+	public SelfHealingSkill() {
+		super(NAME, MP_COST, STR, TARGET_COUNT);
+	}
 
-  @Override
-  public List<Role> getCandidates(List<Troop> troops, Role self) {
-    return List.of(self);
-  }
+	@Override
+	public List<Role> getCandidates(List<Troop> troops, Role self) {
+		return List.of(self);
+	}
 
-  @Override
-  public void handle(List<Role> targets, Role self) {
-    printActionInfo(targets, self);
-    effect(self, self);
-  }
+	@Override
+	public void handle(List<Role> targets, Role self) {
+		printActionInfo(targets, self);
+		effect(self, self);
+	}
 
-  @Override
-  protected void printActionInfo(List<Role> targets, Role self) {
-    System.out.printf("[%d]%s 使用了 %s。\n", self.getTroopNumber(), self.getName(), this.getName());
-  }
+	@Override
+	protected void printActionInfo(List<Role> targets, Role self) {
+		System.out.printf("[%d]%s 使用了 %s。\n", self.getTroopNumber(), self.getName(), this.getName());
+	}
 
-  @Override
-  protected void effect(Role target, Role self) {
-    self.heal(str);
-  }
+	@Override
+	protected void effect(Role target, Role self) {
+		self.heal(str);
+	}
 }

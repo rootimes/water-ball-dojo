@@ -1,3 +1,4 @@
 package prescribersystem.core;
 
-public class Demand {}
+public class Demand {
+}

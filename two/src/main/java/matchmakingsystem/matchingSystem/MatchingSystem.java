@@ -8,21 +8,21 @@ import matchMakingSystem.matchingSystem.pickPolicy.PickPolicy;
 
 public class MatchingSystem {
 
-  private Individual target;
-  private List<Individual> candidates;
+	private Individual target;
+	private List<Individual> candidates;
 
-  public List<Individual> match(MatchStrategy strategy, PickPolicy policy) {
+	public List<Individual> match(MatchStrategy strategy, PickPolicy policy) {
 
-    List<Individual> sortedCandidates = strategy.sorted(target, candidates);
+		List<Individual> sortedCandidates = strategy.sorted(target, candidates);
 
-    return policy.pick(sortedCandidates);
-  }
+		return policy.pick(sortedCandidates);
+	}
 
-  public void setTarget(Individual target) {
-    this.target = target;
-  }
+	public void setTarget(Individual target) {
+		this.target = target;
+	}
 
-  public void setCandidates(List<Individual> candidates) {
-    this.candidates = candidates;
-  }
+	public void setCandidates(List<Individual> candidates) {
+		this.candidates = candidates;
+	}
 }
