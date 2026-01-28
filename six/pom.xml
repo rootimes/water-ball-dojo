@@ -11,8 +11,8 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>five</artifactId>
-  <name>five</name>
+  <artifactId>six</artifactId>
+  <name>six</name>
   <packaging>jar</packaging>
 
   <properties>
