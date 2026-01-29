@@ -3,6 +3,7 @@ package prescribersystem.core;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.PrintStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import prescribersystem.SymptomEnum;
@@ -51,7 +52,7 @@ public class Prescriber {
         Prescription prescription = prescribe(demand, diseases);
 
         List<SymptomEnum> symptoms = demand.getSymptoms();
-        Case caseData = new Case(symptoms, prescription, LocalDateTime.now());
+        Case caseData = new Case(symptoms, prescription, LocalDate.now());
 
         notifyDoneObservers(client, caseData, path);
 
