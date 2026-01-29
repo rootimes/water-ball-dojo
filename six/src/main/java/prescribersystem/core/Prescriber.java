@@ -16,8 +16,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Prescriber {
-    private final PatientDatabase patientDatabase;
-
     private final List<String> diseases = new ArrayList<>();
     private final List<DoneObserver> doneObservers = new ArrayList<>();
 
@@ -30,8 +28,6 @@ public class Prescriber {
         for (String disease : diseases.split(",")) {
             this.diseases.add(disease.trim());
         }
-
-        this.patientDatabase = new PatientDatabase();
     }
 
     public synchronized void start() {
