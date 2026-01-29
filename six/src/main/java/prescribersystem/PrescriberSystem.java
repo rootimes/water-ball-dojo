@@ -22,7 +22,9 @@ public class PrescriberSystem {
 		prescriber = new Prescriber(diseases);
 	}
 
-	public void updatePatients(String patients) {
+	public void importPatients(String patients) {
+		this.patientDatabase = new PatientDatabase();
+		this.patientDatabase.importPatients(patients);
 	}
 
 	public void prescribe(String patientId, String symptoms, String path) {
