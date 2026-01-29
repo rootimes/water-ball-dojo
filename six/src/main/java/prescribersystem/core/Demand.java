@@ -1,8 +1,8 @@
 package prescribersystem.core;
 
 import java.io.PrintStream;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import prescribersystem.SymptomEnum;
 

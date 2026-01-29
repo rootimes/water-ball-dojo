@@ -3,9 +3,10 @@ package prescribersystem.core;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import prescribersystem.SymptomEnum;
 
 import com.fasterxml.jackson.databind.JsonNode;
+
+import prescribersystem.SymptomEnum;
 
 
 public class Case {

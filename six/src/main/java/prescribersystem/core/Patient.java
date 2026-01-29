@@ -26,6 +26,14 @@ public class Patient {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public List<Case> getCases() {
+        return cases;
+    }
+
     public String getId() {
         return id;
     }
