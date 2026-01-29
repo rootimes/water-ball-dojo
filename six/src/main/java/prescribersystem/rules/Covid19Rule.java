@@ -3,8 +3,8 @@ package prescribersystem.rules;
 import java.util.List;
 
 import prescribersystem.SymptomEnum;
-import prescribersystem.core.PrescribeRule;
 import prescribersystem.core.Demand;
+import prescribersystem.core.PrescribeRule;
 import prescribersystem.core.Prescription;
 
 public class Covid19Rule extends PrescribeRule {

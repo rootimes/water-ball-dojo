@@ -1,4 +1,4 @@
-﻿package prescribersystem.core;
+package prescribersystem.core;
 
 import java.io.IOException;
 import java.util.HashMap;

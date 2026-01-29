@@ -1,12 +1,11 @@
 package prescribersystem;
 
-import prescribersystem.core.PatientDatabase;
-import prescribersystem.core.Prescriber;
-
 import java.util.List;
 
 import prescribersystem.core.Demand;
 import prescribersystem.core.Patient;
+import prescribersystem.core.PatientDatabase;
+import prescribersystem.core.Prescriber;
 
 public class PrescriberSystem {
 

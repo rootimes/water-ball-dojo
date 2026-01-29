@@ -1,10 +1,11 @@
 package prescribersystem.rules;
 
-import prescribersystem.core.PrescribeRule;
+import java.util.List;
+
 import prescribersystem.SymptomEnum;
 import prescribersystem.core.Demand;
+import prescribersystem.core.PrescribeRule;
 import prescribersystem.core.Prescription;
-import java.util.List;
 
 public class AttractiveRule extends PrescribeRule {
 

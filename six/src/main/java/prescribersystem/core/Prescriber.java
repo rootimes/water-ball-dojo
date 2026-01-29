@@ -1,20 +1,18 @@
 package prescribersystem.core;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.io.PrintStream;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import prescribersystem.SymptomEnum;
 import prescribersystem.core.interfaces.DoneObserver;
 import prescribersystem.rules.AttractiveRule;
 import prescribersystem.rules.Covid19Rule;
 import prescribersystem.rules.SleepApneaSyndromeRule;
-
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Prescriber {
     private final List<String> diseases = new ArrayList<>();
