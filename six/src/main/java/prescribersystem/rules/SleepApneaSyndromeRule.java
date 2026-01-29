@@ -13,9 +13,9 @@ public class SleepApneaSyndromeRule extends PrescribeRule {
 
     private static final String POTENTIAL_DISEASE = "睡眠呼吸中止症";
 
-    private static final List<String> MEDICINES = List.of("清冠一號");
+    private static final List<String> MEDICINES = List.of("一捲膠帶");
 
-    private static final String USAGE = "將相關藥材裝入茶包裡，使用 500 mL 溫、熱水沖泡悶煮1~3 分鐘後即可飲用。";
+    private static final String USAGE = "睡覺時，撕下兩塊膠帶，將兩塊膠帶交錯黏在關閉的嘴巴上，就不會打呼了。";
 
     private static final List<SymptomEnum> TARGET_SYMPTOMS = List.of(
             SymptomEnum.SNORE);
