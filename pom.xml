@@ -109,7 +109,6 @@
         <artifactId>spotless-maven-plugin</artifactId>
         <configuration>
           <java>
-            <googleJavaFormat />
             <removeUnusedImports />
             <importOrder>
               <order>java,javax,org,com,</order>
