@@ -15,30 +15,32 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        System.out.println("Enter supporting disease data:");
-
-        String diseases = scanner.nextLine();
+        String diseases = new String(Files.readAllBytes(Paths.get("src/test/resource/SupportDiseases.in")));
 
         PrescriberSystem prescriberSystem = new PrescriberSystem(diseases);
-
-        System.out.println("Import patients data by json");
 
         String patients = new String(Files.readAllBytes(Paths.get("src/test/resource/AllPatients.json")));
 
         prescriberSystem.importPatients(patients);
 
-        System.out.println("Enter demand patient ID:");
+        System.out.println("Prescribe System is running");
 
-        String patientId = scanner.nextLine();
+        String cmd;
+        do {
+            System.out.println("Enter demand patient ID:");
+            String patientId = scanner.nextLine().trim();
 
-        System.out.println("Enter demand symptoms:");
+            System.out.println("Enter demand symptoms:");
+            String symptoms = scanner.nextLine().trim();
 
-        String symptoms = scanner.nextLine();
+            System.out.println("Enter export path:");
+            String path = scanner.nextLine().trim();
 
-        System.out.println("Enter export path:");
+            prescriberSystem.prescribe(patientId, symptoms, path);
 
-        String path = scanner.nextLine();
+            System.out.println("Type 'exit' to stop, or press Enter to continue:");
+            cmd = scanner.nextLine().trim();
 
-        prescriberSystem.prescribe(patientId, symptoms, path);
+        } while (!"exit".equalsIgnoreCase(cmd));
     }
 }
