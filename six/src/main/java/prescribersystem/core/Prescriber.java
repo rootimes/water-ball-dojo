@@ -25,8 +25,11 @@ public class Prescriber {
     private Thread worker;
 
     public Prescriber(PatientDatabase patientDatabase, String diseases) {
-        for (String disease : diseases.split(",")) {
-            this.diseases.add(disease.trim());
+        for (String line : diseases.split("\\r?\\n")) {
+            String disease = line.replace(",", "").trim();
+            if (!disease.isEmpty()) {
+                this.diseases.add(disease);
+            }
         }
         this.patientDatabase = patientDatabase;
     }

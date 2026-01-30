@@ -37,8 +37,11 @@ public class Prescription {
         String name = json.get("name").asText();
         String potentialDisease = json.get("potentialDisease").asText();
         List<String> medications = new java.util.ArrayList<>();
-        for (JsonNode medNode : json.get("medications")) {
-            medications.add(medNode.asText());
+        JsonNode medicinesNode = json.get("medicines");
+        if (medicinesNode != null) {
+            for (JsonNode medNode : medicinesNode) {
+                medications.add(medNode.asText());
+            }
         }
         String usage = json.get("usage").asText();
         return new Prescription(name, potentialDisease, medications, usage);
