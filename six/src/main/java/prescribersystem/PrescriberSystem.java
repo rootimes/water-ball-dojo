@@ -42,8 +42,9 @@ public class PrescriberSystem {
 		int age = patient.getAge();
 		float height = patient.getHeight();
 		float weight = patient.getWeight();
+		char gender = patient.getGender();
 
-		Demand demand = new Demand(System.out, patientId, age, height, weight, symptoms, path);
+		Demand demand = new Demand(System.out, patientId, age, gender, height, weight, symptoms, path);
 
 		prescriber.submit(demand);
 	}

@@ -19,6 +19,8 @@ public class AttractiveRule extends PrescribeRule {
 
     private static final int TARGET_AGE = 18;
 
+    private static final char TARGET_GENDER = 'F';
+
     private static final String TARGET_DISEASE = "Attractive";
 
     private static final List<SymptomEnum> TARGET_SYMPTOMS = List.of(
@@ -34,8 +36,9 @@ public class AttractiveRule extends PrescribeRule {
         List<SymptomEnum> symptoms = demand.getSymptoms();
 
         int age = demand.getAge();
+        char gender = demand.getGender();
 
-        if (symptoms.containsAll(TARGET_SYMPTOMS) && age == TARGET_AGE) {
+        if (symptoms.containsAll(TARGET_SYMPTOMS) && age == TARGET_AGE && gender == TARGET_GENDER) {
             return new Prescription(NAME, POTENTIAL_DISEASE, MEDICINES, USAGE);
         }
 

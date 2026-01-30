@@ -9,6 +9,7 @@ public class Patient {
 
     private final String id;
     private final String name;
+    private final char gender;
     private final int age;
     private final float height;
     private final float weight;
@@ -17,6 +18,7 @@ public class Patient {
     public Patient(JsonNode json) {
         this.id = json.get("id").asText();
         this.name = json.get("name").asText();
+        this.gender = json.get("gender").asText().charAt(0);
         this.age = json.get("age").asInt();
         this.height = (float) json.get("height").asDouble();
         this.weight = (float) json.get("weight").asDouble();
@@ -36,6 +38,10 @@ public class Patient {
 
     public String getId() {
         return id;
+    }
+
+    public char getGender() {
+        return gender;
     }
 
     public int getAge() {

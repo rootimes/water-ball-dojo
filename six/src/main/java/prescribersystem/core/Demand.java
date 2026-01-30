@@ -9,17 +9,20 @@ import prescribersystem.SymptomEnum;
 public class Demand {
 
     private String patientId;
+    private int age;
+    private char gender;
+    private float height;
+    private float weight;
     private List<SymptomEnum> symptoms;
     private String path;
     private PrintStream client;
-    private int age;
-    private float height;
-    private float weight;
 
     public Demand(PrintStream client, String patientId, int age,
-            float height, float weight, String symptoms, String path) {
+            char gender, float height, float weight,
+            String symptoms, String path) {
         this.patientId = patientId;
         this.age = age;
+        this.gender = gender;
         this.height = height;
         this.weight = weight;
         this.path = path;
@@ -33,6 +36,10 @@ public class Demand {
 
     public int getAge() {
         return age;
+    }
+
+    public char getGender() {
+        return gender;
     }
 
     public float getHeight() {
