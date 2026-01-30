@@ -6,9 +6,9 @@ import prescribersystem.core.Demand;
 import prescribersystem.core.Patient;
 import prescribersystem.core.PatientDatabase;
 import prescribersystem.core.Prescriber;
+import prescribersystem.observers.ExportCaseObserver;
 import prescribersystem.observers.NotifyClientObserver;
 import prescribersystem.observers.StoreCaseObserver;
-import prescribersystem.observers.ExportCaseObserver;
 
 public class PrescriberSystem {
 

@@ -38,4 +38,13 @@ public class PatientDatabase {
             throw new IllegalArgumentException("Patient not found: " + caseData.getPatientId());
         }
     }
+
+    public String getPatientName(String patientId) {
+        Patient patient = patients.get(patientId);
+        if (patient != null) {
+            return patient.getName();
+        } else {
+            throw new IllegalArgumentException("Patient not found: " + patientId);
+        }
+    }
 }

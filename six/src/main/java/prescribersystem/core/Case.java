@@ -25,7 +25,7 @@ public class Case {
     }
 
     public List<SymptomEnum> getSymptoms() {
-        return symptoms;
+        return List.copyOf(symptoms);
     }
 
     public Prescription getPrescription() {

@@ -20,9 +20,7 @@ public class Prescriber {
 
     private final List<String> diseases = new ArrayList<>();
     private final List<DoneObserver> doneObservers = new ArrayList<>();
-
     private final BlockingQueue<Demand> jobs = new LinkedBlockingQueue<>();
-
     private final AtomicBoolean running = new AtomicBoolean(false);
     private Thread worker;
 
