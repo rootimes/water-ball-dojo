@@ -15,6 +15,9 @@ import prescribersystem.rules.Covid19Rule;
 import prescribersystem.rules.SleepApneaSyndromeRule;
 
 public class Prescriber {
+
+    private PatientDatabase patientDatabase;
+
     private final List<String> diseases = new ArrayList<>();
     private final List<DoneObserver> doneObservers = new ArrayList<>();
 
@@ -23,10 +26,11 @@ public class Prescriber {
     private final AtomicBoolean running = new AtomicBoolean(false);
     private Thread worker;
 
-    public Prescriber(String diseases) {
+    public Prescriber(PatientDatabase patientDatabase, String diseases) {
         for (String disease : diseases.split(",")) {
             this.diseases.add(disease.trim());
         }
+        this.patientDatabase = patientDatabase;
     }
 
     public synchronized void start() {
@@ -52,7 +56,7 @@ public class Prescriber {
         List<SymptomEnum> symptoms = demand.getSymptoms();
         Case caseData = new Case(symptoms, prescription, LocalDate.now());
 
-        notifyDoneObservers(client, caseData, path);
+        notifyDoneObservers(client, patientDatabase, caseData, path);
 
         try {
             Thread.sleep(3000);
@@ -66,9 +70,17 @@ public class Prescriber {
         worker.interrupt();
     }
 
-    public void notifyDoneObservers(PrintStream client, Case caseData, String path) {
+    public void registerDoneObserver(DoneObserver observer) {
+        doneObservers.add(observer);
+    }
+
+    public void removeDoneObserver(DoneObserver observer) {
+        doneObservers.remove(observer);
+    }
+
+    public void notifyDoneObservers(PrintStream client, PatientDatabase db, Case caseData, String path) {
         for (DoneObserver observer : doneObservers) {
-            observer.handle(client, caseData, path);
+            observer.handle(client, db, caseData, path);
         }
     }
 

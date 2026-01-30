@@ -6,6 +6,9 @@ import prescribersystem.core.Demand;
 import prescribersystem.core.Patient;
 import prescribersystem.core.PatientDatabase;
 import prescribersystem.core.Prescriber;
+import prescribersystem.observers.NotifyClientObserver;
+import prescribersystem.observers.StoreCaseObserver;
+import prescribersystem.observers.ExportCaseObserver;
 
 public class PrescriberSystem {
 
@@ -18,11 +21,16 @@ public class PrescriberSystem {
 	}
 
 	public PrescriberSystem(String diseases) {
-		prescriber = new Prescriber(diseases);
+		this.patientDatabase = new PatientDatabase();
+		this.prescriber = new Prescriber(patientDatabase, diseases);
+		prescriber.start();
+
+		prescriber.registerDoneObserver(new NotifyClientObserver());
+		prescriber.registerDoneObserver(new StoreCaseObserver());
+		prescriber.registerDoneObserver(new ExportCaseObserver());
 	}
 
 	public void importPatients(String patients) {
-		this.patientDatabase = new PatientDatabase();
 		this.patientDatabase.importPatients(patients);
 	}
 
