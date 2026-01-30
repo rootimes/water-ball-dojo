@@ -51,10 +51,12 @@ public class Prescriber {
 
         String path = demand.getPath();
 
+        String patientId = demand.getPatientId();
+
         Prescription prescription = prescribe(demand, diseases);
 
         List<SymptomEnum> symptoms = demand.getSymptoms();
-        Case caseData = new Case(symptoms, prescription, LocalDate.now());
+        Case caseData = new Case(patientId, symptoms, prescription, LocalDate.now());
 
         notifyDoneObservers(client, patientDatabase, caseData, path);
 

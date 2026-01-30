@@ -29,4 +29,13 @@ public class PatientDatabase {
     public Optional<Patient> getPatientById(String patientId) {
         return Optional.ofNullable(patients.get(patientId));
     }
+
+    public void storeCase(Case caseData) {
+        Patient patient = patients.get(caseData.getPatientId());
+        if (patient != null) {
+            patient.addCase(caseData);
+        } else {
+            throw new IllegalArgumentException("Patient not found: " + caseData.getPatientId());
+        }
+    }
 }

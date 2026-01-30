@@ -7,7 +7,8 @@
         "height": 172.5,
         "weight": 68.2,
         "cases": [
-            {
+            {   
+                "patientId": "A123456789",
                 "caseTime": "2025-12-30",
                 "prescription": {
                     "name": "清冠一號",
@@ -29,6 +30,7 @@
         "weight": 52.4,
         "cases": [
             {
+                "patientId": "B987654321",
                 "caseTime": "2026-01-01",
                 "prescription": {
                     "name": "青春抑制劑",
@@ -41,6 +43,7 @@
                 }
             },
             {
+                "patientId": "B987654321",
                 "caseTime": "2026-01-05",
                 "prescription": {
                     "name": "清冠一號",
@@ -62,6 +65,7 @@
         "weight": 75.0,
         "cases": [
             {
+                "patientId": "Z456789123",
                 "caseTime": "2026-01-18",
                 "prescription": {
                     "name": "打呼抑制劑",
@@ -73,6 +77,7 @@
                 }
             },
             {
+                "patientId": "Z456789123",
                 "caseTime": "2026-01-10",
                 "prescription": {
                     "name": "清冠一號",

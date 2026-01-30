@@ -49,4 +49,8 @@ public class Patient {
     public float getWeight() {
         return weight;
     }
+
+    public void addCase(Case caseData) {
+        this.cases.add(caseData);
+    }
 }
