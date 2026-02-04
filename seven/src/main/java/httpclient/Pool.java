@@ -22,7 +22,11 @@ public class Pool {
         if (index < 0 || index >= enabledEndPoints.size()) {
             return null;
         }
-        return enabledEndPoints.get(index).getIp();
+
+        EndPoint endPoint = enabledEndPoints.get(index);
+        endPoint.setTime(LocalDateTime.now());
+
+        return endPoint.getIp();
     }
 
     public String getBalanceIp() {
@@ -32,18 +36,11 @@ public class Pool {
             return null;
         }
 
-        for (int i = 0; i < n; i++) {
-            EndPoint endPoint = enabledEndPoints.get(cursor);
-            cursor = (cursor + 1) % n;
-
-            if (isAvailable(endPoint)) {
-                endPoint.setEnabled(1);
-                endPoint.setTime(LocalDateTime.now());
-                return endPoint.getIp();
-            }
-        }
-
-        return null;
+        EndPoint endPoint = enabledEndPoints.get(cursor);
+        cursor = (cursor + 1) % n;
+        endPoint.setTime(LocalDateTime.now());
+        
+        return endPoint.getIp();
     }
 
     public void addEndPoint(EndPoint endPoint) {
