@@ -1,12 +1,11 @@
 package httpclient.Handlers.Support;
 
-import httpclient.HttpRequest;
-import httpclient.Pool;
-import httpclient.Handlers.SupportHandler;
-
 import java.util.Map;
 
+import httpclient.Handlers.SupportHandler;
 import httpclient.HttpHandler;
+import httpclient.HttpRequest;
+import httpclient.Pool;
 
 public class LoadBalancingHandler extends SupportHandler<Map<String, Pool>> {
     public LoadBalancingHandler(Map<String, Pool> hosts, HttpHandler next) {

@@ -1,8 +1,8 @@
 package httpclient;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pool {
     private List<EndPoint> endPoints = new ArrayList<>();

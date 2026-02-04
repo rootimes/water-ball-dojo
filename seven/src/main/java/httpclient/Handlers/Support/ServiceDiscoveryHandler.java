@@ -1,12 +1,11 @@
 package httpclient.Handlers.Support;
 
-import httpclient.HttpRequest;
-import httpclient.Pool;
-import httpclient.Handlers.SupportHandler;
-
 import java.util.Map;
 
+import httpclient.Handlers.SupportHandler;
 import httpclient.HttpHandler;
+import httpclient.HttpRequest;
+import httpclient.Pool;
 
 public class ServiceDiscoveryHandler extends SupportHandler<Map<String, Pool>> {
     public ServiceDiscoveryHandler(Map<String, Pool> hosts, HttpHandler next) {

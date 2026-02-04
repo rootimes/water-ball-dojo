@@ -1,7 +1,15 @@
 package httpclient;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import httpclient.Handlers.FakeHttpClient;
 import httpclient.Handlers.Support.BlackListHandler;
@@ -10,23 +18,61 @@ import httpclient.Handlers.Support.ServiceDiscoveryHandler;
 
 public class Main {
     public static void main(String[] args) {
+        final String blacklistPath = "src/test/resource/blacklist.in";
+        final String configPath = "src/test/resource/config.in";
+
+        Set<String> blacklistedHosts = readBlacklist(blacklistPath);
+        Map<String, Pool> hosts = readHostsConfig(configPath);
+
         HttpClient client = new HttpClient();
 
-        HttpRequest request = new HttpRequest("http://example.com/api/test");
+        HttpRequest request = new HttpRequest("https://waterballsa.tw/test");
 
-        Set<String> blacklistedHosts = Set.of("badhost1.com", "badhost2.com");
-
-        Pool pool = new Pool();
-
-        Map<String, Pool> serviceDiscoveryHosts = Map.of("waterballsa.tw", pool);
-
-        Map<String, Pool> loadBalancingHosts = Map.of("waterballsa.tw", pool);
-
-        HttpHandler handlers = new BlackListHandler(blacklistedHosts,
-                new ServiceDiscoveryHandler(serviceDiscoveryHosts,
-                        new LoadBalancingHandler(loadBalancingHosts,
+        HttpHandler handler = new BlackListHandler(blacklistedHosts,
+                new ServiceDiscoveryHandler(hosts,
+                        new LoadBalancingHandler(hosts,
                                 new FakeHttpClient())));
 
-        client.get(request, handlers);
+        client.get(request, handler);
+    }
+
+    private static Set<String> readBlacklist(String filePath) {
+        try {
+            return Files.lines(Paths.get(filePath))
+                    .filter(line -> !line.trim().isEmpty())
+                    .collect(Collectors.toSet());
+        } catch (IOException e) {
+            System.err.println("Error reading blacklist file: " + filePath);
+            e.printStackTrace();
+            return new HashSet<>();
+        }
+    }
+
+    private static Map<String, Pool> readHostsConfig(String filePath) {
+        Map<String, Pool> hosts = new HashMap<>();
+        try {
+            Files.lines(Paths.get(filePath))
+                    .filter(line -> !line.trim().isEmpty())
+                    .forEach(line -> {
+                        String[] parts = line.split(":");
+                        if (parts.length == 2) {
+                            String host = parts[0].trim();
+                            List<String> ips = Arrays.stream(parts[1].split(","))
+                                    .map(String::trim)
+                                    .collect(Collectors.toList());
+
+                            Pool pool = new Pool();
+                            for (String ip : ips) {
+                                pool.addEndPoint(new EndPoint(ip));
+                            }
+                            hosts.put(host, pool);
+                        }
+                    });
+        } catch (IOException e) {
+            System.err.println("Error reading config file: " + filePath);
+            e.printStackTrace();
+            return new HashMap<>();
+        }
+        return hosts;
     }
 }
