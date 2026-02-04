@@ -15,6 +15,19 @@ public class ServiceDiscoveryHandler extends SupportHandler<Map<String, Pool>> {
 
     @Override
     public HttpRequest handle(HttpRequest request) {
+
+        if (hosts.containsKey(request.getHost())) {
+            String host = request.getHost();
+            Pool pool = hosts.get(host);
+            pool.SearchEnabledEndPoints();
+            String ip = pool.getEnabledIp(0);
+            if (ip != null) {
+                request.setTarget(ip);
+            } else {
+                request.setTarget(host);
+            }
+        }
+
         return request;
     }
 }

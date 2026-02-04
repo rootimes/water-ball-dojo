@@ -6,37 +6,40 @@ import java.time.LocalDateTime;
 
 public class Pool {
     private List<EndPoint> endPoints = new ArrayList<>();
+    private List<EndPoint> enabledEndPoints = new ArrayList<>();
     private int cursor = 0;
 
-    public Pool() {
-    }
-
-    public EndPoint getEnabledPoint() {
+    public void SearchEnabledEndPoints() {
+        enabledEndPoints.clear();
         for (EndPoint endPoint : endPoints) {
             if (isAvailable(endPoint)) {
-                endPoint.setEnabled(1);
-                endPoint.setTime(LocalDateTime.now());
-                return endPoint;
+                enabledEndPoints.add(endPoint);
             }
         }
-        return null;
     }
 
-    public EndPoint getEnabledBalanceEndPoint() {
-        int n = endPoints.size();
+    public String getEnabledIp(int index) {
+        if (index < 0 || index >= enabledEndPoints.size()) {
+            return null;
+        }
+        return enabledEndPoints.get(index).getIp();
+    }
+
+    public String getBalanceIp() {
+        int n = enabledEndPoints.size();
 
         if (n == 0) {
             return null;
         }
 
         for (int i = 0; i < n; i++) {
-            EndPoint endPoint = endPoints.get(cursor);
+            EndPoint endPoint = enabledEndPoints.get(cursor);
             cursor = (cursor + 1) % n;
 
             if (isAvailable(endPoint)) {
                 endPoint.setEnabled(1);
                 endPoint.setTime(LocalDateTime.now());
-                return endPoint;
+                return endPoint.getIp();
             }
         }
 
@@ -55,7 +58,12 @@ public class Pool {
         if (endPoint.getEnabled() == 1) {
             return true;
         }
-        return endPoint.getEnabled() == 0 &&
-                endPoint.getTime().plusSeconds(10).isBefore(LocalDateTime.now());
+
+        if (endPoint.getEnabled() == 0 &&
+                endPoint.getTime().plusSeconds(10).isBefore(LocalDateTime.now())) {
+            endPoint.setEnabled(1);
+            return true;
+        }
+        return false;
     }
 }
