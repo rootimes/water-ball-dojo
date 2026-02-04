@@ -4,6 +4,8 @@ public class HttpRequest {
     private String scheme;
     private String host;
     private String path;
+    private String target;
+    private String status;
 
     public HttpRequest(String url) {
         String[] parts = url.split("://");
@@ -25,7 +27,23 @@ public class HttpRequest {
         return path;
     }
 
-    public String getUrl() {
-        return scheme + "://" + host + path;
+    public String getTarget() {
+        return target;
+    }
+
+    public String getTargetUrl() {
+        return scheme + "://" + target + path;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

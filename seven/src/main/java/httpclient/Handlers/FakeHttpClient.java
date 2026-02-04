@@ -6,7 +6,9 @@ import httpclient.HttpRequest;
 public class FakeHttpClient implements HttpHandler {
     @Override
     public HttpRequest handle(HttpRequest request) {
-        System.out.println("FakeHttpClient handling request: " + request.getUrl());
+        System.out.println("FakeHttpClient handling request: " + request.getTargetUrl());
+
+        request.setStatus("200");
         return request;
     }
 }
