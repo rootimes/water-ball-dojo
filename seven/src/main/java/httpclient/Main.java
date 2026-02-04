@@ -21,8 +21,8 @@ public class Main {
         final String blacklistPath = "src/test/resource/blacklist.in";
         final String configPath = "src/test/resource/config.in";
 
-        Set<String> blacklistedHosts = readBlacklist(blacklistPath);
-        Map<String, Pool> hosts = readHostsConfig(configPath);
+        Set<String> blacklistedHosts = loadBlacklist(blacklistPath);
+        Map<String, Pool> hosts = loadHostsConfig(configPath);
 
         HttpClient client = new HttpClient();
 
@@ -39,7 +39,7 @@ public class Main {
         client.get(request, handler);
     }
 
-    private static Set<String> readBlacklist(String filePath) {
+    public static Set<String> loadBlacklist(String filePath) {
         try {
             return Files.lines(Paths.get(filePath))
                     .filter(line -> !line.trim().isEmpty())
@@ -51,7 +51,7 @@ public class Main {
         }
     }
 
-    private static Map<String, Pool> readHostsConfig(String filePath) {
+    public static Map<String, Pool> loadHostsConfig(String filePath) {
         Map<String, Pool> hosts = new HashMap<>();
         try {
             Files.lines(Paths.get(filePath))
