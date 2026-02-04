@@ -20,6 +20,6 @@ public class BlackListHandler extends SupportHandler<Set<String>> {
             throw new RuntimeException("Target " + request.getTarget() + " is blacklisted.");
         }
 
-        return request;
+        return next.handle(request);
     }
 }

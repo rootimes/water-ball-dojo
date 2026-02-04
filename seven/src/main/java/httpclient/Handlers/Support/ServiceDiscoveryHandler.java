@@ -27,6 +27,6 @@ public class ServiceDiscoveryHandler extends SupportHandler<Map<String, Pool>> {
             }
         }
 
-        return request;
+        return next.handle(request);
     }
 }

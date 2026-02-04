@@ -34,6 +34,9 @@ public class Main {
                                 new FakeHttpClient())));
 
         client.get(request, handler);
+        client.get(request, handler);
+        client.get(request, handler);
+        client.get(request, handler);
     }
 
     private static Set<String> readBlacklist(String filePath) {
