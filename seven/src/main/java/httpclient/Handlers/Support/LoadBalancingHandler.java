@@ -13,7 +13,7 @@ public class LoadBalancingHandler extends SupportHandler<Map<String, Pool>> {
     }
 
     @Override
-    public HttpRequest handle(HttpRequest request) {
+    public void handle(HttpRequest request) {
 
         if (hosts.containsKey(request.getHost())) {
             String host = request.getHost();
@@ -26,6 +26,6 @@ public class LoadBalancingHandler extends SupportHandler<Map<String, Pool>> {
             }
         }
 
-        return next.handle(request);
+        next.handle(request);
     }
 }

@@ -14,5 +14,5 @@ public abstract class SupportHandler<T> implements HttpHandler {
     }
 
     @Override
-    public abstract HttpRequest handle(HttpRequest request);
+    public abstract void handle(HttpRequest request);
 }

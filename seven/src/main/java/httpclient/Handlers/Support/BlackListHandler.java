@@ -12,7 +12,7 @@ public class BlackListHandler extends SupportHandler<Set<String>> {
     }
 
     @Override
-    public HttpRequest handle(HttpRequest request) {
+    public void handle(HttpRequest request) {
 
         if (hosts.contains(request.getHost())) {
             throw new RuntimeException("Host " + request.getHost() + " is blacklisted.");
@@ -20,6 +20,6 @@ public class BlackListHandler extends SupportHandler<Set<String>> {
             throw new RuntimeException("Target " + request.getTarget() + " is blacklisted.");
         }
 
-        return next.handle(request);
+        next.handle(request);
     }
 }
