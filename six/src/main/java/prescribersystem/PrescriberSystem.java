@@ -35,11 +35,6 @@ public class PrescriberSystem {
 			"Attractive", () -> new AttractiveRule(null),
 			"SleepApneaSyndrome", () -> new SleepApneaSyndromeRule(null));
 
-	public record DemandParts(
-			String patientId,
-			List<SymptomEnum> symptoms) {
-	}
-
 	public PrescriberSystem(String diseases) {
 		PrescribeHandler handler = prescribeHandler(diseases);
 		this.patientDatabase = new PatientDatabase();
@@ -67,7 +62,6 @@ public class PrescriberSystem {
 	}
 
 	public void prescribe(String patientId, String symptoms, String path) {
-
 		List<SymptomEnum> symptomsList = parseSymptoms(symptoms);
 
 		Demand demand = new Demand(System.out, patientId, symptomsList, path);
