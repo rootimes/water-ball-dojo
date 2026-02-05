@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import prescribersystem.core.Demand;
-import prescribersystem.core.Patient;
 import prescribersystem.core.PatientDatabase;
 import prescribersystem.core.Prescriber;
 import prescribersystem.core.interfaces.PrescribeHandler;

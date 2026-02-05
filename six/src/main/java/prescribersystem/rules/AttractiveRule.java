@@ -4,9 +4,9 @@ import java.util.List;
 
 import prescribersystem.SymptomEnum;
 import prescribersystem.core.Demand;
+import prescribersystem.core.PatientDatabase;
 import prescribersystem.core.PrescribeRule;
 import prescribersystem.core.Prescription;
-import prescribersystem.core.PatientDatabase;
 
 public class AttractiveRule extends PrescribeRule {
 
