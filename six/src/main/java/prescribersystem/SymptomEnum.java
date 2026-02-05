@@ -25,6 +25,6 @@ public enum SymptomEnum {
                 return b;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Unknown symptom: " + text);
     }
 }

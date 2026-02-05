@@ -25,7 +25,7 @@ public class Main {
 
         System.out.println("Prescribe System is running");
 
-        String cmd;
+        String cmd = "";
         do {
             System.out.println("Enter demand patient ID:");
             String patientId = scanner.nextLine().trim();
@@ -36,7 +36,11 @@ public class Main {
             System.out.println("Enter export path:");
             String path = scanner.nextLine().trim();
 
-            prescriberSystem.prescribe(patientId, symptoms, path);
+            try {
+                prescriberSystem.prescribe(patientId, symptoms, path);
+            } catch (IllegalArgumentException e) {
+                System.err.println("Error: " + e.getMessage());
+            }
 
             System.out.println("Type 'exit' to stop, or press Enter to continue:");
             cmd = scanner.nextLine().trim();

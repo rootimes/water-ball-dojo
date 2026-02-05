@@ -40,19 +40,20 @@ public class Prescriber {
 
     public synchronized void submit(Demand demand) {
         PrintStream client = demand.getClient();
-
         client.println("Processing prescription for patient ID: " + demand.getPatientId());
 
         String path = demand.getPath();
-
         String patientId = demand.getPatientId();
 
-        Prescription prescription = prescribe(demand, handler);
-
-        List<SymptomEnum> symptoms = demand.getSymptoms();
-        Case caseData = new Case(patientId, symptoms, prescription, LocalDate.now());
-
-        notifyDoneObservers(client, patientDatabase, caseData, path);
+        try {
+            Prescription prescription = prescribe(demand, handler);
+            List<SymptomEnum> symptoms = demand.getSymptoms();
+            Case caseData = new Case(patientId, symptoms, prescription, LocalDate.now());
+            notifyDoneObservers(client, patientDatabase, caseData, path);
+        } catch (IllegalArgumentException e) {
+            client.println("Error: " + e.getMessage());
+            return;
+        }
 
         try {
             Thread.sleep(3000);
