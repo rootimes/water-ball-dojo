@@ -31,9 +31,9 @@ public class PrescriberSystem {
 	private PatientDatabase patientDatabase;
 
 	private Map<String, Supplier<PrescribeHandler>> diseaseSupplier = Map.of(
-			"covid19", () -> new Covid19Rule(null),
-			"attractive", () -> new AttractiveRule(null),
-			"sleep_apnea_syndrome", () -> new SleepApneaSyndromeRule(null));
+			"COVID-19", () -> new Covid19Rule(null),
+			"Attractive", () -> new AttractiveRule(null),
+			"SleepApneaSyndrome", () -> new SleepApneaSyndromeRule(null));
 
 	public record DemandParts(
 			String patientId,
