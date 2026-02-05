@@ -10,27 +10,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import prescribersystem.SymptomEnum;
 import prescribersystem.core.interfaces.DoneObserver;
-import prescribersystem.rules.AttractiveRule;
-import prescribersystem.rules.Covid19Rule;
-import prescribersystem.rules.SleepApneaSyndromeRule;
+import prescribersystem.core.interfaces.PrescribeHandler;
 
 public class Prescriber {
 
     private PatientDatabase patientDatabase;
 
-    private final List<String> diseases = new ArrayList<>();
+    private final PrescribeHandler handler;
     private final List<DoneObserver> doneObservers = new ArrayList<>();
     private final BlockingQueue<Demand> jobs = new LinkedBlockingQueue<>();
     private final AtomicBoolean running = new AtomicBoolean(false);
     private Thread worker;
 
-    public Prescriber(PatientDatabase patientDatabase, String diseases) {
-        for (String line : diseases.split("\\r?\\n")) {
-            String disease = line.replace(",", "").trim();
-            if (!disease.isEmpty()) {
-                this.diseases.add(disease);
-            }
-        }
+    public Prescriber(PatientDatabase patientDatabase, PrescribeHandler handler) {
+        this.handler = handler;
         this.patientDatabase = patientDatabase;
     }
 
@@ -54,7 +47,7 @@ public class Prescriber {
 
         String patientId = demand.getPatientId();
 
-        Prescription prescription = prescribe(demand, diseases);
+        Prescription prescription = prescribe(demand, handler);
 
         List<SymptomEnum> symptoms = demand.getSymptoms();
         Case caseData = new Case(patientId, symptoms, prescription, LocalDate.now());
@@ -87,8 +80,8 @@ public class Prescriber {
         }
     }
 
-    private Prescription prescribe(Demand demand, List<String> activeHandlers) {
-        return new Covid19Rule(new AttractiveRule(new SleepApneaSyndromeRule(null))).handle(demand, activeHandlers);
+    private Prescription prescribe(Demand demand, PrescribeHandler handler) {
+        return handler.handle(demand);
     }
 
     private void runLoop() {

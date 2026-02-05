@@ -1,6 +1,5 @@
 package prescribersystem.core;
 
-import java.util.List;
 
 import prescribersystem.core.interfaces.PrescribeHandler;
 
@@ -13,19 +12,20 @@ public abstract class PrescribeRule implements PrescribeHandler {
     }
 
     @Override
-    public Prescription handle(Demand demand, List<String> activeHandlers) {
-        if (shouldApply(activeHandlers)) {
-            Prescription prescription = prescribe(demand);
+    public Prescription handle(Demand demand) {
+        Prescription prescription = prescribe(demand);
 
-            if (prescription != null) {
-                return prescription;
-            }
+        if (prescription != null) {
+            return prescription;
         }
 
-        return next.handle(demand, activeHandlers);
+        return next.handle(demand);
+    }
+
+    @Override
+    public void setNext(PrescribeHandler next) {
+        this.next = next;
     }
 
     protected abstract Prescription prescribe(Demand demand);
-
-    protected abstract boolean shouldApply(List<String> activeHandlers);
 }

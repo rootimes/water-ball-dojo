@@ -21,8 +21,6 @@ public class AttractiveRule extends PrescribeRule {
 
     private static final char TARGET_GENDER = 'F';
 
-    private static final String TARGET_DISEASE = "Attractive";
-
     private static final List<SymptomEnum> TARGET_SYMPTOMS = List.of(
             SymptomEnum.SNEEZE);
 
@@ -43,10 +41,5 @@ public class AttractiveRule extends PrescribeRule {
         }
 
         return null;
-    }
-
-    @Override
-    protected boolean shouldApply(List<String> activeHandlers) {
-        return activeHandlers.contains(TARGET_DISEASE);
     }
 }

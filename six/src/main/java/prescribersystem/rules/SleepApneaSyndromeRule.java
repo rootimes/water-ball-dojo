@@ -20,8 +20,6 @@ public class SleepApneaSyndromeRule extends PrescribeRule {
     private static final List<SymptomEnum> TARGET_SYMPTOMS = List.of(
             SymptomEnum.SNORE);
 
-    private static final String TARGET_DISEASE = "SleepApneaSyndrome";
-
     public SleepApneaSyndromeRule(PrescribeRule next) {
         super(next);
     }
@@ -39,10 +37,5 @@ public class SleepApneaSyndromeRule extends PrescribeRule {
             return new Prescription(NAME, POTENTIAL_DISEASE, MEDICINES, USAGE);
         }
         return null;
-    }
-
-    @Override
-    protected boolean shouldApply(List<String> activeHandlers) {
-        return activeHandlers.contains(TARGET_DISEASE);
     }
 }

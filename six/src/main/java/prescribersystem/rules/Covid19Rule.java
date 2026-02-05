@@ -17,8 +17,6 @@ public class Covid19Rule extends PrescribeRule {
 
     private static final String USAGE = "將相關藥材裝入茶包裡，使用500 mL 溫、熱水沖泡悶煮1~3 分鐘後即可飲用。";
 
-    private static final String TARGET_DISEASE = "COVID-19";
-
     private static final List<SymptomEnum> TARGET_SYMPTOMS = List.of(
             SymptomEnum.SNEEZE, SymptomEnum.HEADACHE,
             SymptomEnum.COUGH);
@@ -36,10 +34,5 @@ public class Covid19Rule extends PrescribeRule {
         }
 
         return null;
-    }
-
-    @Override
-    protected boolean shouldApply(List<String> activeHandlers) {
-        return activeHandlers.contains(TARGET_DISEASE);
     }
 }
