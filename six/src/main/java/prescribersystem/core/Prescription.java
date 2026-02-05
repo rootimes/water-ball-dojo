@@ -2,7 +2,6 @@ package prescribersystem.core;
 
 import java.util.List;
 
-import com.fasterxml.jackson.databind.JsonNode;
 
 public class Prescription {
     private final String name;
@@ -31,19 +30,5 @@ public class Prescription {
 
     public String getUsage() {
         return usage;
-    }
-
-    public static Prescription parse(JsonNode json) {
-        String name = json.get("name").asText();
-        String potentialDisease = json.get("potentialDisease").asText();
-        List<String> medications = new java.util.ArrayList<>();
-        JsonNode medicinesNode = json.get("medicines");
-        if (medicinesNode != null) {
-            for (JsonNode medNode : medicinesNode) {
-                medications.add(medNode.asText());
-            }
-        }
-        String usage = json.get("usage").asText();
-        return new Prescription(name, potentialDisease, medications, usage);
     }
 }

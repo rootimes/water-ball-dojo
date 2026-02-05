@@ -1,9 +1,7 @@
 package prescribersystem.core;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.JsonNode;
 
 public class Patient {
 
@@ -15,17 +13,14 @@ public class Patient {
     private final float weight;
     private final List<Case> cases;
 
-    public Patient(JsonNode json) {
-        this.id = json.get("id").asText();
-        this.name = json.get("name").asText();
-        this.gender = json.get("gender").asText().charAt(0);
-        this.age = json.get("age").asInt();
-        this.height = (float) json.get("height").asDouble();
-        this.weight = (float) json.get("weight").asDouble();
-        this.cases = new ArrayList<>();
-        for (JsonNode caseNode : json.get("cases")) {
-            this.cases.add(Case.parse(caseNode));
-        }
+    public Patient(String id, String name, char gender, int age, float height, float weight, List<Case> cases) {
+        this.id = id;
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
+        this.cases = cases;
     }
 
     public String getName() {

@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
 import prescribersystem.SymptomEnum;
 
 public class Case {
@@ -38,19 +36,5 @@ public class Case {
 
     public String getPatientId() {
         return patientId;
-    }
-
-    public static Case parse(JsonNode json) {
-        String patientId = json.get("patientId").asText();
-        List<SymptomEnum> symptoms = new ArrayList<>();
-        if (json.has("symptoms")) {
-            for (JsonNode symptomNode : json.get("symptoms")) {
-                String symptomStr = symptomNode.asText();
-                symptoms.add(SymptomEnum.valueOf(symptomStr));
-            }
-        }
-        Prescription prescription = Prescription.parse(json.get("prescription"));
-        LocalDate caseTime = LocalDate.parse(json.get("caseTime").asText());
-        return new Case(patientId, symptoms, prescription, caseTime);
     }
 }
