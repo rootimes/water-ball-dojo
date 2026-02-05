@@ -1,6 +1,5 @@
 package prescribersystem.core;
 
-
 import prescribersystem.core.interfaces.PrescribeHandler;
 
 public abstract class PrescribeRule implements PrescribeHandler {
@@ -12,14 +11,14 @@ public abstract class PrescribeRule implements PrescribeHandler {
     }
 
     @Override
-    public Prescription handle(Demand demand) {
-        Prescription prescription = prescribe(demand);
+    public Prescription handle(PatientDatabase db, Demand demand) {
+        Prescription prescription = prescribe(db, demand);
 
         if (prescription != null) {
             return prescription;
         }
 
-        return next.handle(demand);
+        return next.handle(db, demand);
     }
 
     @Override
@@ -27,5 +26,5 @@ public abstract class PrescribeRule implements PrescribeHandler {
         this.next = next;
     }
 
-    protected abstract Prescription prescribe(Demand demand);
+    protected abstract Prescription prescribe(PatientDatabase db, Demand demand);
 }

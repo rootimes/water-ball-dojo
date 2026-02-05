@@ -49,15 +49,7 @@ public class PrescriberSystem {
 
 	public void prescribe(String patientId, String symptoms, String path) {
 
-		Patient patient = patientDatabase.getPatientById(patientId)
-				.orElseThrow(() -> new IllegalArgumentException("Patient not found: " + patientId));
-
-		int age = patient.getAge();
-		float height = patient.getHeight();
-		float weight = patient.getWeight();
-		char gender = patient.getGender();
-
-		Demand demand = new Demand(System.out, patientId, age, gender, height, weight, symptoms, path);
+		Demand demand = new Demand(System.out, patientId, symptoms, path);
 
 		prescriber.submit(demand);
 	}

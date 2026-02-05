@@ -6,6 +6,7 @@ import prescribersystem.SymptomEnum;
 import prescribersystem.core.Demand;
 import prescribersystem.core.PrescribeRule;
 import prescribersystem.core.Prescription;
+import prescribersystem.core.PatientDatabase;
 
 public class Covid19Rule extends PrescribeRule {
 
@@ -26,7 +27,7 @@ public class Covid19Rule extends PrescribeRule {
     }
 
     @Override
-    protected Prescription prescribe(Demand demand) {
+    protected Prescription prescribe(PatientDatabase db, Demand demand) {
         List<SymptomEnum> symptoms = demand.getSymptoms();
 
         if (symptoms.containsAll(TARGET_SYMPTOMS)) {

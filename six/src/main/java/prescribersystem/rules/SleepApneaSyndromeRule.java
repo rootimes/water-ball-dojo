@@ -4,6 +4,7 @@ import java.util.List;
 
 import prescribersystem.SymptomEnum;
 import prescribersystem.core.Demand;
+import prescribersystem.core.PatientDatabase;
 import prescribersystem.core.PrescribeRule;
 import prescribersystem.core.Prescription;
 
@@ -25,11 +26,13 @@ public class SleepApneaSyndromeRule extends PrescribeRule {
     }
 
     @Override
-    protected Prescription prescribe(Demand demand) {
+    protected Prescription prescribe(PatientDatabase db, Demand demand) {
         List<SymptomEnum> symptoms = demand.getSymptoms();
 
-        float height = demand.getHeight();
-        float weight = demand.getWeight();
+        String patientId = demand.getPatientId();
+
+        float height = db.getPatientHeight(patientId);
+        float weight = db.getPatientWeight(patientId);
 
         float bmi = weight / (float) Math.pow(height / 100.0f, 2);
 

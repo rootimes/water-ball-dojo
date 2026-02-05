@@ -81,7 +81,7 @@ public class Prescriber {
     }
 
     private Prescription prescribe(Demand demand, PrescribeHandler handler) {
-        return handler.handle(demand);
+        return handler.handle(this.patientDatabase, demand);
     }
 
     private void runLoop() {

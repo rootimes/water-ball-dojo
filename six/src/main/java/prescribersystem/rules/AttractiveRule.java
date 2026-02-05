@@ -6,6 +6,7 @@ import prescribersystem.SymptomEnum;
 import prescribersystem.core.Demand;
 import prescribersystem.core.PrescribeRule;
 import prescribersystem.core.Prescription;
+import prescribersystem.core.PatientDatabase;
 
 public class AttractiveRule extends PrescribeRule {
 
@@ -29,12 +30,14 @@ public class AttractiveRule extends PrescribeRule {
     }
 
     @Override
-    protected Prescription prescribe(Demand demand) {
+    protected Prescription prescribe(PatientDatabase db, Demand demand) {
 
         List<SymptomEnum> symptoms = demand.getSymptoms();
 
-        int age = demand.getAge();
-        char gender = demand.getGender();
+        String patientId = demand.getPatientId();
+
+        int age = db.getPatientAge(patientId);
+        char gender = db.getPatientGender(patientId);
 
         if (symptoms.containsAll(TARGET_SYMPTOMS) && age == TARGET_AGE && gender == TARGET_GENDER) {
             return new Prescription(NAME, POTENTIAL_DISEASE, MEDICINES, USAGE);
