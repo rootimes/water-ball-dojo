@@ -1,7 +1,6 @@
 package prescribersystem.core;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import prescribersystem.SymptomEnum;
@@ -14,11 +13,11 @@ public class Demand {
     private PrintStream client;
 
     public Demand(PrintStream client, String patientId,
-            String symptoms, String path) {
+            List<SymptomEnum> symptoms, String path) {
         this.patientId = patientId;
         this.path = path;
         this.client = client;
-        this.symptoms = parseSymptoms(symptoms);
+        this.symptoms = symptoms;
     }
 
     public String getPatientId() {
@@ -37,16 +36,4 @@ public class Demand {
         return client;
     }
 
-    private List<SymptomEnum> parseSymptoms(String symptoms) {
-        if (symptoms == null || symptoms.isBlank()) {
-            throw new IllegalArgumentException("Demand data is empty");
-        }
-
-        List<SymptomEnum> symptomsList = new ArrayList<>();
-        for (String symptomStr : symptoms.split(",")) {
-            SymptomEnum symptom = SymptomEnum.fromString(symptomStr.trim());
-            symptomsList.add(symptom);
-        }
-        return symptomsList;
-    }
 }

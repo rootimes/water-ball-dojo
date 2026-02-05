@@ -68,7 +68,9 @@ public class PrescriberSystem {
 
 	public void prescribe(String patientId, String symptoms, String path) {
 
-		Demand demand = new Demand(System.out, patientId, symptoms, path);
+		List<SymptomEnum> symptomsList = parseSymptoms(symptoms);
+
+		Demand demand = new Demand(System.out, patientId, symptomsList, path);
 
 		prescriber.submit(demand);
 	}
@@ -142,5 +144,18 @@ public class PrescriberSystem {
 		}
 		String usage = prescriptionJson.get("usage").asText();
 		return new Prescription(name, potentialDisease, medications, usage);
+	}
+
+	private List<SymptomEnum> parseSymptoms(String symptoms) {
+		if (symptoms == null || symptoms.isBlank()) {
+			throw new IllegalArgumentException("Demand data is empty");
+		}
+
+		List<SymptomEnum> symptomsList = new ArrayList<>();
+		for (String symptomStr : symptoms.split(",")) {
+			SymptomEnum symptom = SymptomEnum.fromString(symptomStr.trim());
+			symptomsList.add(symptom);
+		}
+		return symptomsList;
 	}
 }
