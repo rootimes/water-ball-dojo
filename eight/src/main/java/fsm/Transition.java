@@ -22,8 +22,31 @@ public class Transition {
         this.toState = toState;
     }
 
-    public boolean guard(IEvent event) {
-        // Implementation goes here
-        return false;
+    public IState getFromState() {
+        return fromState;
+    }
+
+    public IGuard getGuard() {
+        return guard;
+    }
+
+    public IAction getAction() {
+        return action;
+    }
+
+    public IState getToState() {
+        return toState;
+    }
+
+    public void action(IEvent event) {
+        this.action.execute(event);
+    }
+
+    public boolean isTriggeredBy(IEvent event) {
+        return this.event.match(event);
+    }
+
+    public boolean isGuardSatisfied(IEvent event) {
+        return this.guard.evaluate(event);
     }
 }
