@@ -43,7 +43,7 @@ public class Transition {
     }
 
     public boolean isTriggeredBy(IEvent event) {
-        return this.event.match(event);
+        return this.event.evaluate(event);
     }
 
     public boolean isGuardSatisfied(IEvent event) {
