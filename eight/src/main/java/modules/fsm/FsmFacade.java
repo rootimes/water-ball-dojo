@@ -6,16 +6,16 @@ public class FsmFacade {
 
     private final FSM fsm;
 
-    public FsmFacade(FsmObserver observer, FsmState state) {
+    public FsmFacade(IFsmObserver observer, IFsmState state) {
         this.fsm = new FSM(observer, state);
     }
 
-    public FsmState update(FsmState state, FsmEvent event) {
+    public IFsmState update(IFsmState state, IFsmEvent event) {
         return fsm.trigger(state, event);
     }
 
-    public FsmFacade defineTransition(FsmState fromState, FsmGuard guard, FsmEvent event,
-            FsmAction action, FsmState toState) {
+    public FsmFacade defineTransition(IFsmState fromState, IFsmGuard guard, IFsmEvent event,
+            IFsmAction action, IFsmState toState) {
         Transition transition = new Transition(fromState, guard, event, action, toState);
         fsm.addTransition(transition);
         return this;

@@ -5,19 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import modules.fsm.contracts.FsmEvent;
-import modules.fsm.contracts.FsmObserver;
-import modules.fsm.contracts.FsmState;
+import modules.fsm.contracts.IFsmEvent;
+import modules.fsm.contracts.IFsmObserver;
+import modules.fsm.contracts.IFsmState;
 
 public class FSM {
 
-    private FsmState currentState;
+    private IFsmState currentState;
 
-    private final FsmObserver observer;
+    private final IFsmObserver observer;
 
-    private final Map<FsmState, List<Transition>> transitions = new HashMap<>();
+    private final Map<IFsmState, List<Transition>> transitions = new HashMap<>();
 
-    public FSM(FsmObserver observer, FsmState state) {
+    public FSM(IFsmObserver observer, IFsmState state) {
         this.observer = observer;
         this.currentState = state;
         this.currentState.enter();
@@ -29,7 +29,7 @@ public class FSM {
                 .add(transition);
     }
 
-    public FsmState trigger(FsmState state, FsmEvent event) {
+    public IFsmState trigger(IFsmState state, IFsmEvent event) {
         List<Transition> transitions = this.transitions.get(state);
         if (transitions == null) {
             return state;
@@ -39,7 +39,7 @@ public class FSM {
             if (transition.isTriggeredBy(event) && transition.isGuardSatisfied(event)) {
                 state.exit();
                 transition.action(event);
-                FsmState toState = transition.getToState();
+                IFsmState toState = transition.getToState();
                 toState.enter();
                 this.currentState = toState;
                 observer.onTransition(state, toState, event);
