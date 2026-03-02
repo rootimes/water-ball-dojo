@@ -1,6 +1,6 @@
-package modules.fsm.domain;
+package modules.bot.fsm.domain;
 
-import modules.fsm.contracts.*;
+import modules.bot.fsm.contracts.*;
 
 public class Transition {
     final private FsmState fromState;
