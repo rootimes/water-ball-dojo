@@ -1,6 +1,6 @@
 package modules.fsm.contracts;
 
-public interface IState {
+public interface FsmState {
     void enter();
     void exit();
 }

@@ -3,18 +3,18 @@ package modules.fsm.domain;
 import modules.fsm.contracts.*;
 
 public class Transition {
-    final private IState fromState;
-    final private IGuard guard;
-    final private IEvent event;
-    final private IAction action;
-    final private IState toState;
+    final private FsmState fromState;
+    final private FsmGuard guard;
+    final private FsmEvent event;
+    final private FsmAction action;
+    final private FsmState toState;
 
     public Transition(
-            IState fromState,
-            IGuard guard,
-            IEvent event,
-            IAction action,
-            IState toState) {
+            FsmState fromState,
+            FsmGuard guard,
+            FsmEvent event,
+            FsmAction action,
+            FsmState toState) {
         this.fromState = fromState;
         this.guard = guard;
         this.event = event;
@@ -22,31 +22,31 @@ public class Transition {
         this.toState = toState;
     }
 
-    public IState getFromState() {
+    public FsmState getFromState() {
         return fromState;
     }
 
-    public IGuard getGuard() {
+    public FsmGuard getGuard() {
         return guard;
     }
 
-    public IAction getAction() {
+    public FsmAction getAction() {
         return action;
     }
 
-    public IState getToState() {
+    public FsmState getToState() {
         return toState;
     }
 
-    public void action(IEvent event) {
+    public void action(FsmEvent event) {
         this.action.execute(event);
     }
 
-    public boolean isTriggeredBy(IEvent event) {
+    public boolean isTriggeredBy(FsmEvent event) {
         return this.event.evaluate(event);
     }
 
-    public boolean isGuardSatisfied(IEvent event) {
+    public boolean isGuardSatisfied(FsmEvent event) {
         return this.guard.evaluate(event);
     }
 }

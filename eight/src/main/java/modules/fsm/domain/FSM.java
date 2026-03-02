@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import modules.fsm.contracts.IEvent;
-import modules.fsm.contracts.IState;
+import modules.fsm.contracts.FsmEvent;
+import modules.fsm.contracts.FsmState;
 
 public class FSM {
 
-    private final Map<IState, List<Transition>> transitions = new HashMap<>();
+    private final Map<FsmState, List<Transition>> transitions = new HashMap<>();
 
-    public FSM(IState state) {
+    public FSM(FsmState state) {
         state.enter();
     }
 
@@ -22,7 +22,7 @@ public class FSM {
                 .add(transition);
     }
 
-    public IState trigger(IState state, IEvent event) {
+    public FsmState trigger(FsmState state, FsmEvent event) {
         List<Transition> transitions = this.transitions.get(state);
         if (transitions == null) {
             return state;
@@ -32,7 +32,7 @@ public class FSM {
             if (transition.isTriggeredBy(event) && transition.isGuardSatisfied(event)) {
                 state.exit();
                 transition.action(event);
-                IState toState = transition.getToState();
+                FsmState toState = transition.getToState();
                 toState.enter();
                 return toState;
             }

@@ -1,5 +1,5 @@
 package modules.bot.contracts;
 
-public interface IMessage {
+public interface BotMessage {
     
 }

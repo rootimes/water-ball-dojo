@@ -1,5 +1,5 @@
 package modules.bot.contracts;
 
-public interface IState {
+public interface BotCommand {
     
 }
