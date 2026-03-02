@@ -1,4 +1,4 @@
-package app;
+package domain;
 
 public class ChatRoom {
     private String id;

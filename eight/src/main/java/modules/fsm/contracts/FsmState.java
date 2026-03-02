@@ -1,4 +1,4 @@
-package modules.bot.fsm.contracts;
+package modules.fsm.contracts;
 
 public interface FsmState {
     void enter();

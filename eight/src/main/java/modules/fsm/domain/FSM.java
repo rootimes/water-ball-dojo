@@ -1,13 +1,13 @@
-package modules.bot.fsm.domain;
+package modules.fsm.domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import modules.bot.fsm.contracts.FsmEvent;
-import modules.bot.fsm.contracts.FsmListener;
-import modules.bot.fsm.contracts.FsmState;
+import modules.fsm.contracts.FsmEvent;
+import modules.fsm.contracts.FsmListener;
+import modules.fsm.contracts.FsmState;
 
 public class FSM {
 

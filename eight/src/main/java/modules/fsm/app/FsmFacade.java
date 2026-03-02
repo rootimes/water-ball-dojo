@@ -1,8 +1,8 @@
-package modules.bot.fsm.app;
+package modules.fsm.app;
 
-import modules.bot.fsm.contracts.*;
-import modules.bot.fsm.domain.FSM;
-import modules.bot.fsm.domain.Transition;
+import modules.fsm.contracts.*;
+import modules.fsm.domain.FSM;
+import modules.fsm.domain.Transition;
 
 public class FsmFacade {
 
@@ -16,8 +16,8 @@ public class FsmFacade {
         return fsm.trigger(state, event);
     }
 
-    public FsmFacade defineTransition(FsmState fromState, FsmGuard guard, FsmEvent event, FsmAction action,
-            FsmState toState) {
+    public FsmFacade defineTransition(FsmState fromState, FsmGuard guard, FsmEvent event,
+            FsmAction action, FsmState toState) {
         Transition transition = new Transition(fromState, guard, event, action, toState);
         fsm.addTransition(transition);
         return this;
