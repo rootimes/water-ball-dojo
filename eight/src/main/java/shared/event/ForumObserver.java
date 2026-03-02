@@ -1,11 +1,11 @@
 package shared.event;
 
-import modules.bot.contracts.BotEvent;
+import shared.event.contracts.IEvent;
 import shared.event.contracts.IEventObserver;
 
 public class ForumObserver implements IEventObserver {
     @Override
-    public void handle(BotEvent event) {
+    public void handle(IEvent event) {
         System.out.println("Discussing event in forum: " + event);
     }
 }
