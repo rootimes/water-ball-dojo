@@ -1,4 +1,4 @@
-package fsm.Interfaces;
+package modules.fsm.contracts;
 
 public interface IState {
     void enter();

@@ -1,6 +1,6 @@
-package fsm;
+package modules.fsm.domain;
 
-import fsm.Interfaces.*;
+import modules.fsm.contracts.*;
 
 public class Transition {
     final private IState fromState;

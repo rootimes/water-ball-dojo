@@ -1,4 +1,4 @@
-package bot.interfaces;
+package modules.bot.contracts;
 
 public interface IState {
     

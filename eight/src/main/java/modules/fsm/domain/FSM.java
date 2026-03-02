@@ -1,12 +1,12 @@
-package fsm;
+package modules.fsm.domain;
 
-import fsm.Interfaces.IState;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fsm.Interfaces.IEvent;
+import modules.fsm.contracts.IEvent;
+import modules.fsm.contracts.IState;
 
 public class FSM {
 

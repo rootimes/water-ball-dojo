@@ -1,7 +1,7 @@
-package observer;
+package infra.observer;
 
-import observer.interfaces.IEventObserver;
-import bot.interfaces.IEvent;
+import infra.observer.contracts.IEventObserver;
+import modules.bot.contracts.IEvent;
 
 public class BroadcastObserver implements IEventObserver {
 

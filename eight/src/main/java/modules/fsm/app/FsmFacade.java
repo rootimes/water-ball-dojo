@@ -1,6 +1,8 @@
-package fsm;
+package modules.fsm.app;
 
-import fsm.Interfaces.*;
+import modules.fsm.contracts.*;
+import modules.fsm.domain.FSM;
+import modules.fsm.domain.Transition;
 
 public class FsmFacade {
 

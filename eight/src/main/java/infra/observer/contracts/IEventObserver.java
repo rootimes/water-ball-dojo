@@ -1,6 +1,6 @@
-package observer.interfaces;
+package infra.observer.contracts;
 
-import bot.interfaces.IEvent;
+import modules.bot.contracts.IEvent;
 
 public interface IEventObserver {
     public void handle(IEvent event);
