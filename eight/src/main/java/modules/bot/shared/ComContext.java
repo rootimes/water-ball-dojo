@@ -2,19 +2,19 @@ package modules.bot.shared;
 
 import java.util.Map;
 
-import modules.bot.contracts.BotEvent;
+import modules.bot.contracts.IBotEvent;
 
-public class CommunityInfo {
+public class ComContext {
     private int ccu;
 
     private int ccb;
 
-    private Map<String, Boolean> users;
+    private Map<String, Boolean> admins;
 
     public int getOnline() {
         return ccu + ccb;
     }
 
-    public void login(BotEvent event) {
+    public void login(IBotEvent event) {
     }
 }
