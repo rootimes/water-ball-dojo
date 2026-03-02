@@ -1,5 +1,6 @@
 package modules.bot.contracts;
 
-public interface BotMessage {
+public interface IBotObserver {
+
     
 }

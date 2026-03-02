@@ -1,15 +1,28 @@
 package modules.bot.domain.state;
 
-import modules.bot.contracts.BotEvent;
-import modules.bot.contracts.BotState;
+import modules.bot.contracts.IBotEvent;
+import modules.bot.contracts.IBotState;
 
-public abstract class ParentState implements BotState {
+import java.util.ArrayList;
+import java.util.List;
+
+import modules.bot.contracts.IBotCommand;
+
+public abstract class ParentState implements IBotState {
+
+    protected List<IBotCommand> commands = new ArrayList<>();
+
     public void enter() {
     }
 
     public void exit() {
     }
 
-    public void handle(BotEvent event) {
+    public void handle(IBotEvent event) {
+    }
+
+    @Override
+    public void registerCommand(IBotCommand command) {
+        commands.add(command);
     }
 }

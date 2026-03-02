@@ -10,4 +10,7 @@ public class BOTFacade {
 
     public void defineState() {
     }
+
+    public void defineEvent() {
+    }
 }

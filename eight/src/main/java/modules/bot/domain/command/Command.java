@@ -1,7 +1,7 @@
 package modules.bot.domain.command;
 
-import modules.bot.contracts.BotEvent;
-import modules.bot.contracts.BotObserver;
+import modules.bot.contracts.IBotEvent;
+import modules.bot.contracts.IBotObserver;
 
 public abstract class Command {
 
@@ -9,9 +9,9 @@ public abstract class Command {
 
     protected int quota;
 
-    protected final BotObserver observer;
+    protected final IBotObserver observer;
 
-    public Command(BotObserver observer, String key, int quota) {
+    public Command(IBotObserver observer, String key, int quota) {
         this.observer = observer;
         this.key = key;
         this.quota = quota;
@@ -25,12 +25,12 @@ public abstract class Command {
         return quota;
     }
 
-    public void exec(BotEvent event) {
+    public void exec(IBotEvent event) {
         dispatch(event);
         decreaseQuota();
     }
 
-    protected abstract void dispatch(BotEvent event);
+    protected abstract void dispatch(IBotEvent event);
 
     private void decreaseQuota() {
         if (quota > 0) {
