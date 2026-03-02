@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import shared.event.contracts.IEvent;
 import shared.event.contracts.EventBus;
+import shared.event.contracts.IEvent;
 
 
 public class SimpleEventBus implements EventBus {

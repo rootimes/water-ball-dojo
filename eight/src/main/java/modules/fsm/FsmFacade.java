@@ -1,15 +1,13 @@
-package modules.fsm.app;
+package modules.fsm;
 
 import modules.fsm.contracts.*;
-import modules.fsm.domain.FSM;
-import modules.fsm.domain.Transition;
 
 public class FsmFacade {
 
     private final FSM fsm;
 
-    public FsmFacade(FsmListener listener, FsmState state) {
-        this.fsm = new FSM(listener, state);
+    public FsmFacade(FsmObserver observer, FsmState state) {
+        this.fsm = new FSM(observer, state);
     }
 
     public FsmState update(FsmState state, FsmEvent event) {

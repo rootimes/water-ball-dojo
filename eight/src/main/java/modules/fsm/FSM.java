@@ -1,4 +1,4 @@
-package modules.fsm.domain;
+package modules.fsm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,19 +6,19 @@ import java.util.List;
 import java.util.Map;
 
 import modules.fsm.contracts.FsmEvent;
-import modules.fsm.contracts.FsmListener;
+import modules.fsm.contracts.FsmObserver;
 import modules.fsm.contracts.FsmState;
 
 public class FSM {
 
     private FsmState currentState;
 
-    private final FsmListener listener;
+    private final FsmObserver observer;
 
     private final Map<FsmState, List<Transition>> transitions = new HashMap<>();
 
-    public FSM(FsmListener listener, FsmState state) {
-        this.listener = listener;
+    public FSM(FsmObserver observer, FsmState state) {
+        this.observer = observer;
         this.currentState = state;
         this.currentState.enter();
     }
@@ -42,6 +42,7 @@ public class FSM {
                 FsmState toState = transition.getToState();
                 toState.enter();
                 this.currentState = toState;
+                observer.onTransition(state, toState, event);
                 return toState;
             }
         }

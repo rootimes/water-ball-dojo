@@ -1,4 +1,4 @@
-package modules.fsm.domain;
+package modules.fsm;
 
 import modules.fsm.contracts.*;
 
