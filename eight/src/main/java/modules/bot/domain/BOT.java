@@ -4,9 +4,6 @@ import modules.bot.contracts.BotEvent;
 import modules.bot.contracts.BotMessage;
 
 public class BOT {
-    public void Interaction(BotMessage message) {
-    }
-
     public void OnEvent(String event) {
     }
 

@@ -1,7 +1,7 @@
 package modules.bot.domain.command;
 
 import modules.bot.contracts.BotEvent;
-import modules.bot.contracts.BotListener;
+import modules.bot.contracts.BotObserver;
 
 public abstract class Command {
 
@@ -9,10 +9,10 @@ public abstract class Command {
 
     protected int quota;
 
-    protected final BotListener listener;
+    protected final BotObserver observer;
 
-    public Command(BotListener listener, String key, int quota) {
-        this.listener = listener;
+    public Command(BotObserver observer, String key, int quota) {
+        this.observer = observer;
         this.key = key;
         this.quota = quota;
     }

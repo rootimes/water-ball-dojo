@@ -1,6 +1,6 @@
 package modules.bot.contracts;
 
-public interface BotListener {
+public interface BotObserver {
 
     
 }

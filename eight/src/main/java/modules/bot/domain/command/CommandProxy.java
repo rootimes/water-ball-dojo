@@ -13,13 +13,13 @@ public abstract class CommandProxy {
         this.command = command;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
     public void exec(BotEvent event) {
-        if (isAdmin) {
+        if (isAuth()) {
             command.exec(event);
         }
+    }
+
+    protected boolean isAuth() {
+        return isAdmin;
     }
 }
