@@ -2,11 +2,10 @@ package infra;
 
 import infra.event.contracts.EventBus;
 import modules.fsm.contracts.IFsmEvent;
-import modules.fsm.contracts.IFsmObserver;
+import modules.fsm.contracts.IFsmEventHandler;
 import modules.fsm.contracts.IFsmState;
 
-
-public class FsmEventBusAdapter implements IFsmObserver {
+public class FsmEventBusAdapter implements IFsmEventHandler {
     private final EventBus bus;
 
     public FsmEventBusAdapter(EventBus bus) {

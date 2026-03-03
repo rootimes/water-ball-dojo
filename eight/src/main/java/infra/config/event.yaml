@@ -1,0 +1,60 @@
+events:
+  - name: "started"
+    type: "JSON_PAYLOAD"
+    fields:
+      time: "LocalDateTime"
+      quota: "Integer"
+    constraints:
+      quota: { min: 1 }
+
+  - name: "login"
+    type: "JSON_PAYLOAD"
+    fields:
+      userId: "String"
+      isAdmin: "Boolean"
+
+  - name: "logout"
+    type: "JSON_PAYLOAD"
+    fields:
+      userId: "String"
+
+  - name: "time_elapsed"
+    type: "PATTERN_MATCH"
+    pattern: "^\\[(\\d+)\\s+(seconds|minutes|hours)\\s+elapsed\\]$"
+    fields:
+      n: "Integer"
+      unit: "String"
+
+  - name: "new_message"
+    type: "JSON_PAYLOAD"
+    name_in_log: "new message"
+    fields:
+      authorId: "String"
+      content: "String"
+      tags: "List<String>"
+    constraints:
+      content: { max_length: 1000 }
+
+  - name: "new_post"
+    type: "JSON_PAYLOAD"
+    name_in_log: "new post"
+    fields:
+      id: "String"
+      authorId: "String"
+      title: "String"
+      content: "String"
+      tags: "List<String>"
+    constraints:
+      title: { max_length: 50 }
+      content: { max_length: 1000 }
+
+  - name: "broadcasting_actions"
+    type: "JSON_PAYLOAD"
+    variants: ["go broadcasting", "speak", "stop broadcasting"]
+    fields:
+      speakerId: "String"
+      content: "String"
+
+  - name: "end"
+    type: "MARKER"
+    payload: null
