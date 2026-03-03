@@ -1,4 +1,4 @@
-package modules.bot.shared;
+package modules.bot.domain;
 
 import java.util.Map;
 

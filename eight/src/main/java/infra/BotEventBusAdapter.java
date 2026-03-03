@@ -1,4 +1,4 @@
-package infra.adapters;
+package infra;
 
 public class BotEventBusAdapter {
     

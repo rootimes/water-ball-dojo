@@ -1,4 +1,4 @@
-package modules.bot.domain.command;
+package modules.bot.app.command;
 
 import modules.bot.contracts.IBotEvent;
 

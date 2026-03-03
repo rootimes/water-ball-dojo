@@ -1,4 +1,4 @@
-package shared.event;
+package infra.event;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import shared.event.contracts.EventBus;
-import shared.event.contracts.IEvent;
+import infra.event.contracts.EventBus;
+import infra.event.contracts.IEvent;
 
 
 public class SimpleEventBus implements EventBus {

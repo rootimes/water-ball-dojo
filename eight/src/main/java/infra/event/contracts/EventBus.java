@@ -1,4 +1,4 @@
-package shared.event.contracts;
+package infra.event.contracts;
 
 import java.util.function.Consumer;
 
