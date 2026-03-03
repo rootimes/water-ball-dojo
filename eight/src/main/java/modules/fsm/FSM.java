@@ -6,18 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 import modules.fsm.contracts.IFsmEvent;
-import modules.fsm.contracts.IFsmObserver;
+import modules.fsm.contracts.IFsmEventHandler;
 import modules.fsm.contracts.IFsmState;
 
 public class FSM {
 
     private IFsmState currentState;
 
-    private final IFsmObserver observer;
+    private final IFsmEventHandler observer;
 
     private final Map<IFsmState, List<Transition>> transitions = new HashMap<>();
 
-    public FSM(IFsmObserver observer, IFsmState state) {
+    public FSM(IFsmEventHandler observer, IFsmState state) {
         this.observer = observer;
         this.currentState = state;
         this.currentState.enter();

@@ -1,16 +1,16 @@
 package modules.bot.app.command;
 
 import modules.bot.contracts.IBotCommand;
-import modules.bot.contracts.IBotDispatcher;
+import modules.bot.contracts.IBotEventHandler;
 import modules.bot.contracts.IBotEvent;
 
 public abstract class Command implements IBotCommand {
 
     protected int quota;
 
-    protected final IBotDispatcher dispatcher;
+    protected final IBotEventHandler dispatcher;
 
-    public Command(IBotDispatcher dispatcher, int quota) {
+    public Command(IBotEventHandler dispatcher, int quota) {
         this.dispatcher = dispatcher;
         this.quota = quota;
     }

@@ -6,7 +6,7 @@ public class FsmFacade {
 
     private final FSM fsm;
 
-    public FsmFacade(IFsmObserver observer, IFsmState state) {
+    public FsmFacade(IFsmEventHandler observer, IFsmState state) {
         this.fsm = new FSM(observer, state);
     }
 
