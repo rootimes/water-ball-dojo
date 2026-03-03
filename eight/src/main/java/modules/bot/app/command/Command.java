@@ -1,7 +1,7 @@
 package modules.bot.app.command;
 
 import modules.bot.contracts.IBotEvent;
-import modules.bot.domain.EventDispatcher;
+import modules.bot.contracts.IBotDispatcher;
 
 public abstract class Command {
 
@@ -9,10 +9,10 @@ public abstract class Command {
 
     protected int quota;
 
-    protected final EventDispatcher eventDispatcher;
+    protected final IBotDispatcher dispatcher;
 
-    public Command(EventDispatcher eventDispatcher, String key, int quota) {
-        this.eventDispatcher = eventDispatcher;
+    public Command(IBotDispatcher dispatcher, String key, int quota) {
+        this.dispatcher = dispatcher;
         this.key = key;
         this.quota = quota;
     }
