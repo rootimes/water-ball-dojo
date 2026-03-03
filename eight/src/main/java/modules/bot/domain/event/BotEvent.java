@@ -6,17 +6,17 @@ import java.util.Map;
 import modules.bot.contracts.IBotEvent;
 
 public abstract class BotEvent implements IBotEvent {
-    protected String type;
+    protected String name;
     protected Map<String, Object> payload;
 
-    public BotEvent(String type, Map<String, Object> payload) {
-        this.type = type;
+    public BotEvent(String name, Map<String, Object> payload) {
+        this.name = name;
         this.payload = payload;
     }
 
     @Override
-    public boolean matchType(List<String> types) {
-        return types.contains(this.type);
+    public boolean matchName(List<String> names) {
+        return names.contains(this.name);
     }
 
     @Override

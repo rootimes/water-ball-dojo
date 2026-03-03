@@ -7,7 +7,7 @@ import modules.bot.contracts.IBotEvent;
 
 public class InteractingBotState extends ChildState {
 
-    private final List<String> types = Arrays.asList("new message", "new post");
+    private final List<String> eventNames = Arrays.asList("new message", "new post");
 
     public InteractingBotState(ParentState parent) {
         super(parent);
@@ -18,7 +18,7 @@ public class InteractingBotState extends ChildState {
         if (matchCommand(event)) {
             return true;
         }
-        return event.matchType(types);
+        return event.matchName(eventNames);
     }
 
     @Override

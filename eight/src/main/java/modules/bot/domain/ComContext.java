@@ -9,7 +9,7 @@ public class ComContext {
 
     private int ccb;
 
-    private Map<String, Boolean> admins;
+    private Map<String, Boolean> users;
 
     public int getOnline() {
         return ccu + ccb;
@@ -19,6 +19,6 @@ public class ComContext {
     }
 
     public boolean isAdmin(String userId) {
-        return admins.getOrDefault(userId, false);
+        return users.getOrDefault(userId, false);
     }
 }

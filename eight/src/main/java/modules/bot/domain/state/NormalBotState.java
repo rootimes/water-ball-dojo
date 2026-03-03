@@ -6,7 +6,7 @@ import modules.bot.contracts.IBotEvent;
 
 public class NormalBotState extends ParentState {
 
-    private final List<String> types = List.of("normal");
+    private final List<String> eventNames = List.of("normal");
 
     @Override
     public void enter() {
@@ -23,7 +23,7 @@ public class NormalBotState extends ParentState {
         if (matchCommand(event)) {
             return true;
         }
-        return event.matchType(types);
+        return event.matchName(eventNames);
     }
 
     @Override

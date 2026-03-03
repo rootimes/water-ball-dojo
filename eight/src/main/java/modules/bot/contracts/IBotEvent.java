@@ -3,7 +3,7 @@ package modules.bot.contracts;
 import java.util.List;
 
 public interface IBotEvent {
-    public boolean matchType(List<String> types);
+    public boolean matchName(List<String> names);
 
     public Object getPayload(String key);
 }
