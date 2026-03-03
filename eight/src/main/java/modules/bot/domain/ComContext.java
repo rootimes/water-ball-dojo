@@ -17,4 +17,8 @@ public class ComContext {
 
     public void login(IBotEvent event) {
     }
+
+    public boolean isAdmin(String userId) {
+        return admins.getOrDefault(userId, false);
+    }
 }

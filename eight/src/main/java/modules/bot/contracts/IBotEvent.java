@@ -1,9 +1,9 @@
 package modules.bot.contracts;
 
-import java.util.Map;
+import java.util.List;
 
 public interface IBotEvent {
-    public String getType();
-    public Map<String, Object> getPayload();
-    public boolean evaluate();
+    public boolean matchType(List<String> types);
+
+    public Object getPayload(String key);
 }

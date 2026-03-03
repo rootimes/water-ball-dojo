@@ -1,40 +1,35 @@
 package modules.bot.app.command;
 
-import modules.bot.contracts.IBotEvent;
+import modules.bot.contracts.IBotCommand;
 import modules.bot.contracts.IBotDispatcher;
+import modules.bot.contracts.IBotEvent;
 
-public abstract class Command {
-
-    protected final String key;
+public abstract class Command implements IBotCommand {
 
     protected int quota;
 
     protected final IBotDispatcher dispatcher;
 
-    public Command(IBotDispatcher dispatcher, String key, int quota) {
+    public Command(IBotDispatcher dispatcher, int quota) {
         this.dispatcher = dispatcher;
-        this.key = key;
         this.quota = quota;
-    }
-
-    public String getKey() {
-        return key;
     }
 
     public int getQuota() {
         return quota;
     }
 
+    @Override
     public void exec(IBotEvent event) {
         dispatch(event);
         decreaseQuota();
     }
 
-    protected abstract void dispatch(IBotEvent event);
-
-    private void decreaseQuota() {
+    protected void decreaseQuota() {
         if (quota > 0) {
             quota--;
         }
     }
+
+    protected abstract void dispatch(IBotEvent event);
 }

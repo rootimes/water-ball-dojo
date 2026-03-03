@@ -1,28 +1,38 @@
 package modules.bot.domain.state;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import modules.bot.contracts.IBotCommand;
 import modules.bot.contracts.IBotEvent;
 import modules.bot.contracts.IBotState;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import modules.bot.contracts.IBotCommand;
-
 public abstract class ParentState implements IBotState {
 
-    protected List<IBotCommand> commands = new ArrayList<>();
+    protected Map<String, IBotCommand> commands = new HashMap<>();
 
+    @Override
     public void enter() {
     }
 
-    public void exit() {
-    }
-
-    public void handle(IBotEvent event) {
+    @Override
+    public void action(IBotEvent event) {
+        if (matchEvent(event)) {
+            this.handle(event);
+        }
     }
 
     @Override
-    public void registerCommand(IBotCommand command) {
-        commands.add(command);
+    public void registerCommand(IBotCommand command, String commandKey) {
+        commands.put(commandKey, command);
     }
+
+    protected abstract boolean matchEvent(IBotEvent event);
+
+    protected boolean matchCommand(IBotEvent event) {
+        String commandKey = (String) event.getPayload("command");
+        return commands.containsKey(commandKey);
+    }
+
+    protected abstract void handle(IBotEvent event);
 }

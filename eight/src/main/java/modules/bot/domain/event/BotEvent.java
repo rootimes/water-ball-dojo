@@ -1,8 +1,11 @@
 package modules.bot.domain.event;
 
+import java.util.List;
 import java.util.Map;
 
-public abstract class BotEvent {
+import modules.bot.contracts.IBotEvent;
+
+public abstract class BotEvent implements IBotEvent {
     protected String type;
     protected Map<String, Object> payload;
 
@@ -11,11 +14,13 @@ public abstract class BotEvent {
         this.payload = payload;
     }
 
-    public String getType() {
-        return type;
+    @Override
+    public boolean matchType(List<String> types) {
+        return types.contains(this.type);
     }
 
-    public Map<String, Object> getPayload() {
-        return payload;
+    @Override
+    public Object getPayload(String key) {
+        return payload.get(key);
     }
 }
